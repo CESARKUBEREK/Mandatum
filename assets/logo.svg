@@ -1,4 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="AegisBid logo">
-    <title>AegisBid shield logo</title>
-    ...
-</svg>
+<sfunction Logo() {
+  return (
+    <div className="flex items-center gap-3">
+      <svg
+        width="34"
+        height="34"
+        viewBox="0 0 24 24"
+        fill="none"
+        className="text-blue-500"
+      >
+        {/* Shield */}
+        <path
+          d="M12 2L20 6V12C20 17 16.5 21 12 22C7.5 21 4 17 4 12V6L12 2Z"
+          stroke="currentColor"
+          strokeWidth="1.6"
+        />
+
+        {/* Radar Core */}
+        <circle
+          cx="12"
+          cy="12"
+          r="3"
+          stroke="currentColor"
+          strokeWidth="1.2"
+        />
+
+        {/* Radar Ring */}
+        <circle
+          cx="12"
+          cy="12"
+          r="7"
+          stroke="currentColor"
+          strokeOpacity="0.4"
+          strokeWidth="1"
+        />
+      </svg>
+
+      <div className="text-2xl font-bold tracking-tight">
+        AegisBid
+      </div>
+    </div>
+  );
+}
