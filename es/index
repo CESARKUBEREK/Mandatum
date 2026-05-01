@@ -1,80 +1,78 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>AegisBid España</title>
-    <script>
-        // Redirect English users to root
-        const lang = (navigator.language || 'es').toLowerCase();
-        if (lang.startsWith('en') && !location.pathname.startsWith('/en/')) {
-            window.location.href = '/';
-        }
-    </script>
-    <link rel="alternate" hreflang="en" href="https://aegisbid.com/">
-    <link rel="alternate" hreflang="es" href="https://aegisbid.com/es/">
-    <link rel="alternate" hreflang="x-default" href="https://aegisbid.com/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AegisBid — Licitaciones Estratégicas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Nota el ../ para salir de la carpeta /es/ y buscar /assets/ -->
     <link rel="stylesheet" href="../assets/styles.css">
-
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "AegisBid",
-    "applicationCategory": "BusinessApplication",
-    "description": "AI operating system for public contracts. Automate tender monitoring, opportunity scoring, and bid management.",
-    "url": "https://aegisbid.com/",
-    "sameAs": [
-        "https://www.linkedin.com/company/aegisbid",
-        "https://twitter.com/aegisbid"
-    ],
-    "operatingSystem": "Web Browser",
-    "offers": {
-        "@type": "Offer",
-        "price": "149",
-        "priceCurrency": "EUR",
-        "availability": "https://schema.org/InStock",
-        "validFrom": "2026-01-01"
-    },
-    "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.8",
-        "reviewCount": "127"
-    },
-    "creator": {
-        "@type": "Organization",
-        "name": "AegisBid",
-        "url": "https://aegisbid.com"
-    },
-    "softwareVersion": "v2.0",
-    "featureList": "Tender Analysis, Go/No-Go Scoring, Executive Memos, Real-time Alerts",
-    "screenshot": "https://aegisbid.com/assets/screenshot.png",
-    "image": "https://aegisbid.com/assets/logo.svg"
-}
-</script>
-
 </head>
 <body>
-    <header class="nav">
-        <div class="wrap row">
-            <div class="row">
-                <img src="../assets/logo.svg" width="36" alt="AegisBid logo">
-                <strong>AegisBid</strong>
+
+    <header class="site-header">
+        <a href="index.html" class="logo-container">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" class="text-[#3B82F6]">
+                <path d="M12 2L20 6V12C20 17 16.5 21 12 22C7.5 21 4 17 4 12V6L12 2Z" stroke="currentColor" stroke-width="1.6"/>
+                <path d="M8.5 12.5L11 15L16 9.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div class="text-xl font-semibold tracking-tight">AegisBid</div>
+        </a>
+        <nav class="nav-links">
+            <a href="index.html">Inicio</a>
+            <a href="plataforma.html">Plataforma</a>
+            <a href="soluciones.html">Soluciones</a>
+            <a href="centro-mando.html">Centro de Mando</a>
+            <a href="seguridad.html">Seguridad</a>
+            <a href="contacto.html">Contacto</a>
+            
+            <div class="lang-selector">
+                <a href="../index.html">EN</a>
+                <a href="index.html" class="active">ES</a>
+                <a href="../pt/index.html">PT</a>
             </div>
-            <nav class="menu">
-                <a href="platform.html">Plataforma</a>
-                <a href="pricing.html">Precios</a>
-                <a href="contact.html">Contacto</a>
-            </nav>
-        </div>
+        </nav>
     </header>
 
-    <section class="hero wrap">
-        <h1>Gana Mejores Licitaciones Más Rápido</h1>
-        <p class="muted">Sistema operativo IA para contratos públicos.</p>
-        <p><a class="btn" href="contact.html">Solicitar Demo</a></p>
-    </section>
+    <main>
+        <section class="px-8 py-24 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <div class="text-xs uppercase tracking-[0.35em] text-[#3B82F6] mb-4">Plataforma de Inteligencia de Decisiones</div>
+                <h1 class="text-5xl md:text-6xl font-semibold leading-tight">Decisiones Estratégicas en Minutos</h1>
+                <p class="mt-6 text-lg text-white/70 max-w-xl">Para equipos de defensa, infraestructura, energía y empresas que compiten en entornos de adquisiciones de alto nivel.</p>
+                <div class="mt-8 flex gap-4">
+                    <button class="btn-primary">Solicitar Acceso</button>
+                    <button class="btn-secondary">Subir Licitación</button>
+                </div>
+            </div>
 
-    <footer class="footer">
-        <div class="wrap">© 2026 AegisBid</div>
+            <div class="bg-[#161A20] rounded-3xl p-6 border border-white/10 shadow-2xl">
+                <div class="text-sm text-white/60">MEMO DE DECISIÓN CONFIDENCIAL</div>
+                <div class="mt-6 grid grid-cols-2 gap-4">
+                    <div class="bg-black/20 rounded-2xl p-4">
+                        <div class="text-xs text-white/50">Puntaje de Oferta</div>
+                        <div class="text-4xl font-semibold mt-2">82</div>
+                    </div>
+                    <div class="bg-black/20 rounded-2xl p-4">
+                        <div class="text-xs text-white/50">Recomendación</div>
+                        <div class="text-2xl font-semibold mt-2 text-[#00C48C]">LICITAR</div>
+                    </div>
+                    <div class="bg-black/20 rounded-2xl p-4">
+                        <div class="text-xs text-white/50">Riesgo Legal</div>
+                        <div class="text-xl mt-2">Medio</div>
+                    </div>
+                    <div class="bg-black/20 rounded-2xl p-4">
+                        <div class="text-xs text-white/50">Probabilidad de Ganar</div>
+                        <div class="text-xl mt-2">58%</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        AegisBid © 2026 — Inteligencia de Decisiones para Adquisiciones Estratégicas
     </footer>
+
 </body>
 </html>
