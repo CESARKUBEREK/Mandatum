@@ -32,162 +32,100 @@
 
   <main>
         <section class="px-8 py-20 max-w-6xl mx-auto">
-            <h2 class="text-3xl font-semibold">Command Center</h2>
-            <p class="mt-4 text-white/70">Real-time procurement intelligence layer for bid decision operations.</p>
+            <h2 class="text-3xl font-semibold">AegisBid Command Center</h2>
+            <p class="mt-4 text-white/70">Unified operational intelligence layer for procurement decisions.</p>
 
-            <!-- GRID DASHBOARD -->
-            <div class="mt-10 grid md:grid-cols-3 gap-6">
+            <!-- SUBMENU (TABS) -->
+            <div class="mt-6 flex gap-6 text-sm text-white/60 flex-wrap border-b border-white/5 pb-2">
+                <span class="tab-link active cursor-pointer hover:text-white pb-1" onclick="openTab(event, 'overview')">Overview</span>
+                <span class="tab-link cursor-pointer hover:text-white pb-1" onclick="openTab(event, 'pipeline')">Pipeline</span>
+                <span class="tab-link cursor-pointer hover:text-white pb-1" onclick="openTab(event, 'users')">Users</span>
+                <span class="tab-link cursor-pointer hover:text-white pb-1" onclick="openTab(event, 'access')">Access</span>
+                <span class="tab-link cursor-pointer hover:text-white pb-1" onclick="openTab(event, 'explain')">Explainability</span>
+                <span class="tab-link cursor-pointer hover:text-white pb-1" onclick="openTab(event, 'map')">Map</span>
+                <span class="cursor-pointer text-[#3B82F6] font-medium" onclick="alert('Exporting Board Memo PDF...')">Export PDF</span>
+            </div>
+
+            <!-- TAB: OVERVIEW -->
+            <div id="overview" class="tab-content active mt-10 grid md:grid-cols-3 gap-6">
                 <div class="bg-[#161A20] p-6 rounded-3xl border border-white/10">
-                    <div class="text-xs text-white/50">Active Opportunities</div>
+                    <div class="text-white/50 text-xs mb-1">Active Opportunities</div>
                     <div class="text-3xl font-semibold mt-2">18</div>
-                    <div class="mt-4 text-white/40 text-sm">+3 this week</div>
                 </div>
                 <div class="bg-[#161A20] p-6 rounded-3xl border border-white/10">
-                    <div class="text-xs text-white/50">High Priority Bids</div>
+                    <div class="text-white/50 text-xs mb-1">High Priority</div>
                     <div class="text-3xl font-semibold mt-2 text-[#00C48C]">5</div>
-                    <div class="mt-4 text-white/40 text-sm">requires immediate action</div>
                 </div>
                 <div class="bg-[#161A20] p-6 rounded-3xl border border-white/10">
-                    <div class="text-xs text-white/50">Risk Alerts</div>
+                    <div class="text-white/50 text-xs mb-1">Risk Alerts</div>
                     <div class="text-3xl font-semibold mt-2 text-[#F5A623]">7</div>
-                    <div class="mt-4 text-white/40 text-sm">contractual exposure detected</div>
                 </div>
             </div>
 
-            <!-- PIPELINE VISUAL (Renderizado de lógica pipeline.map) -->
-            <div class="mt-10 bg-[#161A20] p-8 rounded-3xl border border-white/10">
-                <div class="text-sm text-white/60 mb-6">Bid Pipeline Flow</div>
-                <div class="flex items-end gap-6 h-48">
-                    <!-- Columnas calculadas manualmente según p.value*10 -->
-                    <div class="flex flex-col items-center gap-3">
-                        <div class="bg-[#3B82F6]/70 w-12 rounded-t-lg" style="height: 120px;"></div>
-                        <div class="text-xs text-white/50">Identified</div>
+            <!-- TAB: PIPELINE -->
+            <div id="pipeline" class="tab-content mt-10 bg-[#161A20] p-6 rounded-3xl border border-white/10">
+                <div class="text-sm text-white/60 mb-8">Pipeline Flow</div>
+                <div class="flex items-end gap-6 h-40">
+                    <div class="flex flex-col items-center gap-2"><div class="bg-[#3B82F6]/70 w-10" style="height: 120px;"></div><div class="text-xs text-white/50">Identified</div></div>
+                    <div class="flex flex-col items-center gap-2"><div class="bg-[#3B82F6]/70 w-10" style="height: 80px;"></div><div class="text-xs text-white/50">Qualified</div></div>
+                    <div class="flex flex-col items-center gap-2"><div class="bg-[#3B82F6]/70 w-10" style="height: 50px;"></div><div class="text-xs text-white/50">Bidding</div></div>
+                    <div class="flex flex-col items-center gap-2"><div class="bg-[#3B82F6]/70 w-10" style="height: 30px;"></div><div class="text-xs text-white/50">Submitted</div></div>
+                    <div class="flex flex-col items-center gap-2"><div class="bg-[#3B82F6]/70 w-10" style="height: 10px;"></div><div class="text-xs text-white/50">Awarded</div></div>
+                </div>
+            </div>
+
+            <!-- TAB: USERS -->
+            <div id="users" class="tab-content mt-10 bg-[#161A20] p-6 rounded-3xl border border-white/10">
+                <div class="text-sm text-white/60 mb-4">Users</div>
+                <div class="space-y-4">
+                    <div class="flex justify-between text-sm border-b border-white/5 pb-2"><div><div class="font-medium text-white">CEO</div><div class="text-white/40 text-xs">Executive</div></div><div class="text-right"><div class="text-white/70">Full Access</div><div class="text-xs text-[#00C48C]">Active</div></div></div>
+                    <div class="flex justify-between text-sm border-b border-white/5 pb-2"><div><div class="font-medium text-white">Bid Manager</div><div class="text-white/40 text-xs">Operations</div></div><div class="text-right"><div class="text-white/70">High Access</div><div class="text-xs text-[#00C48C]">Active</div></div></div>
+                    <div class="flex justify-between text-sm border-b border-white/5 pb-2"><div><div class="font-medium text-white">Legal</div><div class="text-white/40 text-xs">Compliance</div></div><div class="text-right"><div class="text-white/70">Medium Access</div><div class="text-xs text-[#00C48C]">Active</div></div></div>
+                </div>
+            </div>
+
+            <!-- TAB: ACCESS -->
+            <div id="access" class="tab-content mt-10 bg-[#161A20] p-6 rounded-3xl border border-white/10">
+                <div class="text-sm text-white/60 mb-4">Access Control</div>
+                <div class="space-y-3 text-sm text-white/70">
+                    <div>• Role-based permissions (RBAC)</div>
+                    <div>• Token-based enterprise authentication</div>
+                    <div>• Audit logging enabled</div>
+                    <div>• Sensitive bid isolation</div>
+                </div>
+            </div>
+
+            <!-- TAB: EXPLAINABILITY -->
+            <div id="explain" class="tab-content mt-10 bg-[#161A20] p-6 rounded-3xl border border-white/10">
+                <div class="text-sm text-white/60 mb-6">Why this Bid Score?</div>
+                <div class="space-y-6">
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><span>Technical Fit</span><span class="text-white/50">35%</span></div>
+                        <div class="h-2 bg-white/10 rounded overflow-hidden"><div class="h-full bg-[#3B82F6]" style="width: 35%"></div></div>
                     </div>
-                    <div class="flex flex-col items-center gap-3">
-                        <div class="bg-[#3B82F6]/70 w-12 rounded-t-lg" style="height: 80px;"></div>
-                        <div class="text-xs text-white/50">Qualified</div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><span>Legal Risk</span><span class="text-white/50">20%</span></div>
+                        <div class="h-2 bg-white/10 rounded overflow-hidden"><div class="h-full bg-[#3B82F6]" style="width: 20%"></div></div>
                     </div>
-                    <div class="flex flex-col items-center gap-3">
-                        <div class="bg-[#3B82F6]/70 w-12 rounded-t-lg" style="height: 50px;"></div>
-                        <div class="text-xs text-white/50">Bidding</div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><span>Win Probability</span><span class="text-white/50">18%</span></div>
+                        <div class="h-2 bg-white/10 rounded overflow-hidden"><div class="h-full bg-[#3B82F6]" style="width: 18%"></div></div>
                     </div>
-                    <div class="flex flex-col items-center gap-3">
-                        <div class="bg-[#3B82F6]/70 w-12 rounded-t-lg" style="height: 30px;"></div>
-                        <div class="text-xs text-white/50">Submitted</div>
-                    </div>
-                    <div class="flex flex-col items-center gap-3">
-                        <div class="bg-[#3B82F6]/70 w-12 rounded-t-lg" style="height: 10px;"></div>
-                        <div class="text-xs text-white/50">Awarded</div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><span>Strategic Value</span><span class="text-white/50">25%</span></div>
+                        <div class="h-2 bg-white/10 rounded overflow-hidden"><div class="h-full bg-[#3B82F6]" style="width: 25%"></div></div>
                     </div>
                 </div>
             </div>
 
-            <!-- OPPORTUNITY RISK MATRIX (HEATMAP) -->
-            <div class="mt-10 bg-[#161A20] p-6 rounded-3xl border border-white/10">
-                <div class="text-sm text-white/60 mb-4">Opportunity Risk Matrix</div>
-                <div class="grid grid-cols-6 md:grid-cols-12 gap-2">
-                    <!-- Generación manual de los 36 cuadros -->
-                    <div class="h-6 rounded bg-white/5"></div><div class="h-6 rounded bg-white/10"></div>
-                    <div class="h-6 rounded bg-white/5"></div><div class="h-6 rounded bg-[#3B82F6]/20"></div>
-                    <div class="h-6 rounded bg-white/5"></div><div class="h-6 rounded bg-white/5"></div>
-                    <div class="h-6 rounded bg-white/5"></div><div class="h-6 rounded bg-[#F5A623]/20"></div>
-                    <div class="h-6 rounded bg-white/5"></div><div class="h-6 rounded bg-white/5"></div>
-                    <div class="h-6 rounded bg-white/5"></div><div class="h-6 rounded bg-white/5"></div>
-                    <!-- ... puedes repetir estos divs para completar visualmente la matriz ... -->
-                    <div class="h-6 rounded bg-white/5"></div><div class="h-6 rounded bg-white/5"></div>
-                    <div class="h-6 rounded bg-white/5"></div><div class="h-6 rounded bg-white/5"></div>
-                    <div class="h-6 rounded bg-white/5"></div><div class="h-6 rounded bg-white/5"></div>
-                    <div class="h-6 rounded bg-white/5"></div><div class="h-6 rounded bg-white/5"></div>
-                    <div class="h-6 rounded bg-white/5"></div><div class="h-6 rounded bg-white/5"></div>
-                    <div class="h-6 rounded bg-white/5"></div><div class="h-6 rounded bg-white/5"></div>
-                </div>
-                <div class="mt-4 text-xs text-white/40">Low → High risk distribution (conceptual)</div>
-            </div>
-
-
-            
-            
-            <!-- MAP VIEW MOCK -->
-            <div class="mt-10 bg-[#161A20] p-6 rounded-3xl border border-white/10 shadow-inner overflow-hidden relative">
-                <div class="text-sm text-white/60 mb-4">Geographic Bid Exposure</div>
-                <div class="h-64 flex flex-col items-center justify-center text-white/40 bg-black/10 rounded-2xl border border-white/5">
-                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" class="mb-3 opacity-20">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                    </svg>
-                    <span class="tracking-widest text-xs uppercase">LATAM / EU / MENA PROCUREMENT ACTIVITY</span>
-                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-[#161A20]/50 pointer-events-none"></div>
+            <!-- TAB: MAP -->
+            <div id="map" class="tab-content mt-10 bg-[#161A20] p-6 rounded-3xl border border-white/10">
+                <div class="text-sm text-white/60 mb-4">Geographic Intelligence (LATAM / EU)</div>
+                <div class="h-64 flex items-center justify-center text-white/40 border border-white/5 rounded-2xl">
+                    Mapbox Layer Placeholder — Procurement Activity Heatmap
                 </div>
             </div>
 
-<!-- USERS + ACCESS CONTROL -->
-            <div class="mt-10 grid md:grid-cols-2 gap-6">
-
-                <!-- TABLA DE USUARIOS -->
-                <div class="bg-[#161A20] p-6 rounded-3xl border border-white/10">
-                    <div class="text-sm text-white/60 mb-4">Users</div>
-                    <div class="space-y-3">
-                        <!-- Usuario 1 -->
-                        <div class="flex justify-between text-sm border-b border-white/10 pb-2">
-                            <div>
-                                <div class="font-medium">Admin User</div>
-                                <div class="text-white/40 text-xs">System Administrator</div>
-                            </div>
-                            <div class="text-right">
-                                <div class="text-white/70">Full Access</div>
-                                <div class="text-xs text-[#00C48C]">Active</div>
-                            </div>
-                        </div>
-                        <!-- Usuario 2 -->
-                        <div class="flex justify-between text-sm border-b border-white/10 pb-2">
-                            <div>
-                                <div class="font-medium">Lead Analyst</div>
-                                <div class="text-white/40 text-xs">Bid Strategy</div>
-                            </div>
-                            <div class="text-right">
-                                <div class="text-white/70">Strategic Access</div>
-                                <div class="text-xs text-[#00C48C]">Active</div>
-                            </div>
-                        </div>
-                        <!-- Usuario 3 -->
-                        <div class="flex justify-between text-sm border-b border-white/10 pb-2">
-                            <div>
-                                <div class="font-medium">Legal Counsel</div>
-                                <div class="text-white/40 text-xs">Compliance</div>
-                            </div>
-                            <div class="text-right">
-                                <div class="text-white/70">Risk Review</div>
-                                <div class="text-xs text-white/40">Away</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- CONTROL DE ACCESO -->
-                <div class="bg-[#161A20] p-6 rounded-3xl border border-white/10">
-                    <div class="text-sm text-white/60 mb-4">Access Control</div>
-                    <div class="space-y-3 text-sm text-white/70">
-                        <div class="flex items-center gap-2">
-                            <span class="text-[#3B82F6]">•</span> Role-based permissions (RBAC)
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <span class="text-[#3B82F6]">•</span> Token-based enterprise access
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <span class="text-[#3B82F6]">•</span> Audit logging enabled
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <span class="text-[#3B82F6]">•</span> Sensitive bid isolation
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <span class="text-[#3B82F6]">•</span> Executive-only dashboards
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            
         </section>
     </main>
 
@@ -195,5 +133,25 @@
         AegisBid © 2026 — Decision Intelligence for Strategic Procurement
     </footer>
 
+    <!-- JS PARA NAVEGACIÓN DE TABS -->
+    <script>
+        function openTab(evt, tabName) {
+            // Ocultar todo el contenido
+            const contents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < contents.length; i++) {
+                contents[i].classList.remove("active");
+            }
+
+            // Quitar clase active de los links
+            const links = document.getElementsByClassName("tab-link");
+            for (let i = 0; i < links.length; i++) {
+                links[i].classList.remove("active");
+            }
+
+            // Mostrar el tab actual y marcar el botón como activo
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
 </body>
 </html>
