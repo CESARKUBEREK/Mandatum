@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>AegisBid Operational Intelligence</title>
+<script src='https://cdn.tailwindcss.com'></script>
+<style>
+body{background:#05070b;color:#fff;overflow-x:hidden}.glass{background:rgba(255,255,255,.04);backdrop-filter:blur(14px)}.glow{box-shadow:0 0 80px rgba(59,130,246,.18)}
+.fade{opacity:0;transform:translateY(28px);transition:all .9s ease}.fade.show{opacity:1;transform:none}
+.orb{position:absolute;border-radius:9999px;filter:blur(90px);opacity:.16;animation:float 10s ease-in-out infinite}@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-30px)}}
+</style>
+</head>
+<body class='font-sans'>
+<div class='orb w-80 h-80 bg-blue-500 top-10 left-10'></div><div class='orb w-80 h-80 bg-cyan-400 top-96 right-10'></div>
+<header class='fixed top-0 left-0 right-0 z-50 bg-black/40 backdrop-blur border-b border-white/10'>
+<div class='max-w-7xl mx-auto px-6 py-4 flex justify-between items-center'>
+<div class='flex items-center gap-3'><svg width='34' height='34' viewBox='0 0 24 24' fill='none' class='text-blue-500'><path d='M12 2L20 6V12C20 17 16.5 21 12 22C7.5 21 4 17 4 12V6L12 2Z' stroke='currentColor' stroke-width='1.6'/><circle cx='12' cy='12' r='3' stroke='currentColor' stroke-width='1.2'/><circle cx='12' cy='12' r='7' stroke='currentColor' stroke-opacity='.4' stroke-width='1'/></svg><div class='text-xl font-semibold'>AegisBid</div></div>
+<nav class='space-x-6 text-sm text-white/70'><button data-i18n='nav_home' onclick="showPage('home')">Home</button><button data-i18n='nav_platform' onclick="showPage('platform')">Platform</button><button data-i18n='nav_command' onclick="showPage('command')">Command Center</button><button data-i18n='nav_pricing' onclick="showPage('pricing')">Pricing</button><button data-i18n='nav_security' onclick="showPage('security')">Security</button><button data-i18n='nav_contact' onclick="showPage('contact')">Contact</button><button onclick='toggleLang()'>EN / ES</button></nav>
+</div></header>
+<main id='pages'>
+<section data-page='home' id='home' class='page min-h-screen flex items-center pt-24'>
+<div class='max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center'>
+<div>
+<div class='fade uppercase tracking-[0.35em] text-cyan-400 text-xs'>Procurement Intelligence OS</div>
+<h1 class='fade text-6xl md:text-7xl font-semibold mt-4 leading-tight'><span data-i18n='hero_title'>Win Better Bids. Kill Bad Ones Fast.</span></h1>
+<p class='fade mt-6 text-xl text-white/70 max-w-xl'><span data-i18n='hero_text'>AegisBid reads public tenders, scores opportunities, detects hidden risks and helps executives decide where to invest capture resources.</span></p>
+<div class='fade mt-8 flex gap-4'><button class='px-6 py-3 rounded-2xl bg-blue-600 glow'>Request Demo</button><button class='px-6 py-3 rounded-2xl border border-white/15'>Upload Tender</button></div>
+</div>
+<div class='fade glass rounded-3xl p-6 border border-white/10 glow'><div class='text-sm text-white/60'>LIVE BID SCORE</div><div class='text-7xl font-bold mt-3'>82</div><div class='mt-4 grid grid-cols-2 gap-4'><div class='bg-black/30 rounded-2xl p-4'><div class='text-xs text-white/50'>Win Prob.</div><div class='text-2xl mt-1'>71%</div></div><div class='bg-black/30 rounded-2xl p-4'><div class='text-xs text-white/50'>Legal Risk</div><div class='text-2xl mt-1'>Medium</div></div></div></div>
+</div></section>
+</section>
+<section data-page='platform' id='platform' class='page hidden max-w-7xl mx-auto px-6 py-24'>
+<h2 class='fade text-5xl font-semibold'>Platform</h2>
+<div class='grid md:grid-cols-4 gap-6 mt-10'>
+<div class='fade glass rounded-3xl p-6 border border-white/10'><div class='text-3xl font-bold'>1</div><h3 class='mt-4 text-xl'>Upload</h3><p class='mt-3 text-white/65'>PDF tender documents, annexes or portals.</p></div>
+<div class='fade glass rounded-3xl p-6 border border-white/10'><div class='text-3xl font-bold'>2</div><h3 class='mt-4 text-xl'>Analyze</h3><p class='mt-3 text-white/65'>LLM extracts admin, legal, technical and financial requirements.</p></div>
+<div class='fade glass rounded-3xl p-6 border border-white/10'><div class='text-3xl font-bold'>3</div><h3 class='mt-4 text-xl'>Score</h3><p class='mt-3 text-white/65'>Go / No-Go engine calculates fit, effort, risk and win probability.</p></div>
+<div class='fade glass rounded-3xl p-6 border border-white/10'><div class='text-3xl font-bold'>4</div><h3 class='mt-4 text-xl'>Decide</h3><p class='mt-3 text-white/65'>Board memo and action plan ready in minutes.</p></div>
+</div></section>
+<section id='ingestion' class='max-w-7xl mx-auto px-6 py-24'>
+<h2 class='fade text-5xl font-semibold'>Live ChileCompra / TED Ingestion</h2>
+<p class='fade mt-4 text-white/70'>Normalized opportunities streamed into one command layer.</p>
+<div class='grid md:grid-cols-3 gap-6 mt-10'>
+<div class='fade glass rounded-3xl p-6 border border-white/10'><div class='text-sm text-cyan-300'>ChileCompra</div><div class='text-3xl font-bold mt-2'>38 New</div><div class='mt-3 text-white/60 text-sm'>Security cameras, patrol fleet, software.</div></div>
+<div class='fade glass rounded-3xl p-6 border border-white/10'><div class='text-sm text-cyan-300'>TED Europe</div><div class='text-3xl font-bold mt-2'>112 New</div><div class='mt-3 text-white/60 text-sm'>Rail, defense electronics, medical devices.</div></div>
+<div class='fade glass rounded-3xl p-6 border border-white/10'><div class='text-sm text-cyan-300'>Priority Matches</div><div class='text-3xl font-bold mt-2'>17</div><div class='mt-3 text-white/60 text-sm'>Fit score above 80 for your portfolio.</div></div>
+</div>
+</section>
+<section data-page='command' id='command' class='page hidden max-w-7xl mx-auto px-6 py-24'>
+<h2 class='fade text-5xl font-semibold'>Operational Intelligence Command Center</h2>
+<div class='grid md:grid-cols-3 gap-6 mt-10'>
+<div class='fade glass rounded-3xl p-6 border border-white/10'><div class='text-white/60'>Active Opportunities</div><div class='text-5xl font-bold mt-2'>127</div></div>
+<div class='fade glass rounded-3xl p-6 border border-white/10'><div class='text-white/60'>High Priority Bids</div><div class='text-5xl font-bold mt-2 text-cyan-300'>19</div></div>
+<div class='fade glass rounded-3xl p-6 border border-white/10'><div class='text-white/60'>Risk Alerts</div><div class='text-5xl font-bold mt-2 text-amber-300'>7</div></div>
+</div>
+<div class='grid md:grid-cols-2 gap-6 mt-8'>
+<div class='fade glass rounded-3xl p-6 border border-white/10'><div class='text-xl font-semibold'>Pipeline</div><div class='space-y-4 mt-5 text-sm'><div>Identified<div class='h-3 mt-1 bg-blue-600 rounded-full w-full'></div></div><div>Qualified<div class='h-3 mt-1 bg-cyan-500 rounded-full w-4/5'></div></div><div>Pursuit<div class='h-3 mt-1 bg-emerald-500 rounded-full w-3/5'></div></div><div>Submitted<div class='h-3 mt-1 bg-violet-500 rounded-full w-2/5'></div></div><div>Awarded<div class='h-3 mt-1 bg-amber-400 rounded-full w-1/4'></div></div></div></div>
+<div class='fade glass rounded-3xl p-6 border border-white/10'><div class='text-xl font-semibold'>Risk Matrix</div><div class='grid grid-cols-4 gap-2 mt-5'><div class='h-12 bg-green-500/40 rounded'></div><div class='h-12 bg-yellow-500/30 rounded'></div><div class='h-12 bg-yellow-500/50 rounded'></div><div class='h-12 bg-red-500/60 rounded'></div><div class='h-12 bg-green-500/20 rounded'></div><div class='h-12 bg-yellow-500/40 rounded'></div><div class='h-12 bg-red-500/40 rounded'></div><div class='h-12 bg-red-500/70 rounded'></div><div class='h-12 bg-cyan-500/20 rounded'></div><div class='h-12 bg-yellow-500/30 rounded'></div><div class='h-12 bg-red-500/50 rounded'></div><div class='h-12 bg-red-500/80 rounded'></div><div class='h-12 bg-cyan-500/10 rounded'></div><div class='h-12 bg-yellow-500/20 rounded'></div><div class='h-12 bg-red-500/50 rounded'></div><div class='h-12 bg-red-500/90 rounded'></div></div></div>
+</div></section>
+<section id='investors' class='max-w-7xl mx-auto px-6 py-24'>
+<h2 class='fade text-5xl font-semibold'>Investor Deck</h2>
+<div class='grid md:grid-cols-2 gap-6 mt-10'>
+<div class='fade glass rounded-3xl p-6 border border-white/10'><div class='text-xl font-semibold'>Why Now</div><p class='mt-3 text-white/65'>$13T+ procurement market still runs on PDFs and fragmented portals.</p></div>
+<div class='fade glass rounded-3xl p-6 border border-white/10'><div class='text-xl font-semibold'>Business Model</div><p class='mt-3 text-white/65'>€149 self-serve, €9k SME, €90k enterprise, €150k command deployments.</p></div>
+<div class='fade glass rounded-3xl p-6 border border-white/10'><div class='text-xl font-semibold'>Moat</div><p class='mt-3 text-white/65'>Tender data network effects + workflow lock-in + trust.</p></div>
+<div class='fade glass rounded-3xl p-6 border border-white/10'><div class='text-xl font-semibold'>Use of Funds</div><p class='mt-3 text-white/65'>Data ingestion, GTM, AI scoring infrastructure, enterprise sales.</p></div>
+</div>
+</section>
+<section id='explain' class='max-w-7xl mx-auto px-6 py-24'>
+<h2 class='fade text-5xl font-semibold'>Explainability Engine</h2><p class='fade mt-4 text-white/70'>Why this bid score is 82.</p>
+<div class='grid md:grid-cols-4 gap-6 mt-10'><div class='fade glass rounded-3xl p-6 border border-white/10'>Technical Fit <div class='text-4xl mt-2 font-bold'>88</div></div><div class='fade glass rounded-3xl p-6 border border-white/10'>Legal Risk <div class='text-4xl mt-2 font-bold'>62</div></div><div class='fade glass rounded-3xl p-6 border border-white/10'>Win Probability <div class='text-4xl mt-2 font-bold'>71</div></div><div class='fade glass rounded-3xl p-6 border border-white/10'>Strategic Value <div class='text-4xl mt-2 font-bold'>90</div></div></div>
+</section>
+<section data-page='pricing' id='pricing' class='page hidden max-w-7xl mx-auto px-6 py-24'><h2 class='fade text-5xl font-semibold' data-i18n='pricing_title'>Pricing</h2><p class='fade mt-4 text-white/70'>Choose the plan that matches your bid volume and governance needs.</p><div class='grid md:grid-cols-4 gap-6 mt-10'><div class='glass p-6 rounded-3xl border border-white/10'><div class='text-xl'>Starter</div><div class='text-5xl font-bold mt-2'>€149</div><div class='text-sm text-white/50'>per tender</div><ul class='mt-4 text-sm text-white/70 space-y-2'><li>1 PDF analysis</li><li>Go / No-Go score</li><li>Risk summary</li><li>Board memo PDF</li></ul></div><div class='glass p-6 rounded-3xl border border-white/10'><div class='text-xl'>SME</div><div class='text-5xl font-bold mt-2'>€9k</div><div class='text-sm text-white/50'>annual</div><ul class='mt-4 text-sm text-white/70 space-y-2'><li>25 analyses</li><li>10 users</li><li>Email alerts</li><li>Pipeline dashboard</li></ul></div><div class='glass p-6 rounded-3xl border border-cyan-400/30'><div class='text-xl text-cyan-300'>Enterprise</div><div class='text-5xl font-bold mt-2'>€90k</div><div class='text-sm text-white/50'>annual</div><ul class='mt-4 text-sm text-white/70 space-y-2'><li>Unlimited analyses</li><li>100 users</li><li>SSO / RBAC</li><li>API + live feeds</li></ul></div><div class='glass p-6 rounded-3xl border border-amber-400/30'><div class='text-xl text-amber-300'>Command</div><div class='text-5xl font-bold mt-2'>€150k+</div><div class='text-sm text-white/50'>annual</div><ul class='mt-4 text-sm text-white/70 space-y-2'><li>Sovereign hosting</li><li>Custom AI models</li><li>Dedicated success</li><li>White-glove onboarding</li></ul></div></div><div class='mt-8'><a download='Board_Memo_AegisBid.pdf' href='data:application/pdf;base64,JVBERi0xLjQKJcfs...'><button class='px-6 py-3 rounded-2xl bg-blue-600 glow'>Download Board Memo PDF</button></a></div></section>
+<section data-page='security' id='security' class='page hidden max-w-7xl mx-auto px-6 py-24'><h2 class='text-5xl font-semibold' data-i18n='security_title'>Security</h2><div class='grid md:grid-cols-2 gap-6 mt-10'><div class='glass p-6 rounded-3xl'>Role-based permissions (RBAC)</div><div class='glass p-6 rounded-3xl'>Token-based enterprise authentication</div><div class='glass p-6 rounded-3xl'>Audit logging enabled</div><div class='glass p-6 rounded-3xl'>Sensitive bid isolation</div></div></section><section data-page='contact' id='contactpage' class='page hidden max-w-7xl mx-auto px-6 py-24'><h2 class='text-5xl font-semibold'>Contact</h2><p class='mt-6 text-white/70'>sales@aegisbid.com</p></section></main><footer id='contact' class='max-w-7xl mx-auto px-6 py-12 border-t border-white/10 text-white/40'><div class='flex flex-wrap gap-6'><span>Platform</span><span>Solutions</span><span>Security</span><span>Users</span><span>Contact</span></div><div class='mt-4'>sales@aegisbid.com · Enterprise Navigation Layer</div></footer>
+<script>
+const dict={en:{nav_home:'Home',nav_platform:'Platform',nav_command:'Command Center',nav_pricing:'Pricing',nav_security:'Security',nav_contact:'Contact',hero_title:'Win Better Bids. Kill Bad Ones Fast.',hero_text:'AegisBid reads public tenders, scores opportunities, detects hidden risks and helps executives decide where to invest capture resources.',pricing_title:'Pricing',security_title:'Security'},es:{nav_home:'Inicio',nav_platform:'Plataforma',nav_command:'Centro de Mando',nav_pricing:'Precios',nav_security:'Seguridad',nav_contact:'Contacto',hero_title:'Gana mejores licitaciones. Descarta malas rápido.',hero_text:'AegisBid analiza pliegos públicos, puntúa oportunidades, detecta riesgos ocultos y ayuda a la dirección a decidir dónde invertir recursos comerciales.',pricing_title:'Precios',security_title:'Seguridad'}};let lang='en';function applyLang(){document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(dict[lang][k])el.textContent=dict[lang][k];});}function toggleLang(){lang=lang==='en'?'es':'en';applyLang();}
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')}),{threshold:.15});document.querySelectorAll('.fade').forEach(el=>io.observe(el));function showPage(name){document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));document.querySelector('[data-page="'+name+'"]').classList.remove('hidden');window.scrollTo(0,0);}showPage('home');applyLang();</script>
+</body></html>
