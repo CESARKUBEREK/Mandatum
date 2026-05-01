@@ -1,54 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Platform</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AegisBid — Strategic Procurement</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="assets/styles.css">
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "AegisBid",
-    "applicationCategory": "BusinessApplication",
-    "description": "AI operating system for public contracts. Automate tender monitoring, opportunity scoring, and bid management.",
-    "url": "https://aegisbid.com/",
-    "sameAs": [
-        "https://www.linkedin.com/company/aegisbid",
-        "https://twitter.com/aegisbid"
-    ],
-    "operatingSystem": "Web Browser",
-    "offers": {
-        "@type": "Offer",
-        "price": "149",
-        "priceCurrency": "EUR",
-        "availability": "https://schema.org/InStock",
-        "validFrom": "2026-01-01"
-    },
-    "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.8",
-        "reviewCount": "127"
-    },
-    "creator": {
-        "@type": "Organization",
-        "name": "AegisBid",
-        "url": "https://aegisbid.com"
-    },
-    "softwareVersion": "v2.0",
-    "featureList": "Tender Analysis, Go/No-Go Scoring, Executive Memos, Real-time Alerts",
-    "screenshot": "https://aegisbid.com/assets/screenshot.png",
-    "image": "https://aegisbid.com/assets/logo.svg"
-}
-</script>
-
 </head>
 <body>
-    <header class="nav">
-        <div class="wrap row">
-            <div class="row">
-                <img src="assets/logo.svg" width="36" alt="AegisBid logo">
-                <strong>AegisBid</strong>
-            </div>
-            <nav class="nav-links">
+
+    <!-- HEADER IGUAL AL MODELO REACT -->
+    <header class="site-header">
+        <a href="index.html" class="logo-container">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" class="text-[#3B82F6]">
+                <path d="M12 2L20 6V12C20 17 16.5 21 12 22C7.5 21 4 17 4 12V6L12 2Z" stroke="currentColor" stroke-width="1.6"/>
+                <path d="M8.5 12.5L11 15L16 9.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div class="text-xl font-semibold tracking-tight">AegisBid</div>
+        </a>
+        <nav class="nav-links">
             <a href="index.html">Home</a>
             <a href="platform.html">Platform</a>
             <a href="solutions.html">Solutions</a>
@@ -56,22 +26,19 @@
             <a href="security.html">Security</a>
             <a href="contact.html">Contact</a>
         </nav>
-        </div>
     </header>
 
-    <div class="wrap">
-        <h2>Platform</h2>
-        <div class="grid g3">
-            <div class="card">Ingest PDFs</div>
-            <div class="card">Extract Requirements</div>
-            <div class="card">Risk Detection</div>
-        </div>
-    </div>
+   <main>
+        <section class="px-8 py-24 max-w-6xl mx-auto">
+            <h2 class="text-3xl font-semibold">Platform</h2>
+            <p class="mt-4 text-white/70">xxxxxxxxxement documents into structured decision intelligence across legal, technical and commercial dimensions.</p>
+        </section>
+    </main>
 
-    <footer class="footer">
-        <div class="wrap">© 2026 AegisBid · sales@aegisbid.com</div>
+    <!-- FOOTER IGUAL AL MODELO REACT -->
+    <footer class="site-footer">
+        AegisBid © 2026 — Decision Intelligence for Strategic Procurement
     </footer>
 
-    <script src="assets/script.js"></script>
 </body>
 </html>
