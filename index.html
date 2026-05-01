@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -39,44 +38,37 @@
 }
 </script>
 
-
-  
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AegisBid | Win Better Bids</title>
-<link rel="stylesheet" href="assets/styles.css">
-
+<link rel="stylesheet" href="/assets/styles.css">
 </head>
 <body>
-    <header class="nav">
-        <div class="wrap row">
-            <div class="row">
-                <img src="assets/logo.svg" width="36" alt="AegisBid logo">
-                <strong>AegisBid</strong>
-            </div>
-            <nav class="menu">
-                <a href="index.html">Home</a>
-                <a href="platform.html">Platform</a>
-                <a href="dashboard.html">Dashboard</a>
-                <a href="pricing.html">Pricing</a>
-                <a href="security.html">Security</a>
-                <a href="investors.html">Investors</a>
-                <a href="contact.html">Contact</a>
-            </nav>
-        </div>
-    </header>
-  
+
+<!-- El header se inyectará aquí desde assets/script.js -->
+<div class="site-header"></div>
+
 <main class="hero container">
-<section>
-<p class="eyebrow">Procurement Intelligence OS</p>
-<h1>Win Better Bids. Kill Bad Ones Fast.</h1>
-<p class="lead">Analyze tenders, detect risks, score opportunities and decide faster.</p>
-<div class="btn-row"><a class="btn btn-primary" href="contact.html">Request Demo</a><a class="btn btn-outline" href="pricing.html">View Pricing</a></div>
-</section>
-<section class="card glow"><div class="metric">82</div><p>Live Bid Score</p></section>
+    <section>
+        <p class="eyebrow fade">Procurement Intelligence OS</p>
+        <h1 class="fade">Win Better Bids. Kill Bad Ones Fast.</h1>
+        <p class="lead fade">Analyze tenders, detect risks, score opportunities and decide faster.</p>
+        <div class="btn-row fade">
+            <a class="btn btn-primary" href="/contact.html">Request Demo</a>
+            <a class="btn btn-outline" href="/pricing.html">View Pricing</a>
+        </div>
+    </section>
+    <section class="card glow fade">
+        <div class="metric">82</div>
+        <p>Live Bid Score</p>
+    </section>
 </main>
-<footer class="footer">
-        <div class="wrap">© 2026 AegisBid · sales@aegisbid.com</div>
-    </footer>
+
+<!-- El footer se inyectará aquí -->
+<div class="site-footer"></div>
+
+<!-- Carga del script que inyecta header/footer y animación fade -->
+<script src="/assets/script.js"></script>
+
 </body>
 </html>
