@@ -43,14 +43,18 @@
             </div>
 
             <!-- GRID DE SEGURIDAD -->
-            <div class="grid md:grid-cols-3 gap-6">
+           <div class="grid md:grid-cols-3 gap-8 mt-12">
+    <!-- Tarjeta de ejemplo -->
+    <div class="security-card group">
+        <div class="text-[10px] text-blue-500 font-bold uppercase tracking-[0.3em] mb-4 opacity-70 group-hover:opacity-100 transition-opacity">
                 
                 <!-- Identity -->
-                <div class="security-card">
-                    <div class="text-xs text-neutral-500 font-bold uppercase tracking-widest mb-4">Identity</div>
-                    <div class="text-2xl font-bold mt-2 text-white">SSO + MFA</div>
-                    <p class="text-neutral-400 mt-4 leading-relaxed">SAML, OAuth, enforced multi-factor authentication and session controls.</p>
                 </div>
+        <div class="text-2xl font-bold text-white mb-3">SSO + MFA</div>
+        <p class="text-neutral-500 text-sm leading-relaxed group-hover:text-neutral-300 transition-colors">
+            SAML, OAuth, enforced multi-factor authentication and session controls.
+        </p>
+    </div>
 
                 <!-- Access Control -->
                 <div class="security-card">
