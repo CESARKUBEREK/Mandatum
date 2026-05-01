@@ -2,6 +2,23 @@
 <html>
 <head>
     <title>AegisBid</title>
+    <script>
+        const l = (navigator.language || 'en').toLowerCase();
+        if (l.startsWith('es') && !location.pathname.startsWith('/es/')) {
+            window.location.href = '/es/';
+        }
+    </script>
+    <link rel="alternate" hreflang="en" href="https://aegisbid.com/">
+    <link rel="alternate" hreflang="es" href="https://aegisbid.com/es/">
+    <link rel="alternate" hreflang="x-default" href="https://aegisbid.com/">
+    <!-- rest of head and body -->
+</body>
+</html>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AegisBid</title>
     <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
