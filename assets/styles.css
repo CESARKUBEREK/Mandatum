@@ -106,3 +106,26 @@ body {
     background-color: #6366F1;
 }
 
+.security-card {
+        /* Un gris ligeramente más claro que el negro para que se note el contenedor */
+        background-color: #111318; 
+        
+        /* Borde sutil para definir la silueta */
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        
+        /* Radio de borde masivo como en la imagen de referencia */
+        border-radius: 2.5rem;
+        padding: 2.5rem;
+        
+        /* Sombra para dar profundidad (Elevación) */
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .security-card:hover {
+        background-color: #161A20; /* Se aclara un poco al pasar el mouse */
+        border-color: rgba(59, 130, 246, 0.5); /* Brillo azul sutil */
+        transform: translateY(-8px);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+    }
