@@ -23,3 +23,13 @@ const footer = `<div class="container">
   </div>
   <div class="footer-copy">© AegisBid</div>
 </div>`;
+
+document.querySelectorAll('.site-header').forEach(el => el.innerHTML = header);
+document.querySelectorAll('.site-footer').forEach(el => el.innerHTML = footer);
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('show');
+  });
+});
+document.querySelectorAll('.fade').forEach(el => io.observe(el));
