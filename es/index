@@ -1,1 +1,32 @@
-<!doctype html><html><body><h1>AegisBid Español</h1></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AegisBid España</title>
+    <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+    <header class="nav">
+        <div class="wrap row">
+            <div class="row">
+                <img src="../assets/logo.svg" width="36" alt="AegisBid logo">
+                <strong>AegisBid</strong>
+            </div>
+            <nav class="menu">
+                <a href="platform.html">Plataforma</a>
+                <a href="pricing.html">Precios</a>
+                <a href="contact.html">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero wrap">
+        <h1>Gana Mejores Licitaciones Más Rápido</h1>
+        <p class="muted">Sistema operativo IA para contratos públicos.</p>
+        <p><a class="btn" href="contact.html">Solicitar Demo</a></p>
+    </section>
+
+    <footer class="footer">
+        <div class="wrap">© 2026 AegisBid</div>
+    </footer>
+</body>
+</html>
