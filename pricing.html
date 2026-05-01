@@ -3,96 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AegisBid — Strategic Procurement</title>
+    <title>AegisBid — Strategic Pricing</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- ASEGÚRATE DE QUE ESTA RUTA SEA CORRECTA -->
-    <link rel="stylesheet" href="assets/styles.css">
+    <style>
+        :root {
+            --bg-black: #000000;
+            --card-gray: #111318;
+        }
+
+        body { 
+            background-color: var(--bg-black); 
+            color: #ffffff; 
+            font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+        }
+
+        .pricing-card {
+            background-color: var(--card-gray);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 2.5rem;
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .pricing-card.featured {
+            border-color: rgba(34, 211, 238, 0.3); /* Cyan para Enterprise */
+            box-shadow: 0 0 30px rgba(34, 211, 238, 0.05);
+        }
+
+        .glow-button {
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .glow-button:hover {
+            box-shadow: 0 0 30px rgba(37, 99, 235, 0.5);
+            transform: scale(1.02);
+        }
+    </style>
 </head>
 <body>
 
-    <header class="site-header">
-        <a href="index.html" class="logo-container">
-            <!-- Nuevo Logo Radar -->
-            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" class="text-[#3B82F6]">
-                <path d="M12 2L20 6V12C20 17 16.5 21 12 22C7.5 21 4 17 4 12V6L12 2Z" stroke="currentColor" stroke-width="1.6"/>
-                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.2"/>
-                <circle cx="12" cy="12" r="7" stroke="currentColor" stroke-opacity="0.4" stroke-width="1"/>
-            </svg>
-            <div class="text-xl font-semibold tracking-tight">AegisBid</div>
-        </a>
-        <nav class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="platform.html">Platform</a>
-            <a href="solutions.html">Solutions</a>
-            <a href="command-center.html">Command Center</a>
-            <a href="pricing.html">Pricing</a>
-            <a href="security.html">Security</a>
-            <a href="contact.html">Contact</a>
+    <!-- NAV BAR -->
+    <header class="flex justify-between items-center px-8 py-8 max-w-7xl mx-auto">
+        <div class="text-2xl font-bold tracking-tighter">AegisBid</div>
+        <nav class="hidden md:flex gap-8 text-sm font-medium text-white/50">
+            <a href="index.html" class="hover:text-white transition-colors">Home</a>
+            <a href="pricing.html" class="text-white border-b-2 border-blue-500 pb-1">Pricing</a>
+            <a href="command-center.html" class="hover:text-white transition-colors">Command</a>
+            <a href="platform.html" class="hover:text-white transition-colors">Platform</a>
+            <a href="solutions.html" class="hover:text-white transition-colors">Solutions</a>
+            <a href="security.html" class="hover:text-white transition-colors">Security</a>
+            <a href="contact.html" class="hover:text-white transition-colors">Contact</a>
         </nav>
     </header>
 
-   <main>
-        <section class="px-8 py-20 max-w-6xl mx-auto">
-            <h2 class="text-4xl font-semibold">Enterprise Pricing</h2>
-            <p class="mt-4 text-white/70">Annual licenses designed for strategic procurement teams.</p>
+    <main>
+        <section class="max-w-7xl mx-auto px-8 py-20">
             
-            <div class="mt-10 grid md:grid-cols-3 gap-6">
-                <!-- Professional Plan -->
-                <div class="bg-[#161A20] p-8 rounded-3xl border border-white/10 flex flex-col justify-between">
+            <!-- HEADER DE PRICING -->
+            <div class="mb-16">
+                <div class="text-[10px] uppercase tracking-[0.5em] text-blue-500 font-bold mb-6">License Tiers</div>
+                <h1 class="text-6xl md:text-8xl font-bold tracking-tight leading-[0.95] mb-8">Pricing</h1>
+                <p class="text-xl text-neutral-500 max-w-2xl leading-relaxed">
+                    Choose the plan that matches your bid volume and governance needs.
+                </p>
+            </div>
+
+            <!-- GRID DE PLANES -->
+            <div class="grid md:grid-cols-4 gap-6 mt-10">
+                
+                <!-- Starter -->
+                <div class="pricing-card">
                     <div>
-                        <div class="text-sm text-white/50">Professional</div>
-                        <div class="text-4xl font-semibold mt-3">€50k</div>
-                        <div class="mt-6 space-y-3 text-white/70 text-sm">
-                            <div class="flex items-center gap-2"><span>•</span> 1 business unit</div>
-                            <div class="flex items-center gap-2"><span>•</span> 25 users</div>
-                            <div class="flex items-center gap-2"><span>•</span> Bid scoring</div>
-                            <div class="flex items-center gap-2"><span>•</span> PDF reports</div>
-                            <div class="flex items-center gap-2"><span>•</span> Email support</div>
+                        <div class="text-xl font-medium mb-4">Starter</div>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-5xl font-bold">€149</span>
+                            <span class="text-sm text-white/40">/tender</span>
                         </div>
+                        <ul class="mt-8 space-y-4 text-sm text-white/60">
+                            <li class="flex items-center gap-2"><span>•</span> 1 PDF analysis</li>
+                            <li class="flex items-center gap-2"><span>•</span> Go / No-Go score</li>
+                            <li class="flex items-center gap-2"><span>•</span> Risk summary</li>
+                            <li class="flex items-center gap-2"><span>•</span> Board memo PDF</li>
+                        </ul>
                     </div>
-                    <button class="btn-secondary mt-8 w-full">Request Access</button>
+                    <button class="mt-10 w-full py-4 rounded-2xl border border-white/10 hover:bg-white/5 transition-colors text-sm font-bold">Start Now</button>
                 </div>
 
-                <!-- Enterprise Plan (Highlighted) -->
-                <div class="bg-[#161A20] p-8 rounded-3xl border border-[#3B82F6] relative shadow-[0_0_30px_rgba(59,130,246,0.15)] flex flex-col justify-between">
-                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#3B82F6] text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
-                        Most Popular
-                    </div>
+                <!-- SME -->
+                <div class="pricing-card">
                     <div>
-                        <div class="text-sm text-white/50 mt-2">Enterprise</div>
-                        <div class="text-4xl font-semibold mt-3">€90k</div>
-                        <div class="mt-6 space-y-3 text-white/70 text-sm">
-                            <div class="flex items-center gap-2"><span>•</span> 3 regions</div>
-                            <div class="flex items-center gap-2"><span>•</span> 100 users</div>
-                            <div class="flex items-center gap-2"><span>•</span> Live data feeds</div>
-                            <div class="flex items-center gap-2"><span>•</span> Explainability</div>
-                            <div class="flex items-center gap-2"><span>•</span> Priority support</div>
+                        <div class="text-xl font-medium mb-4 text-white/80">SME</div>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-5xl font-bold">€9k</span>
+                            <span class="text-sm text-white/40">/annual</span>
                         </div>
+                        <ul class="mt-8 space-y-4 text-sm text-white/60">
+                            <li class="flex items-center gap-2"><span>•</span> 25 analyses</li>
+                            <li class="flex items-center gap-2"><span>•</span> 10 users</li>
+                            <li class="flex items-center gap-2"><span>•</span> Email alerts</li>
+                            <li class="flex items-center gap-2"><span>•</span> Pipeline dashboard</li>
+                        </ul>
                     </div>
-                    <button class="btn-primary mt-8 w-full">Request Access</button>
+                    <button class="mt-10 w-full py-4 rounded-2xl border border-white/10 hover:bg-white/5 transition-colors text-sm font-bold">Get Started</button>
                 </div>
 
-                <!-- Command Center Plan -->
-                <div class="bg-[#161A20] p-8 rounded-3xl border border-white/10 flex flex-col justify-between">
+                <!-- Enterprise -->
+                <div class="pricing-card featured">
                     <div>
-                        <div class="text-sm text-white/50">Command Center</div>
-                        <div class="text-4xl font-semibold mt-3">€150k</div>
-                        <div class="mt-6 space-y-3 text-white/70 text-sm">
-                            <div class="flex items-center gap-2"><span>•</span> Global rollout</div>
-                            <div class="flex items-center gap-2"><span>•</span> Unlimited users</div>
-                            <div class="flex items-center gap-2"><span>•</span> SSO & API</div>
-                            <div class="flex items-center gap-2"><span>•</span> Custom workflows</div>
-                            <div class="flex items-center gap-2"><span>•</span> Dedicated success lead</div>
+                        <div class="text-xl font-medium mb-4 text-cyan-400">Enterprise</div>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-5xl font-bold text-white">€90k</span>
+                            <span class="text-sm text-white/40">/annual</span>
                         </div>
+                        <ul class="mt-8 space-y-4 text-sm text-white/60">
+                            <li class="flex items-center gap-2"><span class="text-cyan-400">•</span> Unlimited analyses</li>
+                            <li class="flex items-center gap-2"><span class="text-cyan-400">•</span> 100 users</li>
+                            <li class="flex items-center gap-2"><span class="text-cyan-400">•</span> SSO / RBAC</li>
+                            <li class="flex items-center gap-2"><span class="text-cyan-400">•</span> API + live feeds</li>
+                        </ul>
                     </div>
-                    <button class="btn-secondary mt-8 w-full">Contact Sales</button>
+                    <button class="mt-10 w-full py-4 rounded-2xl bg-cyan-600 hover:bg-cyan-500 transition-colors text-black font-extrabold text-sm uppercase tracking-wider">Contact Sales</button>
                 </div>
+
+                <!-- Command -->
+                <div class="pricing-card border-amber-400/20">
+                    <div>
+                        <div class="text-xl font-medium mb-4 text-amber-300">Command</div>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-5xl font-bold text-white">€150k+</span>
+                            <span class="text-sm text-white/40">/annual</span>
+                        </div>
+                        <ul class="mt-8 space-y-4 text-sm text-white/60">
+                            <li class="flex items-center gap-2"><span class="text-amber-300">•</span> Sovereign hosting</li>
+                            <li class="flex items-center gap-2"><span class="text-amber-300">•</span> Custom AI models</li>
+                            <li class="flex items-center gap-2"><span class="text-amber-300">•</span> Dedicated success</li>
+                            <li class="flex items-center gap-2"><span class="text-amber-300">•</span> White-glove setup</li>
+                        </ul>
+                    </div>
+                    <button class="mt-10 w-full py-4 rounded-2xl border border-amber-400/30 hover:bg-amber-400/10 transition-colors text-amber-200 text-sm font-bold">Talk to Expert</button>
+                </div>
+            </div>
+
+            <!-- PDF DOWNLOAD SECTION -->
+            <div class="mt-20 p-12 rounded-[2.5rem] bg-[#161A20] border border-white/5 flex flex-col md:flex-row items-center justify-between gap-8">
+                <div>
+                    <h3 class="text-3xl font-bold mb-2">Ready to present to the Board?</h3>
+                    <p class="text-white/50 text-lg">Download our comprehensive Board Memo template for AegisBid integration.</p>
+                </div>
+                <a download="Board_Memo_AegisBid.pdf" href="data:application/pdf;base64,JVBERi0xLjQKJcfs...">
+                    <button class="glow-button px-8 py-4 rounded-2xl bg-blue-600 text-white font-bold text-lg flex items-center gap-3">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Download Board Memo PDF
+                    </button>
+                </a>
             </div>
         </section>
     </main>
 
-    <footer class="footer">
-        <div class="wrap">© 2026 AegisBid · sales@aegisbid.com</div>
+    <footer class="py-12 border-t border-white/10 text-center text-white/20 text-xs">
+        AegisBid © 2026 — Strategic Licensing & Enterprise Support
     </footer>
+
 </body>
 </html>
