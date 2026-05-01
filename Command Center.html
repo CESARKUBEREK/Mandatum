@@ -30,14 +30,96 @@
         </nav>
     </header>
 
-   <main>
-        <section class="px-8 py-24 max-w-6xl mx-auto">
+  <main>
+        <section class="px-8 py-20 max-w-6xl mx-auto">
             <h2 class="text-3xl font-semibold">Command Center</h2>
-            <p class="mt-4 text-white/70">AegisBid transforms unstructured procurement documents into structured decision intelligence across legal, technical and commercial dimensions.</p>
+            <p class="mt-4 text-white/70">Real-time procurement intelligence layer for bid decision operations.</p>
+
+            <!-- GRID DASHBOARD -->
+            <div class="mt-10 grid md:grid-cols-3 gap-6">
+                <div class="bg-[#161A20] p-6 rounded-3xl border border-white/10">
+                    <div class="text-xs text-white/50">Active Opportunities</div>
+                    <div class="text-3xl font-semibold mt-2">18</div>
+                    <div class="mt-4 text-white/40 text-sm">+3 this week</div>
+                </div>
+                <div class="bg-[#161A20] p-6 rounded-3xl border border-white/10">
+                    <div class="text-xs text-white/50">High Priority Bids</div>
+                    <div class="text-3xl font-semibold mt-2 text-[#00C48C]">5</div>
+                    <div class="mt-4 text-white/40 text-sm">requires immediate action</div>
+                </div>
+                <div class="bg-[#161A20] p-6 rounded-3xl border border-white/10">
+                    <div class="text-xs text-white/50">Risk Alerts</div>
+                    <div class="text-3xl font-semibold mt-2 text-[#F5A623]">7</div>
+                    <div class="mt-4 text-white/40 text-sm">contractual exposure detected</div>
+                </div>
+            </div>
+
+            <!-- PIPELINE VISUAL (Renderizado de lógica pipeline.map) -->
+            <div class="mt-10 bg-[#161A20] p-8 rounded-3xl border border-white/10">
+                <div class="text-sm text-white/60 mb-6">Bid Pipeline Flow</div>
+                <div class="flex items-end gap-6 h-48">
+                    <!-- Columnas calculadas manualmente según p.value*10 -->
+                    <div class="flex flex-col items-center gap-3">
+                        <div class="bg-[#3B82F6]/70 w-12 rounded-t-lg" style="height: 120px;"></div>
+                        <div class="text-xs text-white/50">Identified</div>
+                    </div>
+                    <div class="flex flex-col items-center gap-3">
+                        <div class="bg-[#3B82F6]/70 w-12 rounded-t-lg" style="height: 80px;"></div>
+                        <div class="text-xs text-white/50">Qualified</div>
+                    </div>
+                    <div class="flex flex-col items-center gap-3">
+                        <div class="bg-[#3B82F6]/70 w-12 rounded-t-lg" style="height: 50px;"></div>
+                        <div class="text-xs text-white/50">Bidding</div>
+                    </div>
+                    <div class="flex flex-col items-center gap-3">
+                        <div class="bg-[#3B82F6]/70 w-12 rounded-t-lg" style="height: 30px;"></div>
+                        <div class="text-xs text-white/50">Submitted</div>
+                    </div>
+                    <div class="flex flex-col items-center gap-3">
+                        <div class="bg-[#3B82F6]/70 w-12 rounded-t-lg" style="height: 10px;"></div>
+                        <div class="text-xs text-white/50">Awarded</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OPPORTUNITY RISK MATRIX (HEATMAP) -->
+            <div class="mt-10 bg-[#161A20] p-6 rounded-3xl border border-white/10">
+                <div class="text-sm text-white/60 mb-4">Opportunity Risk Matrix</div>
+                <div class="grid grid-cols-6 md:grid-cols-12 gap-2">
+                    <!-- Generación manual de los 36 cuadros -->
+                    <div class="h-6 rounded bg-white/5"></div><div class="h-6 rounded bg-white/10"></div>
+                    <div class="h-6 rounded bg-white/5"></div><div class="h-6 rounded bg-[#3B82F6]/20"></div>
+                    <div class="h-6 rounded bg-white/5"></div><div class="h-6 rounded bg-white/5"></div>
+                    <div class="h-6 rounded bg-white/5"></div><div class="h-6 rounded bg-[#F5A623]/20"></div>
+                    <div class="h-6 rounded bg-white/5"></div><div class="h-6 rounded bg-white/5"></div>
+                    <div class="h-6 rounded bg-white/5"></div><div class="h-6 rounded bg-white/5"></div>
+                    <!-- ... puedes repetir estos divs para completar visualmente la matriz ... -->
+                    <div class="h-6 rounded bg-white/5"></div><div class="h-6 rounded bg-white/5"></div>
+                    <div class="h-6 rounded bg-white/5"></div><div class="h-6 rounded bg-white/5"></div>
+                    <div class="h-6 rounded bg-white/5"></div><div class="h-6 rounded bg-white/5"></div>
+                    <div class="h-6 rounded bg-white/5"></div><div class="h-6 rounded bg-white/5"></div>
+                    <div class="h-6 rounded bg-white/5"></div><div class="h-6 rounded bg-white/5"></div>
+                    <div class="h-6 rounded bg-white/5"></div><div class="h-6 rounded bg-white/5"></div>
+                </div>
+                <div class="mt-4 text-xs text-white/40">Low → High risk distribution (conceptual)</div>
+            </div>
+
+            <!-- MAP VIEW MOCK -->
+            <div class="mt-10 bg-[#161A20] p-6 rounded-3xl border border-white/10 shadow-inner overflow-hidden relative">
+                <div class="text-sm text-white/60 mb-4">Geographic Bid Exposure</div>
+                <div class="h-64 flex flex-col items-center justify-center text-white/40 bg-black/10 rounded-2xl border border-white/5">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" class="mb-3 opacity-20">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                    <span class="tracking-widest text-xs uppercase">LATAM / EU / MENA PROCUREMENT ACTIVITY</span>
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-[#161A20]/50 pointer-events-none"></div>
+                </div>
+            </div>
+
         </section>
     </main>
 
-    <!-- FOOTER IGUAL AL MODELO REACT -->
     <footer class="site-footer">
         AegisBid © 2026 — Decision Intelligence for Strategic Procurement
     </footer>
