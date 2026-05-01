@@ -1,68 +1,40 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AegisBid — Strategic Pricing</title>
+    <title>AegisBid — Strategic Procurement</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        :root {
-            --bg-black: #000000;
-            --card-gray: #111318;
-        }
-
-        body { 
-            background-color: var(--bg-black); 
-            color: #ffffff; 
-            font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
-        }
-
-        .pricing-card {
-            background-color: var(--card-gray);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 2.5rem;
-            padding: 2.5rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .pricing-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-        }
-
-        .pricing-card.featured {
-            border-color: rgba(34, 211, 238, 0.3); /* Cyan para Enterprise */
-            box-shadow: 0 0 30px rgba(34, 211, 238, 0.05);
-        }
-
-        .glow-button {
-            box-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .glow-button:hover {
-            box-shadow: 0 0 30px rgba(37, 99, 235, 0.5);
-            transform: scale(1.02);
-        }
-    </style>
+    <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
 
-    <!-- NAV BAR -->
-    <header class="flex justify-between items-center px-8 py-8 max-w-7xl mx-auto">
-        <div class="text-2xl font-bold tracking-tighter">AegisBid</div>
-        <nav class="hidden md:flex gap-8 text-sm font-medium text-white/50">
-            <a href="index.html" class="hover:text-white transition-colors">Home</a>
-            <a href="pricing.html" class="text-white border-b-2 border-blue-500 pb-1">Pricing</a>
-            <a href="command-center.html" class="hover:text-white transition-colors">Command</a>
-            <a href="platform.html" class="hover:text-white transition-colors">Platform</a>
-            <a href="solutions.html" class="hover:text-white transition-colors">Solutions</a>
-            <a href="security.html" class="hover:text-white transition-colors">Security</a>
-            <a href="contact.html" class="hover:text-white transition-colors">Contact</a>
+    <!-- HEADER IGUAL AL MODELO REACT -->
+    <header class="site-header">
+        <a href="index.html" class="logo-container">
+            <!-- INSERTA EL CÓDIGO DEL LOGO AQUÍ -->
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" class="text-[#3B82F6]">
+            <path d="M12 2L20 6V12C20 17 16.5 21 12 22C7.5 21 4 17 4 12V6L12 2Z" stroke="currentColor" stroke-width="1.6"/>
+            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.2"/>
+            <circle cx="12" cy="12" r="7" stroke="currentColor" stroke-opacity="0.4" stroke-width="1"/>
+        </svg>
+        <div class="text-xl font-semibold tracking-tight">AegisBid</div>
+    </a>
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="platform.html">Platform</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="solutions.html">Solutions</a>
+            <a href="Command Center.html">Command Center</a>
+            <a href="security.html">Security</a>
+            <a href="contact.html">Contact</a>
+
+            <div class="lang-selector">
+                <a href="index.html" class="active">EN</a>
+                <a href="../es/index.html">ES</a>
+                <a href="../pt/index.html">PT</a>
+            </div>
+            
         </nav>
     </header>
 
