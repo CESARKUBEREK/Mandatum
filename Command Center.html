@@ -35,16 +35,16 @@
             <h2 class="text-3xl font-semibold">AegisBid Command Center</h2>
             <p class="mt-4 text-white/70">Unified operational intelligence layer for procurement decisions.</p>
 
-            <!-- SUBMENU (TABS) -->
-            <div class="mt-6 flex gap-6 text-sm text-white/60 flex-wrap border-b border-white/5 pb-2">
-                <span class="tab-link active cursor-pointer hover:text-white pb-1" onclick="openTab(event, 'overview')">Overview</span>
-                <span class="tab-link cursor-pointer hover:text-white pb-1" onclick="openTab(event, 'pipeline')">Pipeline</span>
-                <span class="tab-link cursor-pointer hover:text-white pb-1" onclick="openTab(event, 'users')">Users</span>
-                <span class="tab-link cursor-pointer hover:text-white pb-1" onclick="openTab(event, 'access')">Access</span>
-                <span class="tab-link cursor-pointer hover:text-white pb-1" onclick="openTab(event, 'explain')">Explainability</span>
-                <span class="tab-link cursor-pointer hover:text-white pb-1" onclick="openTab(event, 'map')">Map</span>
-                <span class="cursor-pointer text-[#3B82F6] font-medium" onclick="alert('Exporting Board Memo PDF...')">Export PDF</span>
-            </div>
+            <!-- SUBMENU -->
+<div class="mt-6 flex gap-4 text-sm text-white/60 flex-wrap border-b border-white/5 pb-2">
+    <span class="tab-link active cursor-pointer hover:text-white pb-1" onclick="openTab(event, 'overview')">Overview</span>
+    <span class="tab-link cursor-pointer hover:text-white pb-1" onclick="openTab(event, 'pipeline')">Pipeline</span>
+    <span class="tab-link cursor-pointer hover:text-white pb-1" onclick="openTab(event, 'users')">Users</span>
+    <span class="tab-link cursor-pointer hover:text-white pb-1" onclick="openTab(event, 'access')">Access</span>
+    <span class="tab-link cursor-pointer hover:text-white pb-1" onclick="openTab(event, 'explain')">Explainability</span>
+    <span class="tab-link cursor-pointer hover:text-white pb-1" onclick="openTab(event, 'map')">Map</span>
+    <span class="cursor-pointer text-[#3B82F6] ml-auto" onclick="alert('Exporting Board Memo PDF...')">Export PDF</span>
+</div>
 
             <!-- TAB: OVERVIEW -->
             <div id="overview" class="tab-content active mt-10 grid md:grid-cols-3 gap-6">
@@ -134,24 +134,38 @@
     </footer>
 
     <!-- JS PARA NAVEGACIÓN DE TABS -->
-    <script>
-        function openTab(evt, tabName) {
-            // Ocultar todo el contenido
-            const contents = document.getElementsByClassName("tab-content");
-            for (let i = 0; i < contents.length; i++) {
-                contents[i].classList.remove("active");
-            }
-
-            // Quitar clase active de los links
-            const links = document.getElementsByClassName("tab-link");
-            for (let i = 0; i < links.length; i++) {
-                links[i].classList.remove("active");
-            }
-
-            // Mostrar el tab actual y marcar el botón como activo
-            document.getElementById(tabName).classList.add("active");
-            evt.currentTarget.classList.add("active");
+<script>
+    function openTab(evt, tabName) {
+        // 1. Ocultar todos los contenidos de las pestañas
+        const tabContents = document.getElementsByClassName("tab-content");
+        for (let i = 0; i < tabContents.length; i++) {
+            tabContents[i].style.display = "none";
+            tabContents[i].classList.remove("active");
         }
-    </script>
+
+        // 2. Quitar la clase 'active' y el estilo de todos los links
+        const tabLinks = document.getElementsByClassName("tab-link");
+        for (let i = 0; i < tabLinks.length; i++) {
+            tabLinks[i].classList.remove("active", "text-white", "border-b-2", "border-[#3B82F6]");
+        }
+
+        // 3. Mostrar la pestaña actual
+        const currentTab = document.getElementById(tabName);
+        if (currentTab) {
+            currentTab.style.display = (tabName === 'overview') ? "grid" : "block"; 
+            currentTab.classList.add("active");
+        }
+
+        // 4. Marcar el botón actual como activo
+        evt.currentTarget.classList.add("active", "text-white", "border-b-2", "border-[#3B82F6]");
+    }
+
+    // Inicializar la primera pestaña al cargar la página
+    document.addEventListener("DOMContentLoaded", function() {
+        // Simulamos un clic en el primer elemento si existe
+        const firstTab = document.querySelector(".tab-link");
+        if (firstTab) firstTab.click();
+    });
+</script>
 </body>
 </html>
