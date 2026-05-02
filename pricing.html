@@ -1,150 +1,1009 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AegisBid — Strategic Procurement</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="assets/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mandatum — Pricing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant+SC:wght@400;500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ── RESET ─────────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+ 
+    :root {
+      --ink:       #0D0F14;
+      --ink2:      #1A1D26;
+      --ink3:      #252933;
+      --gold:      #B8963E;
+      --gold-lt:   #D4AE5C;
+      --gold-dim:  #7A621F;
+      --stone:     #F2EDE4;
+      --stone2:    #E8E0D0;
+      --stone3:    #CFC4B0;
+      --parch:     #FAFAF8;
+      --muted:     #6B6560;
+      --border:    #E5E0D8;
+      --teal:      #0D9488;
+      --teal-lt:   #CCFBF1;
+      --blue:      #2563EB;
+      --blue-lt:   #DBEAFE;
+      --purple:    #7C3AED;
+      --purple-lt: #EDE9FE;
+      --amber:     #D97706;
+      --amber-lt:  #FEF3C7;
+      --green:     #059669;
+      --green-lt:  #D1FAE5;
+      --red:       #DC2626;
+      --red-lt:    #FEE2E2;
+      --r-sm: 6px;
+      --r-md: 10px;
+      --r-lg: 14px;
+    }
+ 
+    html { scroll-behavior: smooth; }
+ 
+    body {
+      background: var(--parch);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+ 
+    /* ── HEADER ────────────────────────────────────── */
+    .site-header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(250,250,248,.93);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 60px;
+    }
+    .logo-container {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--ink);
+    }
+    .logo-container svg { color: var(--gold); flex-shrink: 0; }
+    .logo-wordmark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; font-weight: 400;
+      letter-spacing: 4px; text-transform: uppercase;
+    }
+    .logo-wordmark span { color: var(--gold); }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a {
+      font-size: 12px; font-weight: 400;
+      color: var(--muted); text-decoration: none;
+      letter-spacing: .5px; transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a.active { color: var(--ink); font-weight: 500; }
+    .lang-selector {
+      display: flex; align-items: center; gap: 8px;
+      padding-left: 20px; border-left: 1px solid var(--border);
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; letter-spacing: 1.5px;
+    }
+    .lang-selector a { color: var(--muted); text-decoration: none; }
+    .lang-selector a.active { color: var(--gold); }
+ 
+    /* ── HERO BAND ──────────────────────────────────── */
+    .hero-band {
+      background: var(--ink);
+      padding: 64px 40px 52px;
+      position: relative; overflow: hidden;
+    }
+    .hero-band::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,.018) 39px, rgba(255,255,255,.018) 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,.018) 39px, rgba(255,255,255,.018) 40px);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1080px; margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px; letter-spacing: 3.5px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 16px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .hero-eyebrow::before { content: ''; width: 16px; height: 1px; background: var(--gold); }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(26px, 3.5vw, 44px);
+      font-weight: 300; line-height: 1.15;
+      color: #fff; margin-bottom: 12px;
+      max-width: 600px;
+    }
+    .hero-title em { font-style: italic; color: var(--gold-lt); }
+    .hero-sub {
+      font-size: 13px; color: rgba(255,255,255,.5);
+      line-height: 1.65; max-width: 520px;
+    }
+ 
+    /* ── PAGE WRAP ──────────────────────────────────── */
+    .page-wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 40px 80px;
+    }
+ 
+    /* ── SECTION LABELS ─────────────────────────────── */
+    .sl {
+      display: flex; align-items: center; gap: 14px;
+      margin: 48px 0 20px;
+      font-family: 'DM Mono', monospace;
+      font-size: 9px; font-weight: 500;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold);
+    }
+    .sl::before { content: ''; width: 20px; height: 1px; background: var(--gold); flex-shrink: 0; }
+    .sl::after  { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .sl:first-child { margin-top: 40px; }
+ 
+    /* ── BILLING TOGGLE ─────────────────────────────── */
+    .toggle-wrap {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 24px;
+      font-size: 12px; color: var(--muted);
+    }
+    .toggle {
+      width: 38px; height: 21px;
+      background: var(--stone2);
+      border-radius: 11px;
+      position: relative; cursor: pointer;
+      transition: background .25s; flex-shrink: 0;
+    }
+    .toggle.on { background: var(--ink); }
+    .toggle-knob {
+      position: absolute; top: 2.5px; left: 2.5px;
+      width: 16px; height: 16px;
+      background: #fff; border-radius: 50%;
+      transition: transform .25s;
+      box-shadow: 0 1px 3px rgba(0,0,0,.2);
+    }
+    .toggle.on .toggle-knob { transform: translateX(17px); }
+    .save-badge {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; font-weight: 500;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 2px 8px; border-radius: 2px;
+      background: var(--green-lt); color: var(--green);
+      margin-left: 4px;
+    }
+ 
+    /* ── PAY-AS-YOU-GO ──────────────────────────────── */
+    .payg-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px; margin-bottom: 8px;
+    }
+    .payg-card {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      background: #fff; overflow: hidden;
+    }
+    .pg-head {
+      padding: 16px 16px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .pg-gate {
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 5px;
+    }
+    .pg-name { font-size: 13px; font-weight: 500; margin-bottom: 8px; }
+    .pg-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 34px; font-weight: 400; line-height: 1;
+    }
+    .pg-per { font-size: 10px; color: var(--muted); margin-top: 3px; }
+    .pg-body { padding: 12px 16px; }
+    .pg-row {
+      display: flex; align-items: flex-start;
+      gap: 7px; padding: 5px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 11px; color: var(--muted); line-height: 1.35;
+    }
+    .pg-row:last-child { border-bottom: none; }
+    .dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+    .pg-roi {
+      margin-top: 10px; font-size: 11px;
+      font-style: italic; color: var(--muted);
+      line-height: 1.5; padding: 8px 10px;
+      background: var(--stone); border-radius: var(--r-sm);
+      border-left: 2px solid var(--stone2);
+    }
+ 
+    /* PAYG card accent colours */
+    .pg0 .pg-head { background: var(--stone); }
+    .pg0 .dot     { background: var(--stone3); }
+    .pg0 .pg-price { color: var(--ink2); }
+ 
+    .pg1 .pg-head  { background: color-mix(in srgb, var(--blue-lt) 40%, #fff); }
+    .pg1 .dot      { background: var(--blue); }
+    .pg1 .pg-price { color: var(--blue); }
+ 
+    .pg2 .pg-head  { background: color-mix(in srgb, var(--purple-lt) 40%, #fff); }
+    .pg2 .dot      { background: var(--purple); }
+    .pg2 .pg-price { color: var(--purple); }
+ 
+    .pg3 .pg-head  { background: color-mix(in srgb, var(--amber-lt) 40%, #fff); }
+    .pg3 .dot      { background: var(--amber); }
+    .pg3 .pg-price { color: var(--amber); }
+ 
+    /* ── BUNDLE NOTE ─────────────────────────────────── */
+    .bundle {
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 14px 18px;
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 8px;
+      font-size: 12px; color: var(--muted);
+      background: #fff;
+    }
+    .bundle-arrow {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; color: var(--gold); flex-shrink: 0;
+    }
+    .bundle strong { color: var(--ink); font-weight: 500; }
+ 
+    /* ── SUBSCRIPTION PLANS ──────────────────────────── */
+    .plans-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px; margin-bottom: 8px;
+      align-items: start;
+    }
+    .plan-card {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      background: #fff; overflow: hidden;
+      position: relative;
+    }
+    .plan-card.featured { border-color: var(--ink); }
+    .plan-featured-label {
+      position: absolute; top: -1px; right: 16px;
+      background: var(--ink); color: #fff;
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; font-weight: 500;
+      letter-spacing: 2px; text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 0 0 6px 6px;
+    }
+    .plan-head {
+      padding: 18px 18px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .plan-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 5px;
+    }
+    .plan-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 400;
+      color: var(--ink); margin-bottom: 3px;
+    }
+    .plan-sub { font-size: 11px; color: var(--muted); margin-bottom: 14px; }
+    .plan-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px; font-weight: 400;
+      line-height: 1; color: var(--ink); margin-bottom: 3px;
+    }
+    .plan-price-note { font-size: 10px; color: var(--muted); }
+    .plan-body { padding: 16px 18px; }
+    .plan-cap {
+      font-size: 11px; color: var(--muted);
+      padding: 8px 11px;
+      background: var(--stone);
+      border-radius: var(--r-sm);
+      margin-bottom: 12px; line-height: 1.45;
+    }
+    .plan-section-label {
+      display: block;
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--gold);
+      padding: 10px 0 4px;
+    }
+    .plan-row {
+      display: flex; align-items: flex-start;
+      gap: 7px; padding: 5px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 11px; color: var(--muted); line-height: 1.35;
+    }
+    .plan-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .plan-cta {
+      display: block; text-align: center;
+      font-size: 12px; font-weight: 500;
+      padding: 10px; border-radius: var(--r-sm);
+      border: 1px solid; margin-top: 16px;
+      cursor: pointer; text-decoration: none;
+      transition: all .2s; letter-spacing: .3px;
+    }
+    .cta-primary {
+      background: var(--ink); color: #fff;
+      border-color: var(--ink);
+    }
+    .cta-primary:hover { background: var(--ink2); }
+    .cta-sec {
+      background: transparent; color: var(--ink);
+      border-color: var(--border);
+    }
+    .cta-sec:hover { border-color: var(--stone3); background: var(--stone); }
+ 
+    /* ── SOVEREIGN DETAIL ────────────────────────────── */
+    .sovereign {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      background: #fff; overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .sov-head {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      border-bottom: 1px solid var(--border);
+    }
+    .sov-section { padding: 18px 20px; }
+    .sov-section:not(:last-child) { border-right: 1px solid var(--border); }
+    .sov-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 5px;
+    }
+    .sov-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 400;
+      margin-bottom: 3px;
+    }
+    .sov-sub { font-size: 11px; color: var(--muted); }
+    .sov-body {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      border-bottom: 1px solid var(--border);
+    }
+    .sov-col { padding: 16px 18px; }
+    .sov-col:not(:last-child) { border-right: 1px solid var(--border); }
+    .sov-col-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .sov-row {
+      display: flex; align-items: flex-start; gap: 7px;
+      padding: 5px 0; font-size: 11px; color: var(--muted);
+      line-height: 1.35; border-bottom: 1px solid var(--border);
+    }
+    .sov-row:last-child { border-bottom: none; }
+    .sov-footer {
+      padding: 14px 18px;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 16px;
+      font-size: 11px; color: var(--muted);
+      background: var(--stone);
+    }
+    .sov-cta {
+      font-size: 12px; font-weight: 500;
+      padding: 9px 20px; border-radius: var(--r-sm);
+      border: 1px solid var(--border);
+      cursor: pointer; white-space: nowrap;
+      flex-shrink: 0; text-decoration: none;
+      color: var(--ink); background: #fff;
+      transition: border-color .2s;
+    }
+    .sov-cta:hover { border-color: var(--stone3); }
+ 
+    /* ── COMPARE TABLE ──────────────────────────────── */
+    .compare {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      background: #fff; overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .compare-row {
+      display: grid;
+      grid-template-columns: 200px 1fr 1fr 1fr 1fr;
+      border-bottom: 1px solid var(--border);
+    }
+    .compare-row:last-child { border-bottom: none; }
+    .cp {
+      padding: 10px 14px;
+      border-right: 1px solid var(--border);
+      font-size: 11px; color: var(--muted);
+      text-align: center;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cp:first-child  { text-align: left; justify-content: flex-start; }
+    .cp:last-child   { border-right: none; }
+    .cp.hd {
+      background: var(--stone);
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted);
+      font-weight: 500;
+    }
+    .cp.cat {
+      background: var(--stone);
+      font-weight: 500; color: var(--ink);
+      font-size: 11px; text-align: left;
+      justify-content: flex-start;
+    }
+    .cp.section-hd {
+      grid-column: 1 / -1;
+      background: color-mix(in srgb, var(--stone) 60%, #fff);
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--gold);
+      justify-content: flex-start;
+      font-weight: 500;
+    }
+    .cp.m-col { background: color-mix(in srgb, var(--green-lt) 35%, #fff); }
+    .chk  { color: var(--green); font-weight: 500; font-size: 12px; }
+    .crss { color: var(--stone3); font-size: 14px; }
+    .plus { color: var(--blue); font-weight: 500; font-size: 11px; }
+ 
+    /* ── FAQ ────────────────────────────────────────── */
+    .faq {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 10px; margin-bottom: 8px;
+    }
+    .faq-item {
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 16px 18px; background: #fff;
+    }
+    .faq-q {
+      font-size: 12px; font-weight: 500;
+      color: var(--ink); margin-bottom: 6px;
+    }
+    .faq-a { font-size: 11px; color: var(--muted); line-height: 1.55; }
+ 
+    /* ── BOTTOM CTA ─────────────────────────────────── */
+    .bottom-cta {
+      background: var(--ink);
+      border-radius: var(--r-lg);
+      padding: 40px 48px;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 32px;
+      position: relative; overflow: hidden;
+    }
+    .bottom-cta::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold-dim), var(--gold), var(--gold-dim));
+    }
+    .bc-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .bc-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px; font-weight: 300;
+      color: #fff; margin-bottom: 8px; line-height: 1.2;
+    }
+    .bc-sub {
+      font-size: 12px; color: rgba(255,255,255,.45);
+      line-height: 1.6; max-width: 400px;
+    }
+    .bc-actions { display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
+    .btn {
+      display: inline-block; text-align: center;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px; font-weight: 500;
+      padding: 10px 24px; border-radius: var(--r-sm);
+      border: 1px solid; cursor: pointer;
+      text-decoration: none; white-space: nowrap;
+      letter-spacing: .3px; transition: all .2s;
+    }
+    .btn-gold {
+      background: var(--gold); color: var(--ink);
+      border-color: var(--gold);
+    }
+    .btn-gold:hover { background: var(--gold-lt); border-color: var(--gold-lt); }
+    .btn-ghost {
+      background: transparent; color: rgba(255,255,255,.7);
+      border-color: rgba(255,255,255,.2);
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,.4); color: #fff; }
+ 
+    /* ── FOOTER ─────────────────────────────────────── */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 40px;
+      display: flex; align-items: center;
+      justify-content: space-between;
+    }
+    .footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px; font-weight: 300;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--ink);
+    }
+    .footer-brand span { color: var(--gold); }
+    .footer-info {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px; color: var(--muted); letter-spacing: 1px;
+    }
+    .footer-info a { color: var(--gold-dim); text-decoration: none; }
+    .footer-info a:hover { color: var(--gold); }
+ 
+    /* ── RESPONSIVE ─────────────────────────────────── */
+    @media (max-width: 800px) {
+      .site-header { padding: 0 20px; }
+      .nav-links > a { display: none; }
+      .hero-band { padding: 48px 20px 40px; }
+      .page-wrap { padding: 0 20px 60px; }
+      .payg-grid { grid-template-columns: 1fr 1fr; }
+      .plans-grid { grid-template-columns: 1fr; }
+      .sov-head, .sov-body { grid-template-columns: 1fr; }
+      .sov-section:not(:last-child) { border-right: none; border-bottom: 1px solid var(--border); }
+      .sov-col:not(:last-child) { border-right: none; border-bottom: 1px solid var(--border); }
+      .compare-row { grid-template-columns: 130px 1fr 1fr 1fr 1fr; }
+      .faq { grid-template-columns: 1fr; }
+      .bottom-cta { flex-direction: column; padding: 32px 24px; }
+      .footer { flex-direction: column; gap: 8px; text-align: center; padding: 20px; }
+    }
+  </style>
 </head>
 <body>
-
-    <!-- HEADER IGUAL AL MODELO REACT -->
-    <header class="site-header">
-        <a href="index.html" class="logo-container">
-            <!-- INSERTA EL CÓDIGO DEL LOGO AQUÍ -->
-        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" class="text-[#3B82F6]">
-            <path d="M12 2L20 6V12C20 17 16.5 21 12 22C7.5 21 4 17 4 12V6L12 2Z" stroke="currentColor" stroke-width="1.6"/>
-            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.2"/>
-            <circle cx="12" cy="12" r="7" stroke="currentColor" stroke-opacity="0.4" stroke-width="1"/>
-        </svg>
-        <div class="text-xl font-semibold tracking-tight">AegisBid</div>
-    </a>
-        <nav class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="platform.html">Platform</a>
-            <a href="pricing.html">Pricing</a>
-            <a href="solutions.html">Solutions</a>
-            <a href="Command Center.html">Command Center</a>
-            <a href="security.html">Security</a>
-            <a href="contact.html">Contact</a>
-
-            <div class="lang-selector">
-                <a href="index.html" class="active">EN</a>
-                <a href="../es/index.html">ES</a>
-                <a href="../pt/index.html">PT</a>
-            </div>
-            
-        </nav>
-    </header>
-
-    <main>
-        <section class="max-w-7xl mx-auto px-8 py-20">
-            
-            <!-- HEADER DE PRICING -->
-            <div class="mb-16">
-                <div class="text-[10px] uppercase tracking-[0.5em] text-blue-500 font-bold mb-6">License Tiers</div>
-                <h1 class="text-6xl md:text-8xl font-bold tracking-tight leading-[0.95] mb-8">Pricing</h1>
-                <p class="text-xl text-neutral-500 max-w-2xl leading-relaxed">
-                    Choose the plan that matches your bid volume and governance needs.
-                </p>
-            </div>
-
-            <!-- GRID DE PLANES -->
-            <div class="grid md:grid-cols-4 gap-6 mt-10">
-                
-                <!-- Starter -->
-                <div class="pricing-card">
-                    <div>
-                        <div class="text-xl font-medium mb-4">Starter</div>
-                        <div class="flex items-baseline gap-1">
-                            <span class="text-5xl font-bold">€149</span>
-                            <span class="text-sm text-white/40">/tender</span>
-                        </div>
-                        <ul class="mt-8 space-y-4 text-sm text-white/60">
-                            <li class="flex items-center gap-2"><span>•</span> 1 PDF analysis</li>
-                            <li class="flex items-center gap-2"><span>•</span> Go / No-Go score</li>
-                            <li class="flex items-center gap-2"><span>•</span> Risk summary</li>
-                            <li class="flex items-center gap-2"><span>•</span> Board memo PDF</li>
-                        </ul>
-                    </div>
-                    <button class="mt-10 w-full py-4 rounded-2xl border border-white/10 hover:bg-white/5 transition-colors text-sm font-bold">Start Now</button>
-                </div>
-
-                <!-- SME -->
-                <div class="pricing-card">
-                    <div>
-                        <div class="text-xl font-medium mb-4 text-white/80">SME</div>
-                        <div class="flex items-baseline gap-1">
-                            <span class="text-5xl font-bold">€9k</span>
-                            <span class="text-sm text-white/40">/annual</span>
-                        </div>
-                        <ul class="mt-8 space-y-4 text-sm text-white/60">
-                            <li class="flex items-center gap-2"><span>•</span> 25 analyses</li>
-                            <li class="flex items-center gap-2"><span>•</span> 10 users</li>
-                            <li class="flex items-center gap-2"><span>•</span> Email alerts</li>
-                            <li class="flex items-center gap-2"><span>•</span> Pipeline dashboard</li>
-                        </ul>
-                    </div>
-                    <button class="mt-10 w-full py-4 rounded-2xl border border-white/10 hover:bg-white/5 transition-colors text-sm font-bold">Get Started</button>
-                </div>
-
-                <!-- Enterprise -->
-                <div class="pricing-card featured">
-                    <div>
-                        <div class="text-xl font-medium mb-4 text-cyan-400">Enterprise</div>
-                        <div class="flex items-baseline gap-1">
-                            <span class="text-5xl font-bold text-white">€90k</span>
-                            <span class="text-sm text-white/40">/annual</span>
-                        </div>
-                        <ul class="mt-8 space-y-4 text-sm text-white/60">
-                            <li class="flex items-center gap-2"><span class="text-cyan-400">•</span> Unlimited analyses</li>
-                            <li class="flex items-center gap-2"><span class="text-cyan-400">•</span> 100 users</li>
-                            <li class="flex items-center gap-2"><span class="text-cyan-400">•</span> SSO / RBAC</li>
-                            <li class="flex items-center gap-2"><span class="text-cyan-400">•</span> API + live feeds</li>
-                        </ul>
-                    </div>
-                    <button class="mt-10 w-full py-4 rounded-2xl bg-cyan-600 hover:bg-cyan-500 transition-colors text-black font-extrabold text-sm uppercase tracking-wider">Contact Sales</button>
-                </div>
-
-                <!-- Command -->
-                <div class="pricing-card border-amber-400/20">
-                    <div>
-                        <div class="text-xl font-medium mb-4 text-amber-300">Command</div>
-                        <div class="flex items-baseline gap-1">
-                            <span class="text-5xl font-bold text-white">€150k+</span>
-                            <span class="text-sm text-white/40">/annual</span>
-                        </div>
-                        <ul class="mt-8 space-y-4 text-sm text-white/60">
-                            <li class="flex items-center gap-2"><span class="text-amber-300">•</span> Sovereign hosting</li>
-                            <li class="flex items-center gap-2"><span class="text-amber-300">•</span> Custom AI models</li>
-                            <li class="flex items-center gap-2"><span class="text-amber-300">•</span> Dedicated success</li>
-                            <li class="flex items-center gap-2"><span class="text-amber-300">•</span> White-glove setup</li>
-                        </ul>
-                    </div>
-                    <button class="mt-10 w-full py-4 rounded-2xl border border-amber-400/30 hover:bg-amber-400/10 transition-colors text-amber-200 text-sm font-bold">Talk to Expert</button>
-                </div>
-            </div>
-
-            <!-- PDF DOWNLOAD SECTION -->
-            <div class="mt-20 p-12 rounded-[2.5rem] bg-[#161A20] border border-white/5 flex flex-col md:flex-row items-center justify-between gap-8">
-                <div>
-                    <h3 class="text-3xl font-bold mb-2">Ready to present to the Board?</h3>
-                    <p class="text-white/50 text-lg">Download our comprehensive Board Memo template for AegisBid integration.</p>
-                </div>
-                <a download="Board_Memo_AegisBid.pdf" href="data:application/pdf;base64,JVBERi0xLjQKJcfs...">
-                    <button class="glow-button px-8 py-4 rounded-2xl bg-blue-600 text-white font-bold text-lg flex items-center gap-3">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                        Download Board Memo PDF
-                    </button>
-                </a>
-            </div>
-        </section>
-    </main>
-
-    <footer class="py-12 border-t border-white/10 text-center text-white/20 text-xs">
-        AegisBid © 2026 — Strategic Licensing & Enterprise Support
-    </footer>
-
+ 
+<!-- ══ HEADER ════════════════════════════════════════ -->
+<header class="site-header">
+  <a href="index.html" class="logo-container">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2L20 6V12C20 17 16.5 21 12 22C7.5 21 4 17 4 12V6L12 2Z"
+            stroke="currentColor" stroke-width="1.6"/>
+      <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.2"/>
+      <circle cx="12" cy="12" r="7" stroke="currentColor" stroke-opacity="0.4" stroke-width="1"/>
+    </svg>
+    <div class="logo-wordmark">M<span>A</span>NDATUM</div>
+  </a>
+  <nav class="nav-links">
+    <a href="pricing.html" class="active">Pricing</a>
+    <a href="security.html">Security</a>
+    <a href="command-center.html">Command Center</a>
+    <a href="investors.html">Investors</a>
+    <a href="contact.html">Contact</a>
+    <div class="lang-selector">
+      <a href="pricing.html" class="active">EN</a>
+      <a href="../es/pricing.html">ES</a>
+      <a href="../pt/pricing.html">PT</a>
+    </div>
+  </nav>
+</header>
+ 
+<!-- ══ HERO ══════════════════════════════════════════ -->
+<div class="hero-band">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Pricing</div>
+    <div class="hero-title">
+      Start with one decision.<br>
+      <em>Scale when it pays for itself.</em>
+    </div>
+    <div class="hero-sub">
+      Every plan is designed to generate a positive return on the first deal it analyses.
+      Start pay-as-you-go with no commitment.
+      Move to subscription when the volume justifies it.
+    </div>
+  </div>
+</div>
+ 
+<!-- ══ PAGE CONTENT ══════════════════════════════════ -->
+<div class="page-wrap">
+ 
+  <!-- ── PAY-AS-YOU-GO ── -->
+  <div class="sl">Pay-as-you-go — expense it to your bid budget</div>
+  <div class="payg-grid">
+ 
+    <div class="payg-card pg0">
+      <div class="pg-head">
+        <div class="pg-gate">Mandatum Scan</div>
+        <div class="pg-name">Go / Hold / Reject</div>
+        <div class="pg-price">€49</div>
+        <div class="pg-per">per opportunity · all tiers</div>
+      </div>
+      <div class="pg-body">
+        <div class="pg-row"><span class="dot"></span>Buyer credibility check</div>
+        <div class="pg-row"><span class="dot"></span>Payment risk &amp; liability exposure</div>
+        <div class="pg-row"><span class="dot"></span>Commercial red flags &amp; poison pills</div>
+        <div class="pg-row"><span class="dot"></span>Deadline feasibility score</div>
+        <div class="pg-row"><span class="dot"></span>Go / Hold / Reject mandate</div>
+        <div class="pg-roi">Costs less than one hour of external legal counsel. Filters opportunities that were never winnable.</div>
+      </div>
+    </div>
+ 
+    <div class="payg-card pg1">
+      <div class="pg-head">
+        <div class="pg-gate">Gate I · Mandatum Bid</div>
+        <div class="pg-name">Bid / No-Bid</div>
+        <div class="pg-price">€149</div>
+        <div class="pg-per">per opportunity · all tiers</div>
+      </div>
+      <div class="pg-body">
+        <div class="pg-row"><span class="dot"></span>Full requirements extraction</div>
+        <div class="pg-row"><span class="dot"></span>Compliance Matrix — ready to export</div>
+        <div class="pg-row"><span class="dot"></span>Pursuit Score + Bid Readiness Score</div>
+        <div class="pg-row"><span class="dot"></span>Competitive posture assessment</div>
+        <div class="pg-row"><span class="dot"></span>Executive Decision Mandate for leadership</div>
+        <div class="pg-roi">One No-Bid decision that frees your engineering team for a week pays for 50 Gate I analyses.</div>
+      </div>
+    </div>
+ 
+    <div class="payg-card pg2">
+      <div class="pg-head">
+        <div class="pg-gate">Gate II · Mandatum Submit</div>
+        <div class="pg-name">Control Submission</div>
+        <div class="pg-price">€490</div>
+        <div class="pg-per">per opportunity · confidential data</div>
+      </div>
+      <div class="pg-body">
+        <div class="pg-row"><span class="dot"></span>Compliance audit vs final proposal</div>
+        <div class="pg-row"><span class="dot"></span>Pricing &amp; margin threshold verification</div>
+        <div class="pg-row"><span class="dot"></span>Walk-away conditions defined</div>
+        <div class="pg-row"><span class="dot"></span>Negotiation mandate — approved deviations</div>
+        <div class="pg-row"><span class="dot"></span>Authorization to submit</div>
+        <div class="pg-roi">If a €490 review prevents one €500k submission error, the ROI is 1,000×. The cheapest insurance in your bid budget.</div>
+      </div>
+    </div>
+ 
+    <div class="payg-card pg3">
+      <div class="pg-head">
+        <div class="pg-gate">Gate III · Mandatum Sign</div>
+        <div class="pg-name">Control Signature</div>
+        <div class="pg-price">€990</div>
+        <div class="pg-per">per opportunity · maximum confidentiality</div>
+      </div>
+      <div class="pg-body">
+        <div class="pg-row"><span class="dot"></span>Variance vs approved mandate review</div>
+        <div class="pg-row"><span class="dot"></span>Margin erosion alerts</div>
+        <div class="pg-row"><span class="dot"></span>Unauthorized concession detection</div>
+        <div class="pg-row"><span class="dot"></span>Liability delta from original terms</div>
+        <div class="pg-row"><span class="dot"></span>Executive sign-off package — defensible record</div>
+        <div class="pg-roi">Deals are won in sales and lost in negotiation. €990 to maintain discipline until the ink is dry.</div>
+      </div>
+    </div>
+ 
+  </div>
+ 
+  <div class="bundle">
+    <div class="bundle-arrow">→</div>
+    <div>
+      <strong>Full lifecycle deal:</strong> Scan + Gate I + Gate II + Gate III = <strong>€1,678 per opportunity.</strong>
+      On a €2M contract, that's 0.08% of deal value for complete decision governance from first look to final signature.
+    </div>
+  </div>
+ 
+  <!-- ── SUBSCRIPTION PLANS ── -->
+  <div class="sl">Subscription plans — standardized discipline across your organization</div>
+ 
+  <div class="toggle-wrap">
+    <span>Monthly</span>
+    <div class="toggle on" id="billing-toggle" onclick="toggleBilling()">
+      <div class="toggle-knob"></div>
+    </div>
+    <span>Annual <span class="save-badge">Save 20%</span></span>
+  </div>
+ 
+  <div class="plans-grid">
+ 
+    <!-- PLAN 1: BID -->
+    <div class="plan-card">
+      <div class="plan-head">
+        <div class="plan-tag">Gate I Plan</div>
+        <div class="plan-name">Bid / No-Bid</div>
+        <div class="plan-sub">For capture teams and bid desks with high deal volume</div>
+        <div class="plan-price" id="p1" style="color:var(--blue)">€1,450</div>
+        <div class="plan-price-note">/month · billed annually · up to 15 reviews/month</div>
+      </div>
+      <div class="plan-body">
+        <div class="plan-cap">15 Gate I reviews/month included. Additional reviews at €99 each.</div>
+        <span class="plan-section-label">Scan &amp; Gate I</span>
+        <div class="plan-row"><span class="dot" style="background:var(--blue)"></span>Unlimited Mandatum Scans</div>
+        <div class="plan-row"><span class="dot" style="background:var(--blue)"></span>15 full Gate I analyses per month</div>
+        <div class="plan-row"><span class="dot" style="background:var(--blue)"></span>Compliance Matrix export (XLSX / CSV)</div>
+        <div class="plan-row"><span class="dot" style="background:var(--blue)"></span>Executive Decision Mandates</div>
+        <span class="plan-section-label">Intelligence</span>
+        <div class="plan-row"><span class="dot" style="background:var(--blue)"></span>Pursuit Score benchmarks</div>
+        <div class="plan-row"><span class="dot" style="background:var(--blue)"></span>Compliance Matrix pre-fill (from Gate 10)</div>
+        <div class="plan-row"><span class="dot" style="background:var(--blue)"></span>Decision History Audit</div>
+        <span class="plan-section-label">Collaboration</span>
+        <div class="plan-row"><span class="dot" style="background:var(--blue)"></span>Multi-user · up to 10 seats</div>
+        <div class="plan-row"><span class="dot" style="background:var(--blue)"></span>SSO with your IdP</div>
+        <div class="plan-row"><span class="dot" style="background:var(--blue)"></span>Mandatum Cloud (dedicated tenant)</div>
+        <a href="contact.html" class="plan-cta cta-sec">Start with Gate I</a>
+      </div>
+    </div>
+ 
+    <!-- PLAN 2: GOVERNANCE — FEATURED -->
+    <div class="plan-card featured">
+      <div class="plan-featured-label">Most popular</div>
+      <div class="plan-head">
+        <div class="plan-tag">Full Lifecycle Plan</div>
+        <div class="plan-name">Governance</div>
+        <div class="plan-sub">For Finance, Legal, and Executive leadership</div>
+        <div class="plan-price" id="p2" style="color:var(--purple)">€4,900</div>
+        <div class="plan-price-note">/month · billed annually · unlimited Gate I + 5 Gate II/III deals</div>
+      </div>
+      <div class="plan-body">
+        <div class="plan-cap">Unlimited Gate I + 5 Gate II &amp; III deals/month. Additional Gate II/III at €390 each.</div>
+        <span class="plan-section-label">Everything in Gate I plan, plus</span>
+        <div class="plan-row"><span class="dot" style="background:var(--purple)"></span>Gate II: Mandatum Submit module</div>
+        <div class="plan-row"><span class="dot" style="background:var(--purple)"></span>Gate III: Mandatum Sign module</div>
+        <div class="plan-row"><span class="dot" style="background:var(--purple)"></span>Negotiation Heatmaps</div>
+        <div class="plan-row"><span class="dot" style="background:var(--purple)"></span>Margin Erosion Alerts</div>
+        <div class="plan-row"><span class="dot" style="background:var(--purple)"></span>Executive Sign-off Packages</div>
+        <span class="plan-section-label">Security</span>
+        <div class="plan-row"><span class="dot" style="background:var(--purple)"></span>BYOK encryption (your KMS)</div>
+        <div class="plan-row"><span class="dot" style="background:var(--purple)"></span>Logs to your SIEM (Splunk / Sentinel)</div>
+        <div class="plan-row"><span class="dot" style="background:var(--purple)"></span>Zero standing privileges · JIT access</div>
+        <div class="plan-row"><span class="dot" style="background:var(--purple)"></span>SOC 2 Type II report on request</div>
+        <a href="contact.html" class="plan-cta cta-primary">Start with Governance</a>
+      </div>
+    </div>
+ 
+    <!-- PLAN 3: SOVEREIGN -->
+    <div class="plan-card">
+      <div class="plan-head">
+        <div class="plan-tag">Enterprise Plan</div>
+        <div class="plan-name">Sovereign</div>
+        <div class="plan-sub">Defense, infrastructure, and regulated industries</div>
+        <div class="plan-price" style="color:var(--amber)">Custom</div>
+        <div class="plan-price-note">Unlimited gates · deployment fee + annual subscription</div>
+      </div>
+      <div class="plan-body">
+        <div class="plan-cap">Unlimited all Gates. Includes Strategic Advisor. Priced on deployment tier and deal volume.</div>
+        <span class="plan-section-label">Everything in Governance, plus</span>
+        <div class="plan-row"><span class="dot" style="background:var(--amber)"></span>Unlimited Gate II &amp; Gate III deals</div>
+        <div class="plan-row"><span class="dot" style="background:var(--amber)"></span>Private Cloud (BYOC) deployment</div>
+        <div class="plan-row"><span class="dot" style="background:var(--amber)"></span>Air-Gapped / On-Premise deployment</div>
+        <div class="plan-row"><span class="dot" style="background:var(--amber)"></span>FIPS 140-3 physical HSM</div>
+        <div class="plan-row"><span class="dot" style="background:var(--amber)"></span>CC EAL4+ certification path</div>
+        <div class="plan-row"><span class="dot" style="background:var(--amber)"></span>ITAR compliance package</div>
+        <div class="plan-row"><span class="dot" style="background:var(--amber)"></span>Annual Model Base Update (€15–30k)</div>
+        <div class="plan-row"><span class="dot" style="background:var(--amber)"></span>Dedicated Strategic Advisor</div>
+        <div class="plan-row"><span class="dot" style="background:var(--amber)"></span>Right to audit — no prior notice</div>
+        <a href="contact.html" class="plan-cta cta-sec">Request a conversation</a>
+      </div>
+    </div>
+ 
+  </div>
+ 
+  <!-- ── SOVEREIGN DEPLOYMENT DETAIL ── -->
+  <div class="sl">Sovereign — deployment options</div>
+  <div class="sovereign">
+    <div class="sov-head">
+      <div class="sov-section">
+        <div class="sov-label">Mandatum Cloud</div>
+        <div class="sov-val">Base price</div>
+        <div class="sov-sub">Fastest deploy · managed by Mandatum</div>
+      </div>
+      <div class="sov-section">
+        <div class="sov-label">Private Cloud · BYOC</div>
+        <div class="sov-val" style="color:var(--purple)">Base +30–40%</div>
+        <div class="sov-sub">Your AWS / Azure / GCP · you control IAM</div>
+      </div>
+      <div class="sov-section">
+        <div class="sov-label">Air-Gapped · On-Premise</div>
+        <div class="sov-val" style="color:var(--amber)">Base +80–120%</div>
+        <div class="sov-sub">Zero connectivity · physical HSM · FIPS 140-3</div>
+      </div>
+    </div>
+    <div class="sov-body">
+      <div class="sov-col">
+        <div class="sov-col-label">Mandatum Cloud includes</div>
+        <div class="sov-row"><span class="dot" style="background:var(--blue);margin-top:4px"></span>Dedicated VPC · isolated compute &amp; storage</div>
+        <div class="sov-row"><span class="dot" style="background:var(--blue);margin-top:4px"></span>BYOK · CMEK · logs to your SIEM</div>
+        <div class="sov-row"><span class="dot" style="background:var(--blue);margin-top:4px"></span>Private Link · no public internet exposure</div>
+      </div>
+      <div class="sov-col">
+        <div class="sov-col-label">Private Cloud includes</div>
+        <div class="sov-row"><span class="dot" style="background:var(--purple);margin-top:4px"></span>Deploy fee: €8k one-time</div>
+        <div class="sov-row"><span class="dot" style="background:var(--purple);margin-top:4px"></span>Mandatum has zero access to data at rest</div>
+        <div class="sov-row"><span class="dot" style="background:var(--purple);margin-top:4px"></span>Updates via signed container pull</div>
+      </div>
+      <div class="sov-col">
+        <div class="sov-col-label">Air-Gapped includes</div>
+        <div class="sov-row"><span class="dot" style="background:var(--amber);margin-top:4px"></span>Physical install + SBOM audit</div>
+        <div class="sov-row"><span class="dot" style="background:var(--amber);margin-top:4px"></span>Deploy fee: €25–50k one-time</div>
+        <div class="sov-row"><span class="dot" style="background:var(--amber);margin-top:4px"></span>Annual Model Base Update: €15–30k</div>
+      </div>
+    </div>
+    <div class="sov-footer">
+      <div>All Sovereign plans include: Strategic Advisor · DPA negotiation support · right to audit · SOC 2 Type II · pen test results · Privacy Budget Report · ITAR compliance package.</div>
+      <a href="contact.html" class="sov-cta">Talk to us about Sovereign</a>
+    </div>
+  </div>
+ 
+  <!-- ── COMPARE TABLE ── -->
+  <div class="sl">Full plan comparison</div>
+  <div class="compare">
+    <div class="compare-row">
+      <div class="cp hd"></div>
+      <div class="cp hd">Scan</div>
+      <div class="cp hd">Gate I Plan</div>
+      <div class="cp hd">Governance</div>
+      <div class="cp hd">Sovereign</div>
+    </div>
+ 
+    <!-- SECTION: Decision gates -->
+    <div class="compare-row">
+      <div class="cp section-hd">Decision gates</div>
+    </div>
+    <div class="compare-row">
+      <div class="cp cat">Mandatum Scan</div>
+      <div class="cp"><span class="chk">✓</span></div>
+      <div class="cp m-col"><span class="chk">✓ Unlimited</span></div>
+      <div class="cp m-col"><span class="chk">✓ Unlimited</span></div>
+      <div class="cp m-col"><span class="chk">✓ Unlimited</span></div>
+    </div>
+    <div class="compare-row">
+      <div class="cp cat">Gate I · Bid / No-Bid</div>
+      <div class="cp"><span class="crss">—</span></div>
+      <div class="cp m-col"><span class="chk">✓ 15/mo</span></div>
+      <div class="cp m-col"><span class="chk">✓ Unlimited</span></div>
+      <div class="cp m-col"><span class="chk">✓ Unlimited</span></div>
+    </div>
+    <div class="compare-row">
+      <div class="cp cat">Gate II · Control Submission</div>
+      <div class="cp"><span class="crss">—</span></div>
+      <div class="cp"><span class="crss">—</span></div>
+      <div class="cp m-col"><span class="chk">✓ 5/mo</span></div>
+      <div class="cp m-col"><span class="chk">✓ Unlimited</span></div>
+    </div>
+    <div class="compare-row">
+      <div class="cp cat">Gate III · Control Signature</div>
+      <div class="cp"><span class="crss">—</span></div>
+      <div class="cp"><span class="crss">—</span></div>
+      <div class="cp m-col"><span class="chk">✓ 5/mo</span></div>
+      <div class="cp m-col"><span class="chk">✓ Unlimited</span></div>
+    </div>
+ 
+    <!-- SECTION: Intelligence -->
+    <div class="compare-row">
+      <div class="cp section-hd">Intelligence &amp; moat features</div>
+    </div>
+    <div class="compare-row">
+      <div class="cp cat">Compliance Matrix pre-fill</div>
+      <div class="cp"><span class="crss">—</span></div>
+      <div class="cp"><span class="plus">From Gate 10</span></div>
+      <div class="cp"><span class="plus">From Gate 10</span></div>
+      <div class="cp m-col"><span class="chk">✓</span></div>
+    </div>
+    <div class="compare-row">
+      <div class="cp cat">Sector benchmarks</div>
+      <div class="cp"><span class="crss">—</span></div>
+      <div class="cp m-col"><span class="chk">✓</span></div>
+      <div class="cp m-col"><span class="chk">✓</span></div>
+      <div class="cp m-col"><span class="chk">✓</span></div>
+    </div>
+    <div class="compare-row">
+      <div class="cp cat">Decision History Audit</div>
+      <div class="cp"><span class="crss">—</span></div>
+      <div class="cp m-col"><span class="chk">✓</span></div>
+      <div class="cp m-col"><span class="chk">✓</span></div>
+      <div class="cp m-col"><span class="chk">✓</span></div>
+    </div>
+    <div class="compare-row">
+      <div class="cp cat">Negotiation Heatmaps</div>
+      <div class="cp"><span class="crss">—</span></div>
+      <div class="cp"><span class="crss">—</span></div>
+      <div class="cp m-col"><span class="chk">✓</span></div>
+      <div class="cp m-col"><span class="chk">✓</span></div>
+    </div>
+    <div class="compare-row">
+      <div class="cp cat">Margin Erosion Alerts</div>
+      <div class="cp"><span class="crss">—</span></div>
+      <div class="cp"><span class="crss">—</span></div>
+      <div class="cp m-col"><span class="chk">✓</span></div>
+      <div class="cp m-col"><span class="chk">✓</span></div>
+    </div>
+ 
+    <!-- SECTION: Security -->
+    <div class="compare-row">
+      <div class="cp section-hd">Security &amp; deployment</div>
+    </div>
+    <div class="compare-row">
+      <div class="cp cat">BYOK encryption</div>
+      <div class="cp"><span class="crss">—</span></div>
+      <div class="cp"><span class="crss">—</span></div>
+      <div class="cp m-col"><span class="chk">✓</span></div>
+      <div class="cp m-col"><span class="chk">✓</span></div>
+    </div>
+    <div class="compare-row">
+      <div class="cp cat">Private Cloud / Air-Gapped</div>
+      <div class="cp"><span class="crss">—</span></div>
+      <div class="cp"><span class="crss">—</span></div>
+      <div class="cp"><span class="crss">—</span></div>
+      <div class="cp m-col"><span class="chk">✓</span></div>
+    </div>
+    <div class="compare-row">
+      <div class="cp cat">SOC 2 Type II</div>
+      <div class="cp"><span class="crss">—</span></div>
+      <div class="cp"><span class="crss">—</span></div>
+      <div class="cp m-col"><span class="chk">✓ On request</span></div>
+      <div class="cp m-col"><span class="chk">✓ Included</span></div>
+    </div>
+    <div class="compare-row">
+      <div class="cp cat">Right to audit</div>
+      <div class="cp"><span class="crss">—</span></div>
+      <div class="cp"><span class="crss">—</span></div>
+      <div class="cp"><span class="crss">—</span></div>
+      <div class="cp m-col"><span class="chk">✓ Contractual</span></div>
+    </div>
+  </div>
+ 
+  <!-- ── FAQ ── -->
+  <div class="sl">Common questions</div>
+  <div class="faq">
+    <div class="faq-item">
+      <div class="faq-q">Can I start pay-as-you-go and move to a subscription?</div>
+      <div class="faq-a">Yes. Pay-as-you-go has no commitment. Once you process 4–5 gates per month, the subscription pays for itself. We'll show you the breakeven calculation before you commit to anything.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Does Gate II or III require uploading confidential data to your servers?</div>
+      <div class="faq-a">No. Gates II and III run inside an isolated tenant — your dedicated Mandatum Cloud, your private cloud, or your on-premise environment. Your pricing and contract data never reach our infrastructure.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What happens to our data if we cancel?</div>
+      <div class="faq-a">You export everything in open formats before cancellation. We execute certified crypto-shredding of all copies within 30 days. Your Decision History Audit remains yours — we deliver it in full on exit.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Is there a minimum contract length for Governance or Sovereign?</div>
+      <div class="faq-a">Governance is available monthly or annually (20% savings). Sovereign typically runs on 12–36 month contracts given deployment complexity, but all terms are negotiated per engagement.</div>
+    </div>
+  </div>
+ 
+  <!-- ── BOTTOM CTA ── -->
+  <div class="bottom-cta">
+    <div>
+      <div class="bc-eyebrow">No account required</div>
+      <div class="bc-title">Not sure where to start?</div>
+      <div class="bc-sub">Analyse your next real opportunity with a free Mandatum Scan. See the Go / Hold / Reject mandate in under 20 minutes — before you commit a single resource.</div>
+    </div>
+    <div class="bc-actions">
+      <a href="contact.html" class="btn btn-gold">Try a free Mandatum Scan</a>
+      <a href="contact.html" class="btn btn-ghost">Talk to sales</a>
+    </div>
+  </div>
+ 
+</div><!-- /page-wrap -->
+ 
+<!-- ══ FOOTER ════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-brand">M<span>A</span>NDATUM</div>
+  <div class="footer-info">
+    © 2026 Mandatum &nbsp;·&nbsp;
+    <a href="mailto:sales@mandatum.io">sales@mandatum.io</a>
+    &nbsp;·&nbsp; mandatum.io
+  </div>
+</footer>
+ 
+<script>
+  let annual = true;
+  function toggleBilling() {
+    annual = !annual;
+    const t = document.getElementById('billing-toggle');
+    t.classList.toggle('on', annual);
+    document.getElementById('p1').textContent = annual ? '€1,450' : '€1,810';
+    document.getElementById('p2').textContent = annual ? '€4,900' : '€6,125';
+  }
+</script>
+ 
 </body>
 </html>
