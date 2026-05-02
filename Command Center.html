@@ -1,192 +1,1222 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AegisBid — Strategic Procurement</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="assets/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mandatum — Command Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Cormorant+SC:wght@400;500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ── RESET ─────────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+ 
+    :root {
+      --ink:       #0D0F14;
+      --ink2:      #1A1D26;
+      --ink3:      #252933;
+      --gold:      #B8963E;
+      --gold-lt:   #D4AE5C;
+      --gold-dim:  #7A621F;
+      --stone:     #F2EDE4;
+      --stone2:    #E8E0D0;
+      --stone3:    #CFC4B0;
+      --parch:     #FAFAF8;
+      --muted:     #6B6560;
+      --border:    #E5E0D8;
+      --teal:      #0D9488;
+      --teal-lt:   #CCFBF1;
+      --blue:      #2563EB;
+      --blue-lt:   #DBEAFE;
+      --purple:    #7C3AED;
+      --purple-lt: #EDE9FE;
+      --amber:     #D97706;
+      --amber-lt:  #FEF3C7;
+      --green:     #059669;
+      --green-lt:  #D1FAE5;
+      --red:       #DC2626;
+      --red-lt:    #FEE2E2;
+      --r-sm: 6px;
+      --r-md: 10px;
+      --r-lg: 14px;
+    }
+ 
+    html { scroll-behavior: smooth; }
+ 
+    body {
+      background: var(--parch);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+ 
+    /* ── HEADER ─────────────────────────────────────── */
+    .site-header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(250,250,248,.93);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 0 40px; height: 60px;
+    }
+    .logo-container {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--ink);
+    }
+    .logo-container svg { color: var(--gold); flex-shrink: 0; }
+    .logo-wordmark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; font-weight: 400;
+      letter-spacing: 4px; text-transform: uppercase;
+    }
+    .logo-wordmark span { color: var(--gold); }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a {
+      font-size: 12px; font-weight: 400;
+      color: var(--muted); text-decoration: none;
+      letter-spacing: .5px; transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a.active { color: var(--ink); font-weight: 500; }
+    .lang-selector {
+      display: flex; align-items: center; gap: 8px;
+      padding-left: 20px; border-left: 1px solid var(--border);
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; letter-spacing: 1.5px;
+    }
+    .lang-selector a { color: var(--muted); text-decoration: none; }
+    .lang-selector a.active { color: var(--gold); }
+ 
+    /* ── HERO BAND ───────────────────────────────────── */
+    .hero-band {
+      background: var(--ink);
+      padding: 64px 40px 0;
+      position: relative; overflow: hidden;
+    }
+    .hero-band::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,.018) 39px, rgba(255,255,255,.018) 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,.018) 39px, rgba(255,255,255,.018) 40px);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1080px; margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px; letter-spacing: 3.5px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 16px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .hero-eyebrow::before { content:''; width:16px; height:1px; background:var(--gold); }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(28px, 4vw, 52px);
+      font-weight: 300; line-height: 1.1;
+      color: #fff; margin-bottom: 12px; max-width: 680px;
+    }
+    .hero-title em { font-style: italic; color: var(--gold-lt); }
+    .hero-sub {
+      font-size: 13px; color: rgba(255,255,255,.48);
+      line-height: 1.7; max-width: 520px; margin-bottom: 40px;
+    }
+ 
+    /* ── DASHBOARD PREVIEW ───────────────────────────── */
+    .dashboard-preview {
+      max-width: 1080px; margin: 0 auto;
+      position: relative; z-index: 1;
+      border: 1px solid rgba(255,255,255,.08);
+      border-bottom: none;
+      border-radius: 12px 12px 0 0;
+      background: var(--ink2);
+      overflow: hidden;
+    }
+ 
+    /* Dashboard chrome bar */
+    .db-chrome {
+      background: var(--ink3);
+      padding: 10px 16px;
+      display: flex; align-items: center; gap: 12px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .db-dots { display: flex; gap: 5px; }
+    .db-dot {
+      width: 9px; height: 9px; border-radius: 50%;
+    }
+    .db-address {
+      flex: 1;
+      background: rgba(255,255,255,.05);
+      border-radius: 4px; padding: 4px 10px;
+      font-family: 'DM Mono', monospace;
+      font-size: 9px; color: rgba(255,255,255,.25);
+      letter-spacing: 1px;
+    }
+    .db-status {
+      display: flex; align-items: center; gap: 5px;
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--green);
+    }
+    .db-status::before {
+      content: '';
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+ 
+    /* Dashboard layout */
+    .db-layout {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      min-height: 480px;
+    }
+ 
+    /* Sidebar */
+    .db-sidebar {
+      background: rgba(0,0,0,.2);
+      border-right: 1px solid rgba(255,255,255,.05);
+      padding: 16px 0;
+    }
+    .db-sidebar-logo {
+      padding: 4px 16px 16px;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+      margin-bottom: 8px;
+      font-family: 'Cormorant SC', serif;
+      font-size: 12px; letter-spacing: 3px;
+      color: rgba(255,255,255,.5); text-transform: uppercase;
+    }
+    .db-sidebar-logo span { color: var(--gold); }
+    .db-nav-item {
+      display: flex; align-items: center; gap: 9px;
+      padding: 8px 16px;
+      font-size: 11px; color: rgba(255,255,255,.4);
+      cursor: pointer; transition: all .15s;
+      border-left: 2px solid transparent;
+    }
+    .db-nav-item:hover { color: rgba(255,255,255,.7); background: rgba(255,255,255,.03); }
+    .db-nav-item.active {
+      color: #fff;
+      background: rgba(255,255,255,.05);
+      border-left-color: var(--gold);
+    }
+    .db-nav-icon {
+      width: 14px; height: 14px;
+      border-radius: 3px;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 8px;
+    }
+    .db-nav-section {
+      font-family: 'DM Mono', monospace;
+      font-size: 7px; letter-spacing: 2.5px;
+      text-transform: uppercase; color: rgba(255,255,255,.18);
+      padding: 12px 16px 4px;
+    }
+ 
+    /* Main area */
+    .db-main { padding: 20px; overflow: hidden; }
+ 
+    /* Top bar */
+    .db-topbar {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .db-page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; font-weight: 400; color: #fff;
+    }
+    .db-topbar-actions { display: flex; gap: 8px; }
+    .db-btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 5px 12px; border-radius: 3px;
+      cursor: pointer;
+    }
+    .db-btn-ghost {
+      border: 1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.5);
+      background: transparent;
+    }
+    .db-btn-gold {
+      border: 1px solid var(--gold);
+      color: var(--ink); background: var(--gold);
+    }
+ 
+    /* KPI strip */
+    .db-kpis {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px; margin-bottom: 14px;
+    }
+    .db-kpi {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 6px; padding: 12px 14px;
+    }
+    .db-kpi-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 7px; letter-spacing: 2px;
+      text-transform: uppercase; color: rgba(255,255,255,.3);
+      margin-bottom: 5px;
+    }
+    .db-kpi-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 400; line-height: 1;
+      margin-bottom: 3px;
+    }
+    .db-kpi-delta {
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 1px;
+    }
+ 
+    /* Content grid */
+    .db-content {
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      gap: 12px;
+    }
+ 
+    /* Pursuits table */
+    .db-table-wrap {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 6px; overflow: hidden;
+    }
+    .db-table-header {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .db-table-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 2px;
+      text-transform: uppercase; color: rgba(255,255,255,.4);
+    }
+    .db-table-row {
+      display: grid;
+      grid-template-columns: 1fr 70px 72px 80px 36px;
+      align-items: center;
+      padding: 9px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.04);
+      transition: background .15s; cursor: pointer;
+    }
+    .db-table-row:last-child { border-bottom: none; }
+    .db-table-row:hover { background: rgba(255,255,255,.03); }
+    .db-table-row.hd {
+      background: rgba(0,0,0,.15);
+      cursor: default;
+    }
+    .db-table-row.hd:hover { background: rgba(0,0,0,.15); }
+    .db-th {
+      font-family: 'DM Mono', monospace;
+      font-size: 7px; letter-spacing: 2px;
+      text-transform: uppercase; color: rgba(255,255,255,.25);
+    }
+    .db-td-name {
+      font-size: 11px; color: rgba(255,255,255,.8);
+      font-weight: 400; white-space: nowrap;
+      overflow: hidden; text-overflow: ellipsis;
+    }
+    .db-td-sub {
+      font-size: 9px; color: rgba(255,255,255,.3);
+      margin-top: 1px;
+    }
+    .db-td-score {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px; font-weight: 400;
+      text-align: center;
+    }
+    .db-gate-pill {
+      font-family: 'DM Mono', monospace;
+      font-size: 7px; letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 2px 7px; border-radius: 2px;
+      text-align: center; white-space: nowrap;
+    }
+    .db-action {
+      width: 22px; height: 22px;
+      border-radius: 3px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; color: rgba(255,255,255,.3);
+      cursor: pointer;
+    }
+ 
+    /* Right panel */
+    .db-right { display: flex; flex-direction: column; gap: 10px; }
+ 
+    .db-panel {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 6px; overflow: hidden;
+    }
+    .db-panel-header {
+      padding: 9px 12px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      font-family: 'DM Mono', monospace;
+      font-size: 7px; letter-spacing: 2px;
+      text-transform: uppercase; color: rgba(255,255,255,.35);
+    }
+    .db-panel-body { padding: 12px; }
+ 
+    /* Mandate card */
+    .db-mandate {
+      border-left: 2px solid var(--gold);
+      padding: 8px 10px;
+      background: rgba(184,150,62,.05);
+      margin-bottom: 8px;
+    }
+    .db-mandate:last-child { margin-bottom: 0; }
+    .db-mandate-gate {
+      font-family: 'DM Mono', monospace;
+      font-size: 7px; letter-spacing: 2px;
+      text-transform: uppercase; margin-bottom: 3px;
+    }
+    .db-mandate-title { font-size: 11px; font-weight: 500; color: #fff; margin-bottom: 2px; }
+    .db-mandate-meta { font-size: 9px; color: rgba(255,255,255,.3); }
+ 
+    /* Score bar */
+    .db-score-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,.05);
+      font-size: 10px; color: rgba(255,255,255,.45);
+    }
+    .db-score-row:last-child { border-bottom: none; }
+    .db-score-label { flex: 1; font-size: 9px; }
+    .db-score-bar-wrap {
+      width: 60px; height: 3px;
+      background: rgba(255,255,255,.08); border-radius: 2px; overflow: hidden;
+    }
+    .db-score-bar { height: 100%; border-radius: 2px; }
+    .db-score-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px; width: 22px; text-align: right;
+    }
+ 
+    /* ── PAGE WRAP ───────────────────────────────────── */
+    .page-wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 40px 80px;
+    }
+ 
+    /* ── SECTION LABELS ──────────────────────────────── */
+    .sl {
+      display: flex; align-items: center; gap: 14px;
+      margin: 56px 0 22px;
+      font-family: 'DM Mono', monospace;
+      font-size: 9px; font-weight: 500;
+      letter-spacing: 3px; text-transform: uppercase; color: var(--gold);
+    }
+    .sl::before { content:''; width:20px; height:1px; background:var(--gold); flex-shrink:0; }
+    .sl::after  { content:''; flex:1; height:1px; background:var(--border); }
+    .sl:first-child { margin-top: 56px; }
+ 
+    /* ── FEATURE GRID ────────────────────────────────── */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px; margin-bottom: 10px;
+    }
+    .feature-card {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      background: #fff; padding: 24px 22px;
+      position: relative; overflow: hidden;
+    }
+    .feature-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .feature-card.fc-blue::before   { background: var(--blue); }
+    .feature-card.fc-teal::before   { background: var(--teal); }
+    .feature-card.fc-purple::before { background: var(--purple); }
+    .feature-card.fc-amber::before  { background: var(--amber); }
+    .feature-card.fc-green::before  { background: var(--green); }
+    .feature-card.fc-gold::before   { background: var(--gold); }
+ 
+    .fc-icon {
+      width: 36px; height: 36px;
+      border-radius: var(--r-sm);
+      display: flex; align-items: center;
+      justify-content: center; font-size: 16px;
+      margin-bottom: 14px;
+    }
+    .fc-blue .fc-icon   { background: var(--blue-lt); }
+    .fc-teal .fc-icon   { background: var(--teal-lt); }
+    .fc-purple .fc-icon { background: var(--purple-lt); }
+    .fc-amber .fc-icon  { background: var(--amber-lt); }
+    .fc-green .fc-icon  { background: var(--green-lt); }
+    .fc-gold .fc-icon   { background: color-mix(in srgb, var(--stone) 80%, var(--gold)); }
+ 
+    .fc-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
+    .fc-body  { font-size: 12px; color: var(--muted); line-height: 1.65; margin-bottom: 14px; }
+    .fc-detail {
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+    .fc-detail-item {
+      display: flex; align-items: flex-start; gap: 7px;
+      padding: 4px 0; font-size: 11px; color: var(--muted);
+      border-bottom: 1px solid var(--border);
+    }
+    .fc-detail-item:last-child { border-bottom: none; }
+    .dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+ 
+    /* ── GATE OUTPUTS ────────────────────────────────── */
+    .outputs-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px; margin-bottom: 10px;
+    }
+    .output-card {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      background: #fff; overflow: hidden;
+    }
+    .oc-head {
+      padding: 14px 16px 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .oc-gate {
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 2.5px;
+      text-transform: uppercase; margin-bottom: 4px;
+    }
+    .oc-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; font-weight: 400; color: var(--ink);
+    }
+    .oc-body { padding: 12px 16px; }
+    .oc-item {
+      display: flex; align-items: flex-start; gap: 7px;
+      padding: 5px 0; border-bottom: 1px solid var(--border);
+      font-size: 11px; color: var(--muted); line-height: 1.35;
+    }
+    .oc-item:last-child { border-bottom: none; }
+ 
+    /* ── WORKFLOW STEPS ──────────────────────────────── */
+    .workflow {
+      display: grid;
+      grid-template-columns: 1fr 32px 1fr 32px 1fr;
+      gap: 0; align-items: center;
+      margin-bottom: 10px;
+    }
+    .wf-step {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      background: #fff; padding: 22px 20px;
+    }
+    .wf-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 40px; font-weight: 300;
+      color: var(--stone2); line-height: 1; margin-bottom: 10px;
+    }
+    .wf-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
+    .wf-body  { font-size: 11px; color: var(--muted); line-height: 1.6; }
+    .wf-arrow {
+      text-align: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; color: var(--stone3);
+    }
+ 
+    /* ── DECISION AUDIT TRAIL ────────────────────────── */
+    .audit-trail {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      background: #fff; overflow: hidden;
+      margin-bottom: 10px;
+    }
+    .at-header {
+      display: grid;
+      grid-template-columns: 140px 1fr 100px 120px 100px 80px;
+      background: var(--stone);
+      border-bottom: 1px solid var(--border);
+    }
+    .at-h {
+      padding: 9px 14px;
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted);
+      border-right: 1px solid var(--border);
+    }
+    .at-h:last-child { border-right: none; }
+    .at-row {
+      display: grid;
+      grid-template-columns: 140px 1fr 100px 120px 100px 80px;
+      border-bottom: 1px solid var(--border);
+      transition: background .15s; cursor: pointer;
+    }
+    .at-row:last-child { border-bottom: none; }
+    .at-row:hover { background: var(--stone); }
+    .at-cell {
+      padding: 11px 14px;
+      font-size: 11px; color: var(--muted);
+      border-right: 1px solid var(--border);
+      display: flex; align-items: center;
+      line-height: 1.3;
+    }
+    .at-cell:last-child { border-right: none; }
+    .at-cell.primary { font-weight: 500; color: var(--ink); }
+ 
+    .status-pill {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; font-weight: 500;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 2px 8px; border-radius: 2px;
+    }
+    .sp-bid      { background: var(--blue-lt);   color: var(--blue); }
+    .sp-submit   { background: var(--purple-lt); color: var(--purple); }
+    .sp-sign     { background: var(--amber-lt);  color: var(--amber); }
+    .sp-nobid    { background: var(--red-lt);    color: var(--red); }
+    .sp-won      { background: var(--green-lt);  color: var(--green); }
+    .sp-scan     { background: var(--stone);     color: var(--muted); }
+ 
+    /* ── BOTTOM CTA ──────────────────────────────────── */
+    .bottom-cta {
+      background: var(--ink);
+      border-radius: var(--r-lg);
+      padding: 40px 48px;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 32px;
+      position: relative; overflow: hidden;
+    }
+    .bottom-cta::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold-dim), var(--gold), var(--gold-dim));
+    }
+    .bc-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .bc-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px; font-weight: 300;
+      color: #fff; margin-bottom: 8px; line-height: 1.15;
+    }
+    .bc-sub {
+      font-size: 12px; color: rgba(255,255,255,.4);
+      line-height: 1.65; max-width: 420px;
+    }
+    .bc-actions { display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
+    .btn {
+      display: inline-block; text-align: center;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px; font-weight: 500;
+      padding: 10px 24px; border-radius: var(--r-sm);
+      border: 1px solid; cursor: pointer;
+      text-decoration: none; white-space: nowrap;
+      letter-spacing: .3px; transition: all .2s;
+    }
+    .btn-gold   { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+    .btn-gold:hover { background: var(--gold-lt); border-color: var(--gold-lt); }
+    .btn-ghost  { background: transparent; color: rgba(255,255,255,.6); border-color: rgba(255,255,255,.2); }
+    .btn-ghost:hover { border-color: rgba(255,255,255,.4); color: #fff; }
+ 
+    /* ── FOOTER ──────────────────────────────────────── */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 40px;
+      display: flex; align-items: center;
+      justify-content: space-between;
+    }
+    .footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px; font-weight: 300;
+      letter-spacing: 3px; text-transform: uppercase;
+    }
+    .footer-brand span { color: var(--gold); }
+    .footer-info {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px; color: var(--muted); letter-spacing: 1px;
+    }
+    .footer-info a { color: var(--gold-dim); text-decoration: none; }
+    .footer-info a:hover { color: var(--gold); }
+ 
+    /* ── BADGE ───────────────────────────────────────── */
+    .badge {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; font-weight: 500;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 2px 8px; border-radius: 2px;
+      white-space: nowrap; margin: 1px;
+    }
+    .b-green  { background: var(--green-lt);  color: var(--green); }
+    .b-blue   { background: var(--blue-lt);   color: var(--blue); }
+    .b-amber  { background: var(--amber-lt);  color: var(--amber); }
+    .b-purple { background: var(--purple-lt); color: var(--purple); }
+    .b-gray   { background: var(--stone);     color: var(--muted); }
+    .b-red    { background: var(--red-lt);    color: var(--red); }
+ 
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 820px) {
+      .site-header { padding: 0 20px; }
+      .nav-links > a { display: none; }
+      .hero-band { padding: 48px 20px 0; }
+      .db-layout { grid-template-columns: 1fr; }
+      .db-sidebar { display: none; }
+      .db-kpis { grid-template-columns: 1fr 1fr; }
+      .db-content { grid-template-columns: 1fr; }
+      .db-right { display: none; }
+      .page-wrap { padding: 0 20px 60px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .outputs-grid { grid-template-columns: 1fr 1fr; }
+      .workflow { grid-template-columns: 1fr; gap: 10px; }
+      .wf-arrow { display: none; }
+      .at-header, .at-row { grid-template-columns: 130px 1fr 90px 90px; }
+      .at-h:nth-child(5), .at-h:nth-child(6),
+      .at-cell:nth-child(5), .at-cell:nth-child(6) { display: none; }
+      .bottom-cta { flex-direction: column; padding: 32px 24px; }
+      .footer { flex-direction: column; gap: 8px; text-align: center; padding: 20px; }
+    }
+  </style>
 </head>
 <body>
-
-    <!-- HEADER IGUAL AL MODELO REACT -->
-    <header class="site-header">
-        <a href="index.html" class="logo-container">
-            <!-- INSERTA EL CÓDIGO DEL LOGO AQUÍ -->
-        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" class="text-[#3B82F6]">
-            <path d="M12 2L20 6V12C20 17 16.5 21 12 22C7.5 21 4 17 4 12V6L12 2Z" stroke="currentColor" stroke-width="1.6"/>
-            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.2"/>
-            <circle cx="12" cy="12" r="7" stroke="currentColor" stroke-opacity="0.4" stroke-width="1"/>
-        </svg>
-        <div class="text-xl font-semibold tracking-tight">AegisBid</div>
-    </a>
-        <nav class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="platform.html">Platform</a>
-            <a href="solutions.html">Solutions</a>
-            <a href="Command Center.html">Command Center</a>
-            <a href="security.html">Security</a>
-            <a href="contact.html">Contact</a>
-        </nav>
-    </header>
-
-  <main>
-        <section class="px-8 py-20 max-w-6xl mx-auto">
-            <h2 class="text-3xl font-semibold">AegisBid Command Center</h2>
-            <p class="mt-4 text-white/70">Unified operational intelligence layer for procurement decisions.</p>
-
-             <div class="bg-[#161A20] rounded-3xl p-6 border border-white/10 shadow-2xl">
-                <div class="text-sm text-white/60">CONFIDENTIAL DECISION MEMO</div>
-                <div class="mt-6 grid grid-cols-2 gap-4">
-                    <div class="bg-black/20 rounded-2xl p-4">
-                        <div class="text-xs text-white/50">Bid Score</div>
-                        <div class="text-4xl font-semibold mt-2">82</div>
-                    </div>
-                    <div class="bg-black/20 rounded-2xl p-4">
-                        <div class="text-xs text-white/50">Recommendation</div>
-                        <div class="text-2xl font-semibold mt-2 text-[#00C48C]">BID</div>
-                    </div>
-                    <div class="bg-black/20 rounded-2xl p-4">
-                        <div class="text-xs text-white/50">Legal Risk</div>
-                        <div class="text-xl mt-2">Medium</div>
-                    </div>
-                    <div class="bg-black/20 rounded-2xl p-4">
-                        <div class="text-xs text-white/50">Win Probability</div>
-                        <div class="text-xl mt-2">58%</div>
-                    </div>
+ 
+<!-- ══ HEADER ════════════════════════════════════════ -->
+<header class="site-header">
+  <a href="index.html" class="logo-container">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2L20 6V12C20 17 16.5 21 12 22C7.5 21 4 17 4 12V6L12 2Z"
+            stroke="currentColor" stroke-width="1.6"/>
+      <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.2"/>
+      <circle cx="12" cy="12" r="7" stroke="currentColor" stroke-opacity="0.4" stroke-width="1"/>
+    </svg>
+    <div class="logo-wordmark">M<span>A</span>NDATUM</div>
+  </a>
+  <nav class="nav-links">
+    <a href="pricing.html">Pricing</a>
+    <a href="security.html">Security</a>
+    <a href="command-center.html" class="active">Command Center</a>
+    <a href="investors.html">Investors</a>
+    <a href="contact.html">Contact</a>
+    <div class="lang-selector">
+      <a href="command-center.html" class="active">EN</a>
+      <a href="../es/command-center.html">ES</a>
+      <a href="../pt/command-center.html">PT</a>
+    </div>
+  </nav>
+</header>
+ 
+<!-- ══ HERO + DASHBOARD PREVIEW ══════════════════════ -->
+<div class="hero-band">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Command Center</div>
+    <h1 class="hero-title">
+      Every pursuit.<br>
+      Every gate.<br>
+      <em>One place.</em>
+    </h1>
+    <p class="hero-sub">
+      The Command Center is where fragmented commercial data becomes
+      structured executive visibility. Track every pursuit from first scan
+      to final signature — with complete mandate history, live scores,
+      and decision audit trails your CFO and legal team can rely on.
+    </p>
+  </div>
+ 
+  <!-- ── LIVE DASHBOARD MOCKUP ── -->
+  <div class="dashboard-preview">
+ 
+    <!-- Chrome -->
+    <div class="db-chrome">
+      <div class="db-dots">
+        <div class="db-dot" style="background:#FF5F57"></div>
+        <div class="db-dot" style="background:#FFBD2E"></div>
+        <div class="db-dot" style="background:#28CA40"></div>
+      </div>
+      <div class="db-address">app.mandatum.io / command-center</div>
+      <div class="db-status">Secure · Isolated tenant</div>
+    </div>
+ 
+    <!-- Layout -->
+    <div class="db-layout">
+ 
+      <!-- Sidebar -->
+      <div class="db-sidebar">
+        <div class="db-sidebar-logo">M<span>A</span>NDATUM</div>
+        <div class="db-nav-section">Overview</div>
+        <div class="db-nav-item active">
+          <div class="db-nav-icon" style="background:rgba(184,150,62,.15);color:var(--gold)">⬡</div>
+          Command Center
+        </div>
+        <div class="db-nav-item">
+          <div class="db-nav-icon" style="background:rgba(37,99,235,.12);color:var(--blue)">◈</div>
+          Active Pursuits
+        </div>
+        <div class="db-nav-item">
+          <div class="db-nav-icon" style="background:rgba(124,58,237,.12);color:var(--purple)">◇</div>
+          Submissions
+        </div>
+        <div class="db-nav-item">
+          <div class="db-nav-icon" style="background:rgba(217,119,6,.12);color:var(--amber)">◎</div>
+          Signatures
+        </div>
+        <div class="db-nav-section">Intelligence</div>
+        <div class="db-nav-item">
+          <div class="db-nav-icon" style="background:rgba(13,148,136,.12);color:var(--teal)">▦</div>
+          Compliance Matrix
+        </div>
+        <div class="db-nav-item">
+          <div class="db-nav-icon" style="background:rgba(5,150,105,.12);color:var(--green)">◉</div>
+          Buyer Intelligence
+        </div>
+        <div class="db-nav-section">Governance</div>
+        <div class="db-nav-item">
+          <div class="db-nav-icon" style="background:rgba(255,255,255,.06);color:rgba(255,255,255,.3)">▤</div>
+          Decision Audit
+        </div>
+        <div class="db-nav-item">
+          <div class="db-nav-icon" style="background:rgba(255,255,255,.06);color:rgba(255,255,255,.3)">⚙</div>
+          Settings
+        </div>
+      </div>
+ 
+      <!-- Main -->
+      <div class="db-main">
+ 
+        <!-- Top bar -->
+        <div class="db-topbar">
+          <div class="db-page-title">Command Center</div>
+          <div class="db-topbar-actions">
+            <div class="db-btn db-btn-ghost">Export mandates</div>
+            <div class="db-btn db-btn-gold">+ New pursuit</div>
+          </div>
+        </div>
+ 
+        <!-- KPIs -->
+        <div class="db-kpis">
+          <div class="db-kpi">
+            <div class="db-kpi-label">Active pursuits</div>
+            <div class="db-kpi-val" style="color:#fff">14</div>
+            <div class="db-kpi-delta" style="color:var(--green)">↑ 3 this week</div>
+          </div>
+          <div class="db-kpi">
+            <div class="db-kpi-label">Avg Pursuit Score</div>
+            <div class="db-kpi-val" style="color:var(--gold-lt)">71</div>
+            <div class="db-kpi-delta" style="color:var(--green)">↑ vs 58 sector avg</div>
+          </div>
+          <div class="db-kpi">
+            <div class="db-kpi-label">Pending mandates</div>
+            <div class="db-kpi-val" style="color:#C4B5FD">3</div>
+            <div class="db-kpi-delta" style="color:rgba(255,255,255,.3)">Awaiting sign-off</div>
+          </div>
+          <div class="db-kpi">
+            <div class="db-kpi-label">Margin protected</div>
+            <div class="db-kpi-val" style="color:#6EE7B7">€4.2M</div>
+            <div class="db-kpi-delta" style="color:rgba(255,255,255,.3)">Gate II / III YTD</div>
+          </div>
+        </div>
+ 
+        <!-- Content -->
+        <div class="db-content">
+ 
+          <!-- Pursuits table -->
+          <div class="db-table-wrap">
+            <div class="db-table-header">
+              <div class="db-table-title">Recent pursuits</div>
+              <div class="db-btn db-btn-ghost" style="font-size:7px;padding:3px 8px">View all</div>
+            </div>
+            <div class="db-table-row hd">
+              <div class="db-th">Opportunity</div>
+              <div class="db-th" style="text-align:center">Score</div>
+              <div class="db-th" style="text-align:center">Gate</div>
+              <div class="db-th" style="text-align:center">Mandate</div>
+              <div class="db-th"></div>
+            </div>
+            <div class="db-table-row">
+              <div>
+                <div class="db-td-name">EU Infrastructure Framework</div>
+                <div class="db-td-sub">European Commission · €48M</div>
+              </div>
+              <div class="db-td-score" style="color:var(--green);text-align:center">84</div>
+              <div style="text-align:center"><div class="db-gate-pill" style="background:var(--blue-lt);color:var(--blue)">Gate I</div></div>
+              <div style="text-align:center"><div class="db-gate-pill" style="background:var(--green-lt);color:var(--green)">Bid</div></div>
+              <div class="db-action">›</div>
+            </div>
+            <div class="db-table-row">
+              <div>
+                <div class="db-td-name">Defence Comms Upgrade</div>
+                <div class="db-td-sub">UK MoD · £22M</div>
+              </div>
+              <div class="db-td-score" style="color:var(--gold-lt);text-align:center">72</div>
+              <div style="text-align:center"><div class="db-gate-pill" style="background:rgba(124,58,237,.15);color:var(--purple)">Gate II</div></div>
+              <div style="text-align:center"><div class="db-gate-pill" style="background:var(--amber-lt);color:var(--amber)">Pending</div></div>
+              <div class="db-action">›</div>
+            </div>
+            <div class="db-table-row">
+              <div>
+                <div class="db-td-name">Smart Grid Modernisation</div>
+                <div class="db-td-sub">Engie · €31M</div>
+              </div>
+              <div class="db-td-score" style="color:var(--gold-lt);text-align:center">68</div>
+              <div style="text-align:center"><div class="db-gate-pill" style="background:var(--blue-lt);color:var(--blue)">Gate I</div></div>
+              <div style="text-align:center"><div class="db-gate-pill" style="background:var(--green-lt);color:var(--green)">Bid</div></div>
+              <div class="db-action">›</div>
+            </div>
+            <div class="db-table-row">
+              <div>
+                <div class="db-td-name">Hospital Network EHR</div>
+                <div class="db-td-sub">NHS Procurement · £14M</div>
+              </div>
+              <div class="db-td-score" style="color:rgba(255,255,255,.4);text-align:center">41</div>
+              <div style="text-align:center"><div class="db-gate-pill" style="background:rgba(255,255,255,.06);color:rgba(255,255,255,.3)">Scan</div></div>
+              <div style="text-align:center"><div class="db-gate-pill" style="background:var(--red-lt);color:var(--red)">No-Bid</div></div>
+              <div class="db-action">›</div>
+            </div>
+            <div class="db-table-row">
+              <div>
+                <div class="db-td-name">Port Digitalisation</div>
+                <div class="db-td-sub">Port of Rotterdam · €19M</div>
+              </div>
+              <div class="db-td-score" style="color:var(--gold-lt);text-align:center">77</div>
+              <div style="text-align:center"><div class="db-gate-pill" style="background:rgba(217,119,6,.15);color:var(--amber)">Gate III</div></div>
+              <div style="text-align:center"><div class="db-gate-pill" style="background:var(--amber-lt);color:var(--amber)">Review</div></div>
+              <div class="db-action">›</div>
+            </div>
+          </div>
+ 
+          <!-- Right panels -->
+          <div class="db-right">
+ 
+            <!-- Pending mandates -->
+            <div class="db-panel">
+              <div class="db-panel-header">Pending mandates</div>
+              <div class="db-panel-body">
+                <div class="db-mandate">
+                  <div class="db-mandate-gate" style="color:var(--purple)">Gate II · Submit</div>
+                  <div class="db-mandate-title">Defence Comms Upgrade</div>
+                  <div class="db-mandate-meta">Awaiting CFO sign-off · 2h ago</div>
                 </div>
-
-            <!-- SUBMENU -->
-<div class="mt-6 flex gap-4 text-sm text-white/60 flex-wrap border-b border-white/5 pb-2">
-    <span class="tab-link active cursor-pointer hover:text-white pb-1" onclick="openTab(event, 'overview')">Overview</span>
-    <span class="tab-link cursor-pointer hover:text-white pb-1" onclick="openTab(event, 'pipeline')">Pipeline</span>
-    <span class="tab-link cursor-pointer hover:text-white pb-1" onclick="openTab(event, 'users')">Users</span>
-    <span class="tab-link cursor-pointer hover:text-white pb-1" onclick="openTab(event, 'access')">Access</span>
-    <span class="tab-link cursor-pointer hover:text-white pb-1" onclick="openTab(event, 'explain')">Explainability</span>
-    <span class="tab-link cursor-pointer hover:text-white pb-1" onclick="openTab(event, 'map')">Map</span>
-    <span class="cursor-pointer text-[#3B82F6] ml-auto" onclick="alert('Exporting Board Memo PDF...')">Export PDF</span>
+                <div class="db-mandate">
+                  <div class="db-mandate-gate" style="color:var(--amber)">Gate III · Sign</div>
+                  <div class="db-mandate-title">Port Digitalisation</div>
+                  <div class="db-mandate-meta">Variance review required · 1d ago</div>
+                </div>
+                <div class="db-mandate">
+                  <div class="db-mandate-gate" style="color:var(--blue)">Gate I · Bid</div>
+                  <div class="db-mandate-title">Rail Signalling Framework</div>
+                  <div class="db-mandate-meta">Exec decision memo ready · 3h ago</div>
+                </div>
+              </div>
+            </div>
+ 
+            <!-- Score breakdown -->
+            <div class="db-panel">
+              <div class="db-panel-header">EU Infrastructure · Scores</div>
+              <div class="db-panel-body">
+                <div class="db-score-row">
+                  <div class="db-score-label">Strategic fit</div>
+                  <div class="db-score-bar-wrap"><div class="db-score-bar" style="width:90%;background:var(--green)"></div></div>
+                  <div class="db-score-num" style="color:var(--green)">90</div>
+                </div>
+                <div class="db-score-row">
+                  <div class="db-score-label">Technical feasibility</div>
+                  <div class="db-score-bar-wrap"><div class="db-score-bar" style="width:82%;background:var(--teal)"></div></div>
+                  <div class="db-score-num" style="color:var(--teal)">82</div>
+                </div>
+                <div class="db-score-row">
+                  <div class="db-score-label">Compliance burden</div>
+                  <div class="db-score-bar-wrap"><div class="db-score-bar" style="width:74%;background:var(--gold)"></div></div>
+                  <div class="db-score-num" style="color:var(--gold)">74</div>
+                </div>
+                <div class="db-score-row">
+                  <div class="db-score-label">Competitive posture</div>
+                  <div class="db-score-bar-wrap"><div class="db-score-bar" style="width:68%;background:var(--blue)"></div></div>
+                  <div class="db-score-num" style="color:var(--blue)">68</div>
+                </div>
+                <div class="db-score-row">
+                  <div class="db-score-label">Internal capacity</div>
+                  <div class="db-score-bar-wrap"><div class="db-score-bar" style="width:88%;background:var(--green)"></div></div>
+                  <div class="db-score-num" style="color:var(--green)">88</div>
+                </div>
+              </div>
+            </div>
+ 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end dashboard-preview -->
 </div>
-
-            <!-- TAB: OVERVIEW -->
-            <div id="overview" class="tab-content active mt-10 grid md:grid-cols-3 gap-6">
-                <div class="bg-[#161A20] p-6 rounded-3xl border border-white/10">
-                    <div class="text-white/50 text-xs mb-1">Active Opportunities</div>
-                    <div class="text-3xl font-semibold mt-2">18</div>
-                </div>
-                <div class="bg-[#161A20] p-6 rounded-3xl border border-white/10">
-                    <div class="text-white/50 text-xs mb-1">High Priority</div>
-                    <div class="text-3xl font-semibold mt-2 text-[#00C48C]">5</div>
-                </div>
-                <div class="bg-[#161A20] p-6 rounded-3xl border border-white/10">
-                    <div class="text-white/50 text-xs mb-1">Risk Alerts</div>
-                    <div class="text-3xl font-semibold mt-2 text-[#F5A623]">7</div>
-                </div>
-            </div>
-
-            <!-- TAB: PIPELINE -->
-            <div id="pipeline" class="tab-content mt-10 bg-[#161A20] p-6 rounded-3xl border border-white/10">
-                <div class="text-sm text-white/60 mb-8">Pipeline Flow</div>
-                <div class="flex items-end gap-6 h-40">
-                    <div class="flex flex-col items-center gap-2"><div class="bg-[#3B82F6]/70 w-10" style="height: 120px;"></div><div class="text-xs text-white/50">Identified</div></div>
-                    <div class="flex flex-col items-center gap-2"><div class="bg-[#3B82F6]/70 w-10" style="height: 80px;"></div><div class="text-xs text-white/50">Qualified</div></div>
-                    <div class="flex flex-col items-center gap-2"><div class="bg-[#3B82F6]/70 w-10" style="height: 50px;"></div><div class="text-xs text-white/50">Bidding</div></div>
-                    <div class="flex flex-col items-center gap-2"><div class="bg-[#3B82F6]/70 w-10" style="height: 30px;"></div><div class="text-xs text-white/50">Submitted</div></div>
-                    <div class="flex flex-col items-center gap-2"><div class="bg-[#3B82F6]/70 w-10" style="height: 10px;"></div><div class="text-xs text-white/50">Awarded</div></div>
-                </div>
-            </div>
-
-            <!-- TAB: USERS -->
-            <div id="users" class="tab-content mt-10 bg-[#161A20] p-6 rounded-3xl border border-white/10">
-                <div class="text-sm text-white/60 mb-4">Users</div>
-                <div class="space-y-4">
-                    <div class="flex justify-between text-sm border-b border-white/5 pb-2"><div><div class="font-medium text-white">CEO</div><div class="text-white/40 text-xs">Executive</div></div><div class="text-right"><div class="text-white/70">Full Access</div><div class="text-xs text-[#00C48C]">Active</div></div></div>
-                    <div class="flex justify-between text-sm border-b border-white/5 pb-2"><div><div class="font-medium text-white">Bid Manager</div><div class="text-white/40 text-xs">Operations</div></div><div class="text-right"><div class="text-white/70">High Access</div><div class="text-xs text-[#00C48C]">Active</div></div></div>
-                    <div class="flex justify-between text-sm border-b border-white/5 pb-2"><div><div class="font-medium text-white">Legal</div><div class="text-white/40 text-xs">Compliance</div></div><div class="text-right"><div class="text-white/70">Medium Access</div><div class="text-xs text-[#00C48C]">Active</div></div></div>
-                </div>
-            </div>
-
-            <!-- TAB: ACCESS -->
-            <div id="access" class="tab-content mt-10 bg-[#161A20] p-6 rounded-3xl border border-white/10">
-                <div class="text-sm text-white/60 mb-4">Access Control</div>
-                <div class="space-y-3 text-sm text-white/70">
-                    <div>• Role-based permissions (RBAC)</div>
-                    <div>• Token-based enterprise authentication</div>
-                    <div>• Audit logging enabled</div>
-                    <div>• Sensitive bid isolation</div>
-                </div>
-            </div>
-
-            <!-- TAB: EXPLAINABILITY -->
-            <div id="explain" class="tab-content mt-10 bg-[#161A20] p-6 rounded-3xl border border-white/10">
-                <div class="text-sm text-white/60 mb-6">Why this Bid Score?</div>
-                <div class="space-y-6">
-                    <div>
-                        <div class="flex justify-between text-sm mb-1"><span>Technical Fit</span><span class="text-white/50">35%</span></div>
-                        <div class="h-2 bg-white/10 rounded overflow-hidden"><div class="h-full bg-[#3B82F6]" style="width: 35%"></div></div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between text-sm mb-1"><span>Legal Risk</span><span class="text-white/50">20%</span></div>
-                        <div class="h-2 bg-white/10 rounded overflow-hidden"><div class="h-full bg-[#3B82F6]" style="width: 20%"></div></div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between text-sm mb-1"><span>Win Probability</span><span class="text-white/50">18%</span></div>
-                        <div class="h-2 bg-white/10 rounded overflow-hidden"><div class="h-full bg-[#3B82F6]" style="width: 18%"></div></div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between text-sm mb-1"><span>Strategic Value</span><span class="text-white/50">25%</span></div>
-                        <div class="h-2 bg-white/10 rounded overflow-hidden"><div class="h-full bg-[#3B82F6]" style="width: 25%"></div></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB: MAP -->
-            <div id="map" class="tab-content mt-10 bg-[#161A20] p-6 rounded-3xl border border-white/10">
-                <div class="text-sm text-white/60 mb-4">Geographic Intelligence (LATAM / EU)</div>
-                <div class="h-64 flex items-center justify-center text-white/40 border border-white/5 rounded-2xl">
-                    Mapbox Layer Placeholder — Procurement Activity Heatmap
-                </div>
-            </div>
-
-        </section>
-    </main>
-
-    <footer class="site-footer">
-        AegisBid © 2026 — Decision Intelligence for Strategic Procurement
-    </footer>
-
-    <!-- JS PARA NAVEGACIÓN DE TABS -->
-<script>
-    function openTab(evt, tabName) {
-        // 1. Ocultar todos los contenidos de las pestañas
-        const tabContents = document.getElementsByClassName("tab-content");
-        for (let i = 0; i < tabContents.length; i++) {
-            tabContents[i].style.display = "none";
-            tabContents[i].classList.remove("active");
-        }
-
-        // 2. Quitar la clase 'active' y el estilo de todos los links
-        const tabLinks = document.getElementsByClassName("tab-link");
-        for (let i = 0; i < tabLinks.length; i++) {
-            tabLinks[i].classList.remove("active", "text-white", "border-b-2", "border-[#3B82F6]");
-        }
-
-        // 3. Mostrar la pestaña actual
-        const currentTab = document.getElementById(tabName);
-        if (currentTab) {
-            currentTab.style.display = (tabName === 'overview') ? "grid" : "block"; 
-            currentTab.classList.add("active");
-        }
-
-        // 4. Marcar el botón actual como activo
-        evt.currentTarget.classList.add("active", "text-white", "border-b-2", "border-[#3B82F6]");
-    }
-
-    // Inicializar la primera pestaña al cargar la página
-    document.addEventListener("DOMContentLoaded", function() {
-        // Simulamos un clic en el primer elemento si existe
-        const firstTab = document.querySelector(".tab-link");
-        if (firstTab) firstTab.click();
-    });
-</script>
+<!-- end hero-band -->
+ 
+<!-- ══ PAGE CONTENT ══════════════════════════════════ -->
+<div class="page-wrap">
+ 
+  <!-- ── PLATFORM FEATURES ── -->
+  <div class="sl">Platform capabilities</div>
+  <div class="feature-grid">
+ 
+    <div class="feature-card fc-blue">
+      <div class="fc-icon">◈</div>
+      <div class="fc-title">Pursuit tracking across all gates</div>
+      <div class="fc-body">Every opportunity is tracked from first Scan through Gate III. Status, scores, mandates, and history — visible to every stakeholder simultaneously.</div>
+      <div class="fc-detail">
+        <div class="fc-detail-item"><span class="dot" style="background:var(--blue)"></span>Live Pursuit Score for every active opportunity</div>
+        <div class="fc-detail-item"><span class="dot" style="background:var(--blue)"></span>Gate status — Scan / I / II / III — in one view</div>
+        <div class="fc-detail-item"><span class="dot" style="background:var(--blue)"></span>Mandate history — every decision, timestamped</div>
+      </div>
+    </div>
+ 
+    <div class="feature-card fc-gold">
+      <div class="fc-icon">◎</div>
+      <div class="fc-title">Executive mandate generation</div>
+      <div class="fc-body">Replace slide decks and email chains with structured, defensible executive mandates. Produced in minutes. Ready for leadership sign-off without further preparation.</div>
+      <div class="fc-detail">
+        <div class="fc-detail-item"><span class="dot" style="background:var(--gold)"></span>Go / Hold / Reject · Bid / No-Bid · Authorize to Submit / Sign</div>
+        <div class="fc-detail-item"><span class="dot" style="background:var(--gold)"></span>Deviation heatmap · profitability delta · risk summary</div>
+        <div class="fc-detail-item"><span class="dot" style="background:var(--gold)"></span>Exportable PDF sign-off package for board files</div>
+      </div>
+    </div>
+ 
+    <div class="feature-card fc-teal">
+      <div class="fc-icon">▦</div>
+      <div class="fc-title">Compliance Matrix — auto-generated</div>
+      <div class="fc-body">Every requirement extracted, categorized, and mapped. The Compliance Matrix is ready to export from Gate I — and pre-filled up to 70% from Gate 10 onward.</div>
+      <div class="fc-detail">
+        <div class="fc-detail-item"><span class="dot" style="background:var(--teal)"></span>Technical, administrative, financial, and legal requirements</div>
+        <div class="fc-detail-item"><span class="dot" style="background:var(--teal)"></span>Mandatory ISO, certification, and clearance mapping</div>
+        <div class="fc-detail-item"><span class="dot" style="background:var(--teal)"></span>Export to XLSX / CSV for internal completion</div>
+      </div>
+    </div>
+ 
+    <div class="feature-card fc-purple">
+      <div class="fc-icon">▤</div>
+      <div class="fc-title">Decision History Audit</div>
+      <div class="fc-body">Every mandate issued, every score computed, every sign-off recorded — with immutable timestamps and the reasoning behind each decision. Legal and regulatory value from day one.</div>
+      <div class="fc-detail">
+        <div class="fc-detail-item"><span class="dot" style="background:var(--purple)"></span>Full audit trail per opportunity · exportable</div>
+        <div class="fc-detail-item"><span class="dot" style="background:var(--purple)"></span>Who approved what · when · against which mandate</div>
+        <div class="fc-detail-item"><span class="dot" style="background:var(--purple)"></span>Defensible record for internal governance and external audit</div>
+      </div>
+    </div>
+ 
+    <div class="feature-card fc-amber">
+      <div class="fc-icon">⚡</div>
+      <div class="fc-title">Margin protection — Gates II &amp; III</div>
+      <div class="fc-body">Negotiation heatmaps, margin erosion alerts, and variance vs mandate reviews ensure that no concession is made without visibility and no contract is signed outside approved boundaries.</div>
+      <div class="fc-detail">
+        <div class="fc-detail-item"><span class="dot" style="background:var(--amber)"></span>Negotiation heatmap — approved vs actual</div>
+        <div class="fc-detail-item"><span class="dot" style="background:var(--amber)"></span>Real-time margin erosion alerts</div>
+        <div class="fc-detail-item"><span class="dot" style="background:var(--amber)"></span>Unauthorized concession detection before signature</div>
+      </div>
+    </div>
+ 
+    <div class="feature-card fc-green">
+      <div class="fc-icon">◉</div>
+      <div class="fc-title">Sector benchmarks &amp; buyer intelligence</div>
+      <div class="fc-body">How does your Pursuit Score compare to sector average? Which buyers consistently include blocking clauses? Mandatum Intel gives context that no single company can build alone.</div>
+      <div class="fc-detail">
+        <div class="fc-detail-item"><span class="dot" style="background:var(--green)"></span>Pursuit Score vs sector average — anonymized, DP-protected</div>
+        <div class="fc-detail-item"><span class="dot" style="background:var(--green)"></span>Buyer profile: adjudication history, recurrent clauses</div>
+        <div class="fc-detail-item"><span class="dot" style="background:var(--green)"></span>Win-rate prediction calibrated on federated outcomes</div>
+      </div>
+    </div>
+ 
+  </div>
+ 
+  <!-- ── GATE OUTPUTS ── -->
+  <div class="sl">What each gate produces</div>
+  <div class="outputs-grid">
+ 
+    <div class="output-card">
+      <div class="oc-head">
+        <div class="oc-gate" style="color:var(--muted)">Mandatum Scan · €49</div>
+        <div class="oc-name" style="color:var(--muted)">Go / Hold / Reject</div>
+      </div>
+      <div class="oc-body">
+        <div class="oc-item"><span class="dot" style="background:var(--muted)"></span>Go / Hold / Reject mandate</div>
+        <div class="oc-item"><span class="dot" style="background:var(--muted)"></span>Commercial red flags list</div>
+        <div class="oc-item"><span class="dot" style="background:var(--muted)"></span>Payment exposure review</div>
+        <div class="oc-item"><span class="dot" style="background:var(--muted)"></span>Deadline feasibility score</div>
+        <div class="oc-item"><span class="dot" style="background:var(--muted)"></span>Poison pill detection</div>
+      </div>
+    </div>
+ 
+    <div class="output-card">
+      <div class="oc-head">
+        <div class="oc-gate" style="color:var(--blue)">Gate I · Mandatum Bid · €149</div>
+        <div class="oc-name" style="color:var(--blue)">Bid / No-Bid</div>
+      </div>
+      <div class="oc-body">
+        <div class="oc-item"><span class="dot" style="background:var(--blue)"></span>Executive Decision Mandate</div>
+        <div class="oc-item"><span class="dot" style="background:var(--blue)"></span>Pursuit Score + Bid Readiness</div>
+        <div class="oc-item"><span class="dot" style="background:var(--blue)"></span>Compliance Matrix (XLSX/CSV)</div>
+        <div class="oc-item"><span class="dot" style="background:var(--blue)"></span>Requirements extraction</div>
+        <div class="oc-item"><span class="dot" style="background:var(--blue)"></span>Bid / Conditional Bid / No-Bid</div>
+      </div>
+    </div>
+ 
+    <div class="output-card">
+      <div class="oc-head">
+        <div class="oc-gate" style="color:var(--purple)">Gate II · Mandatum Submit · €490</div>
+        <div class="oc-name" style="color:var(--purple)">Control Submission</div>
+      </div>
+      <div class="oc-body">
+        <div class="oc-item"><span class="dot" style="background:var(--purple)"></span>Authorization to submit</div>
+        <div class="oc-item"><span class="dot" style="background:var(--purple)"></span>Approved negotiation mandate</div>
+        <div class="oc-item"><span class="dot" style="background:var(--purple)"></span>Margin thresholds defined</div>
+        <div class="oc-item"><span class="dot" style="background:var(--purple)"></span>Legal deviation boundaries</div>
+        <div class="oc-item"><span class="dot" style="background:var(--purple)"></span>Commercial contingencies</div>
+      </div>
+    </div>
+ 
+    <div class="output-card">
+      <div class="oc-head">
+        <div class="oc-gate" style="color:var(--amber)">Gate III · Mandatum Sign · €990</div>
+        <div class="oc-name" style="color:var(--amber)">Control Signature</div>
+      </div>
+      <div class="oc-body">
+        <div class="oc-item"><span class="dot" style="background:var(--amber)"></span>Signature recommendation</div>
+        <div class="oc-item"><span class="dot" style="background:var(--amber)"></span>Variance vs mandate review</div>
+        <div class="oc-item"><span class="dot" style="background:var(--amber)"></span>Margin erosion alerts</div>
+        <div class="oc-item"><span class="dot" style="background:var(--amber)"></span>Risk acceptance record</div>
+        <div class="oc-item"><span class="dot" style="background:var(--amber)"></span>Executive sign-off package</div>
+      </div>
+    </div>
+ 
+  </div>
+ 
+  <!-- ── WORKFLOW ── -->
+  <div class="sl">From inbox to mandate — in three steps</div>
+  <div class="workflow">
+    <div class="wf-step">
+      <div class="wf-num">01</div>
+      <div class="wf-title">Ingest the opportunity</div>
+      <div class="wf-body">Upload the tender, RFP, standard T&Cs, and payment terms. Answer focused Yes / No business questions. No sensitive pricing logic required in the initial stages. Takes under 5 minutes.</div>
+    </div>
+    <div class="wf-arrow">›</div>
+    <div class="wf-step">
+      <div class="wf-num">02</div>
+      <div class="wf-title">Structure the unknowns</div>
+      <div class="wf-body">Mandatum extracts requirements, identifies contract risk, flags jurisdiction and dispute issues, screens sanctions and export control exposure, and builds the compliance matrix automatically.</div>
+    </div>
+    <div class="wf-arrow">›</div>
+    <div class="wf-step">
+      <div class="wf-num">03</div>
+      <div class="wf-title">Issue the executive mandate</div>
+      <div class="wf-body">Receive a structured, defensible mandate — Go / Hold / Reject, Bid / No-Bid, Authorization to Submit, or Signature Recommendation — in under 20 minutes. No slide decks. No email chains.</div>
+    </div>
+  </div>
+ 
+  <!-- ── DECISION AUDIT TRAIL ── -->
+  <div class="sl">Decision History Audit — sample trail</div>
+  <div class="audit-trail">
+    <div class="at-header">
+      <div class="at-h">Date</div>
+      <div class="at-h">Opportunity</div>
+      <div class="at-h">Gate</div>
+      <div class="at-h">Mandate</div>
+      <div class="at-h">Pursuit Score</div>
+      <div class="at-h">Approved by</div>
+    </div>
+ 
+    <div class="at-row">
+      <div class="at-cell" style="font-family:'DM Mono',monospace;font-size:10px">02 May 2026</div>
+      <div class="at-cell primary">EU Infrastructure Framework<br><span style="font-weight:300;font-size:10px;color:var(--muted)">European Commission · €48M</span></div>
+      <div class="at-cell"><span class="status-pill sp-bid">Gate I</span></div>
+      <div class="at-cell"><span class="status-pill sp-won">Bid</span></div>
+      <div class="at-cell" style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--green)">84</div>
+      <div class="at-cell" style="font-size:10px">A. Solano · CRO</div>
+    </div>
+ 
+    <div class="at-row">
+      <div class="at-cell" style="font-family:'DM Mono',monospace;font-size:10px">30 Apr 2026</div>
+      <div class="at-cell primary">Defence Comms Upgrade<br><span style="font-weight:300;font-size:10px;color:var(--muted)">UK MoD · £22M</span></div>
+      <div class="at-cell"><span class="status-pill sp-submit">Gate II</span></div>
+      <div class="at-cell"><span class="status-pill sp-sign" style="background:var(--amber-lt);color:var(--amber)">Pending</span></div>
+      <div class="at-cell" style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold-lt)">72</div>
+      <div class="at-cell" style="font-size:10px;color:var(--muted)">Awaiting CFO</div>
+    </div>
+ 
+    <div class="at-row">
+      <div class="at-cell" style="font-family:'DM Mono',monospace;font-size:10px">28 Apr 2026</div>
+      <div class="at-cell primary">Port Digitalisation<br><span style="font-weight:300;font-size:10px;color:var(--muted)">Port of Rotterdam · €19M</span></div>
+      <div class="at-cell"><span class="status-pill sp-sign">Gate III</span></div>
+      <div class="at-cell"><span class="status-pill sp-sign" style="background:var(--amber-lt);color:var(--amber)">Review</span></div>
+      <div class="at-cell" style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold-lt)">77</div>
+      <div class="at-cell" style="font-size:10px">M. Ferreira · CLO</div>
+    </div>
+ 
+    <div class="at-row">
+      <div class="at-cell" style="font-family:'DM Mono',monospace;font-size:10px">25 Apr 2026</div>
+      <div class="at-cell primary">Hospital Network EHR<br><span style="font-weight:300;font-size:10px;color:var(--muted)">NHS Procurement · £14M</span></div>
+      <div class="at-cell"><span class="status-pill sp-scan">Scan</span></div>
+      <div class="at-cell"><span class="status-pill sp-nobid">No-Bid</span></div>
+      <div class="at-cell" style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--muted)">41</div>
+      <div class="at-cell" style="font-size:10px">System · Auto</div>
+    </div>
+ 
+    <div class="at-row">
+      <div class="at-cell" style="font-family:'DM Mono',monospace;font-size:10px">22 Apr 2026</div>
+      <div class="at-cell primary">Rail Signalling Framework<br><span style="font-weight:300;font-size:10px;color:var(--muted)">Network Rail · £37M</span></div>
+      <div class="at-cell"><span class="status-pill sp-bid">Gate I</span></div>
+      <div class="at-cell"><span class="status-pill sp-won">Bid</span></div>
+      <div class="at-cell" style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--green)">79</div>
+      <div class="at-cell" style="font-size:10px">J. Kovács · CEO</div>
+    </div>
+ 
+    <div class="at-row">
+      <div class="at-cell" style="font-family:'DM Mono',monospace;font-size:10px">18 Apr 2026</div>
+      <div class="at-cell primary">Water Treatment Concession<br><span style="font-weight:300;font-size:10px;color:var(--muted)">Suez / Spain · €62M</span></div>
+      <div class="at-cell"><span class="status-pill sp-submit">Gate II</span></div>
+      <div class="at-cell"><span class="status-pill sp-won">Authorized</span></div>
+      <div class="at-cell" style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--green)">81</div>
+      <div class="at-cell" style="font-size:10px">A. Solano · CRO</div>
+    </div>
+ 
+  </div>
+ 
+  <!-- ── BOTTOM CTA ── -->
+  <div class="bottom-cta">
+    <div>
+      <div class="bc-eyebrow">See it live in your environment</div>
+      <div class="bc-title">
+        Ready to run your first pursuit<br>through the Command Center?
+      </div>
+      <div class="bc-sub">
+        Start with a single opportunity — Scan to mandate in under 20 minutes.
+        No commitment. No account setup. Just upload the tender and see the decision.
+      </div>
+    </div>
+    <div class="bc-actions">
+      <a href="contact.html" class="btn btn-gold">Request access</a>
+      <a href="pricing.html" class="btn btn-ghost">View pricing</a>
+    </div>
+  </div>
+ 
+</div><!-- /page-wrap -->
+ 
+<!-- ══ FOOTER ════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-brand">M<span>A</span>NDATUM</div>
+  <div class="footer-info">
+    © 2026 Mandatum &nbsp;·&nbsp;
+    <a href="mailto:hello@mandatum.io">hello@mandatum.io</a>
+    &nbsp;·&nbsp; mandatum.io
+  </div>
+</footer>
+ 
 </body>
 </html>
+ 
