@@ -1,52 +1,991 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AegisBid — Strategic Procurement</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="assets/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mandatum — Investor Overview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant+SC:wght@400;500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ── RESET & BASE ─────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+ 
+    :root {
+      --ink:      #0D0F14;
+      --ink2:     #1A1D26;
+      --ink3:     #252933;
+      --gold:     #B8963E;
+      --gold-lt:  #D4AE5C;
+      --gold-dim: #7A621F;
+      --stone:    #F2EDE4;
+      --stone2:   #E8E0D0;
+      --stone3:   #CFC4B0;
+      --parch:    #FAFAF8;
+      --muted:    #6B6560;
+      --teal:     #0D9488;
+      --teal-lt:  #CCFBF1;
+      --blue:     #2563EB;
+      --blue-lt:  #DBEAFE;
+      --purple:   #7C3AED;
+      --purple-lt:#EDE9FE;
+      --amber:    #D97706;
+      --amber-lt: #FEF3C7;
+      --green:    #059669;
+      --green-lt: #D1FAE5;
+      --red:      #DC2626;
+      --red-lt:   #FEE2E2;
+      --border:   #E5E0D8;
+      --r-sm:     6px;
+      --r-md:     10px;
+      --r-lg:     14px;
+    }
+ 
+    html { scroll-behavior: smooth; }
+ 
+    body {
+      background: var(--parch);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+ 
+    /* ── HEADER ───────────────────────────────────── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250, 250, 248, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 60px;
+    }
+ 
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--ink);
+    }
+ 
+    .logo-container svg { color: var(--gold); flex-shrink: 0; }
+ 
+    .logo-wordmark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 400;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .logo-wordmark span { color: var(--gold); }
+ 
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+ 
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a.active { color: var(--ink); font-weight: 500; }
+ 
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-left: 20px;
+      border-left: 1px solid var(--border);
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+    }
+    .lang-selector a { color: var(--muted); text-decoration: none; }
+    .lang-selector a.active { color: var(--gold); }
+ 
+    /* ── LAYOUT ───────────────────────────────────── */
+    .page-wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 40px 80px;
+    }
+ 
+    /* ── SECTION LABELS ───────────────────────────── */
+    .sl {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 52px 0 20px;
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .sl::before { content: ''; width: 20px; height: 1px; background: var(--gold); flex-shrink: 0; }
+    .sl::after  { content: ''; flex: 1; height: 1px; background: var(--border); }
+ 
+    /* ── HERO ─────────────────────────────────────── */
+    .hero-band {
+      background: var(--ink);
+      position: relative;
+      overflow: hidden;
+      padding: 72px 40px 56px;
+    }
+    .hero-band::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,.018) 39px, rgba(255,255,255,.018) 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,.018) 39px, rgba(255,255,255,.018) 40px);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hero-eyebrow::before { content: ''; width: 16px; height: 1px; background: var(--gold); }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 300;
+      line-height: 1.15;
+      color: #fff;
+      margin-bottom: 16px;
+      max-width: 700px;
+      letter-spacing: -0.3px;
+    }
+    .hero-title em { font-style: italic; color: var(--gold-lt); }
+    .hero-sub {
+      font-size: 14px;
+      color: rgba(255,255,255,.55);
+      line-height: 1.7;
+      max-width: 580px;
+      margin-bottom: 40px;
+    }
+    .hero-rule {
+      width: 40px;
+      height: 1px;
+      background: var(--gold-dim);
+      margin-bottom: 40px;
+    }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .hs {
+      padding: 22px 20px;
+      background: rgba(255,255,255,.03);
+    }
+    .hs-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .hs-label {
+      font-size: 10px;
+      color: rgba(255,255,255,.4);
+      line-height: 1.4;
+      font-weight: 300;
+    }
+ 
+    /* ── CARDS ────────────────────────────────────── */
+    .card-base {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      background: #fff;
+    }
+ 
+    /* ── INSIGHT ──────────────────────────────────── */
+    .insight {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 28px 32px;
+      background: var(--stone);
+      border-left: 4px solid var(--gold);
+      margin-bottom: 16px;
+    }
+    .insight-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 8px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .insight-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1.4;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+    .insight-sub {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+ 
+    /* ── WHY NOW ──────────────────────────────────── */
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .wn-card {
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 20px;
+      background: #fff;
+    }
+    .wn-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 300;
+      color: var(--stone2);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .wn-title { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
+    .wn-body  { font-size: 11px; color: var(--muted); line-height: 1.55; }
+ 
+    /* ── MOATS ────────────────────────────────────── */
+    .moat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .moat-card {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      background: #fff;
+      overflow: hidden;
+    }
+    .moat-head {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .moat-n {
+      font-family: 'DM Mono', monospace;
+      font-size: 8px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+    .moat-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+    .moat-type  { font-size: 11px; color: var(--muted); }
+    .moat-body  { padding: 14px 20px; }
+    .moat-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 5px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .moat-row:last-child { border-bottom: none; }
+    .dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+    .moat-pill {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 8px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      padding: 2px 8px;
+      border-radius: 2px;
+      margin-top: 10px;
+      text-transform: uppercase;
+    }
+ 
+    /* ── FLYWHEEL ─────────────────────────────────── */
+    .flywheel {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      background: var(--ink);
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 1fr 28px 1fr 28px 1fr 28px 1fr;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .flywheel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,.02) 39px, rgba(255,255,255,.02) 40px);
+      pointer-events: none;
+    }
+    .fw-step { padding: 0 10px; position: relative; z-index: 1; }
+    .fw-step:first-child { padding-left: 0; }
+    .fw-step:last-child  { padding-right: 0; }
+    .fw-n {
+      font-family: 'DM Mono', monospace;
+      font-size: 8px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 8px;
+    }
+    .fw-title { font-size: 13px; font-weight: 500; color: #fff; margin-bottom: 6px; }
+    .fw-body  { font-size: 10px; color: rgba(255,255,255,.45); line-height: 1.5; }
+    .fw-arrow {
+      text-align: center;
+      color: var(--gold-dim);
+      font-size: 18px;
+      position: relative;
+      z-index: 1;
+    }
+ 
+    /* ── COMPETITIVE TABLE ────────────────────────── */
+    .comp-wrap {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .comp-row {
+      display: grid;
+      grid-template-columns: 200px 1fr 1fr 1fr 1fr;
+      border-bottom: 1px solid var(--border);
+    }
+    .comp-row:last-child { border-bottom: none; }
+    .cr {
+      padding: 10px 14px;
+      border-right: 1px solid var(--border);
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cr:first-child  { text-align: left; justify-content: flex-start; }
+    .cr:last-child   { border-right: none; }
+    .cr.hd {
+      background: var(--stone);
+      font-family: 'DM Mono', monospace;
+      font-size: 8px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .cr.cat {
+      background: var(--stone);
+      font-weight: 500;
+      color: var(--ink);
+      font-size: 11px;
+      text-align: left;
+      justify-content: flex-start;
+    }
+    .cr.m-col { background: color-mix(in srgb, var(--green-lt) 40%, transparent); }
+    .chk  { color: var(--green);  font-weight: 500; }
+    .crss { color: var(--stone3); }
+    .prtl { color: var(--amber); }
+ 
+    /* ── BUSINESS MODEL ───────────────────────────── */
+    .bm-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .bm-card {
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 20px;
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .bm-accent {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 3px;
+    }
+    .bm-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 8px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .bm-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 400;
+      margin-bottom: 6px;
+      line-height: 1;
+    }
+    .bm-desc { font-size: 11px; color: var(--muted); line-height: 1.55; margin-top: 10px; }
+ 
+    /* ── MARKET ───────────────────────────────────── */
+    .market-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .mkt-card {
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 20px;
+      background: #fff;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .mkt-val-wrap { flex-shrink: 0; }
+    .mkt-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+    .mkt-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 8px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .mkt-desc { font-size: 11px; color: var(--muted); line-height: 1.55; }
+ 
+    /* ── BADGES ───────────────────────────────────── */
+    .badge {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 8px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 2px;
+      white-space: nowrap;
+      margin: 1px;
+    }
+    .b-green  { background: var(--green-lt);  color: var(--green); }
+    .b-blue   { background: var(--blue-lt);   color: var(--blue); }
+    .b-amber  { background: var(--amber-lt);  color: var(--amber); }
+    .b-teal   { background: var(--teal-lt);   color: var(--teal); }
+    .b-purple { background: var(--purple-lt); color: var(--purple); }
+    .b-gray   { background: var(--stone);     color: var(--muted); }
+ 
+    /* ── CTA ──────────────────────────────────────── */
+    .cta-section {
+      background: var(--ink);
+      border-radius: var(--r-lg);
+      padding: 40px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold-dim), var(--gold), var(--gold-dim));
+    }
+    .cta-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 8px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .cta-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 300;
+      color: #fff;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    .cta-sub { font-size: 12px; color: rgba(255,255,255,.45); line-height: 1.6; max-width: 440px; }
+    .cta-actions { display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
+    .btn {
+      display: inline-block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 10px 24px;
+      border-radius: var(--r-sm);
+      border: 1px solid;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      white-space: nowrap;
+      letter-spacing: 0.3px;
+      transition: all .2s;
+    }
+    .btn-gold {
+      background: var(--gold);
+      color: var(--ink);
+      border-color: var(--gold);
+    }
+    .btn-gold:hover { background: var(--gold-lt); border-color: var(--gold-lt); }
+    .btn-ghost {
+      background: transparent;
+      color: rgba(255,255,255,.7);
+      border-color: rgba(255,255,255,.2);
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,.4); color: #fff; }
+ 
+    /* ── FOOTER ───────────────────────────────────── */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px;
+      font-weight: 300;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .footer-brand span { color: var(--gold); }
+    .footer-info {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+    .footer-info a { color: var(--gold-dim); text-decoration: none; }
+    .footer-info a:hover { color: var(--gold); }
+ 
+    /* ── DIVIDER ──────────────────────────────────── */
+    .gold-rule {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 4px 0;
+    }
+    .gold-rule::before, .gold-rule::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .gold-rule-diamond { width: 4px; height: 4px; background: var(--gold-dim); transform: rotate(45deg); flex-shrink: 0; }
+ 
+    /* ── RESPONSIVE ───────────────────────────────── */
+    @media (max-width: 768px) {
+      .site-header { padding: 0 20px; }
+      .nav-links { gap: 16px; }
+      .nav-links a:not(.lang-selector a) { display: none; }
+      .hero-band { padding: 48px 20px 40px; }
+      .hero-stats { grid-template-columns: 1fr 1fr; }
+      .page-wrap { padding: 0 20px 60px; }
+      .why-grid, .moat-grid, .bm-grid { grid-template-columns: 1fr; }
+      .market-grid { grid-template-columns: 1fr; }
+      .flywheel { grid-template-columns: 1fr; gap: 16px; }
+      .fw-arrow { display: none; }
+      .comp-row { grid-template-columns: 140px 1fr 1fr 1fr 1fr; }
+      .cta-section { flex-direction: column; padding: 32px 24px; }
+    }
+  </style>
 </head>
 <body>
-
-    <!-- HEADER IGUAL AL MODELO REACT -->
-    <header class="site-header">
-        <a href="index.html" class="logo-container">
-            <!-- INSERTA EL CÓDIGO DEL LOGO AQUÍ -->
-        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" class="text-[#3B82F6]">
-            <path d="M12 2L20 6V12C20 17 16.5 21 12 22C7.5 21 4 17 4 12V6L12 2Z" stroke="currentColor" stroke-width="1.6"/>
-            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.2"/>
-            <circle cx="12" cy="12" r="7" stroke="currentColor" stroke-opacity="0.4" stroke-width="1"/>
-        </svg>
-        <div class="text-xl font-semibold tracking-tight">Mandatum</div>
-    </a>
-        <nav class="nav-links">
-            <a href="pricing.html">Pricing</a>
-               <a href="security.html">Security</a>
-            <a href="Command Center.html">Command Center</a>
-            <a href="investors.html">Investors</a>
-            <a href="contact.html">Contact</a>
-
-            <div class="lang-selector">
-                <a href="index.html" class="active">EN</a>
-                <a href="../es/index.html">ES</a>
-                <a href="../pt/index.html">PT</a>
-            </div>
-            
-        </nav>
-    </header>
-
-    <div class="wrap">
-        <h2>Investor Deck</h2>
-        <div class="grid g3">
-            <div class="card">$13T TAM</div>
-            <div class="card">Moat: Data Network Effects</div>
-            <div class="card">Raise: GTM + Product</div>
-        </div>
+ 
+<!-- ══ HEADER ═══════════════════════════════════════ -->
+<header class="site-header">
+  <a href="index.html" class="logo-container">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2L20 6V12C20 17 16.5 21 12 22C7.5 21 4 17 4 12V6L12 2Z"
+            stroke="currentColor" stroke-width="1.6"/>
+      <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.2"/>
+      <circle cx="12" cy="12" r="7" stroke="currentColor" stroke-opacity="0.4" stroke-width="1"/>
+    </svg>
+    <div class="logo-wordmark">M<span>A</span>NDATUM</div>
+  </a>
+  <nav class="nav-links">
+    <a href="pricing.html">Pricing</a>
+    <a href="security.html">Security</a>
+    <a href="command-center.html">Command Center</a>
+    <a href="investors.html" class="active">Investors</a>
+    <a href="contact.html">Contact</a>
+    <div class="lang-selector">
+      <a href="investors.html" class="active">EN</a>
+      <a href="../es/investors.html">ES</a>
+      <a href="../pt/investors.html">PT</a>
     </div>
-
-    <footer class="footer">
-        <div class="wrap">© 2026 AegisBid · sales@aegisbid.com</div>
-    </footer>
+  </nav>
+</header>
+ 
+<!-- ══ HERO ═════════════════════════════════════════ -->
+<div class="hero-band">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Investor Overview · Competitive Defensibility</div>
+    <div class="hero-title">
+      The moat isn't the AI.<br>
+      <em>It's what the AI learns every time it's used.</em>
+    </div>
+    <div class="hero-sub">
+      Mandatum is building the executive decision engine for winning public contracts.
+      Every deal processed makes the platform more accurate, more predictive, and harder to displace.
+      The data flywheel compounds. The switching cost grows. The certification barrier rises.
+    </div>
+    <div class="hero-rule"></div>
+    <div class="hero-stats">
+      <div class="hs">
+        <div class="hs-val" style="color:var(--gold-lt)">€280B</div>
+        <div class="hs-label">Public procurement processed in the EU annually</div>
+      </div>
+      <div class="hs">
+        <div class="hs-val" style="color:#6EE7B7">18–36 mo</div>
+        <div class="hs-label">Minimum time-to-moat for any new entrant</div>
+      </div>
+      <div class="hs">
+        <div class="hs-val" style="color:#C4B5FD">NRR &gt;120%</div>
+        <div class="hs-label">Net Revenue Retention target — structural expansion, not upsell pressure</div>
+      </div>
+      <div class="hs">
+        <div class="hs-val" style="color:#FCD34D">3 tiers</div>
+        <div class="hs-label">Deployment models — from managed SaaS to air-gapped sovereign</div>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<!-- ══ PAGE CONTENT ══════════════════════════════════ -->
+<div class="page-wrap">
+ 
+  <!-- ── CORE INSIGHT ── -->
+  <div class="sl">The core insight</div>
+  <div class="insight">
+    <div class="insight-label">The problem that creates the market</div>
+    <div class="insight-text">
+      Companies don't lose bids because they lack effort. They lose because they make the
+      wrong decisions at the wrong time — on instinct, in spreadsheets, by whoever has
+      the most seniority in the room.
+    </div>
+    <div class="insight-sub">
+      Mandatum replaces personality-driven pursuit decisions with fast, structured, data-backed
+      executive mandates — across the full lifecycle from first tender to final signature.
+      The platform doesn't replace the bid team. It gives them a decision engine they can
+      defend to their CFO, their legal counsel, and their board.
+    </div>
+  </div>
+ 
+  <!-- ── WHY NOW ── -->
+  <div class="sl">Why now</div>
+  <div class="why-grid">
+    <div class="wn-card">
+      <div class="wn-num">01</div>
+      <div class="wn-title">LLMs crossed the capability threshold</div>
+      <div class="wn-body">For the first time, AI can reliably extract structured requirements from complex legal and commercial documents, detect risk patterns, and generate defensible executive mandates — in minutes, not days.</div>
+    </div>
+    <div class="wn-card">
+      <div class="wn-num">02</div>
+      <div class="wn-title">CISOs now approve AI in enterprise workflows</div>
+      <div class="wn-body">The architectural pattern of BYOK + federated learning + differential privacy has matured to the point where security teams can verify privacy guarantees mathematically. Trust is now engineerable.</div>
+    </div>
+    <div class="wn-card">
+      <div class="wn-num">03</div>
+      <div class="wn-title">No incumbent owns this category</div>
+      <div class="wn-body">CLM platforms handle post-signature. Proposal tools handle writing. CRMs handle pipeline. Nobody owns the structured decision layer between opportunity identification and contract execution.</div>
+    </div>
+  </div>
+ 
+  <!-- ── FOUR MOATS ── -->
+  <div class="sl">Four compounding moats</div>
+  <div class="moat-grid">
+ 
+    <div class="moat-card">
+      <div class="moat-head" style="border-left: 3px solid var(--teal);">
+        <div class="moat-n">Moat 01 · Data</div>
+        <div class="moat-title">Requirement ontology — proprietary and growing</div>
+        <div class="moat-type">Built from public tenders · impossible to reconstruct</div>
+      </div>
+      <div class="moat-body">
+        <div class="moat-row"><span class="dot" style="background:var(--teal)"></span>Every tender processed enriches a proprietary taxonomy of 10,000+ requirement variants, clause co-occurrences, and buyer profiles — built entirely from public data</div>
+        <div class="moat-row"><span class="dot" style="background:var(--teal)"></span>Buyer profiles: which conveners are credible, which T&Cs are non-negotiable, which timelines are realistic</div>
+        <div class="moat-row"><span class="dot" style="background:var(--teal)"></span>A competitor starting today needs 18–36 months of processing volume to approach equivalent ontology depth</div>
+        <div class="moat-pill" style="background:var(--teal-lt);color:var(--teal)">All tiers · purely public data</div>
+      </div>
+    </div>
+ 
+    <div class="moat-card">
+      <div class="moat-head" style="border-left: 3px solid var(--purple);">
+        <div class="moat-n">Moat 02 · Network</div>
+        <div class="moat-title">Federated intelligence — more clients, smarter platform</div>
+        <div class="moat-type">Federated learning + differential privacy · no confidential data shared</div>
+      </div>
+      <div class="moat-body">
+        <div class="moat-row"><span class="dot" style="background:var(--purple)"></span>Gate 1 signals from all clients — anonymized, differentially private — train a global model that predicts win probability and benchmarks performance</div>
+        <div class="moat-row"><span class="dot" style="background:var(--purple)"></span>Each new client makes the model more accurate for every existing client — classic network effect without the privacy exposure</div>
+        <div class="moat-row"><span class="dot" style="background:var(--purple)"></span>Benchmark layer: "your Pursuit Score is 74 vs 51 sector average" only possible at multi-client scale</div>
+        <div class="moat-pill" style="background:var(--purple-lt);color:var(--purple)">Tier 1 automatic · Tier 2 opt-in · Tier 3 offline</div>
+      </div>
+    </div>
+ 
+    <div class="moat-card">
+      <div class="moat-head" style="border-left: 3px solid var(--amber);">
+        <div class="moat-n">Moat 03 · Switching Cost</div>
+        <div class="moat-title">Decision History Audit — regulatory and operational lock-in</div>
+        <div class="moat-type">Grows with every gate processed · value is cumulative</div>
+      </div>
+      <div class="moat-body">
+        <div class="moat-row"><span class="dot" style="background:var(--amber)"></span>Every Executive Mandate, Compliance Matrix, and sign-off package becomes part of a Decision History Audit with legal and regulatory value</div>
+        <div class="moat-row"><span class="dot" style="background:var(--amber)"></span>After 10 gates, the Compliance Matrix auto-fills at 70% accuracy. After 30, Mandatum knows the client's capability profile better than most internal stakeholders</div>
+        <div class="moat-row"><span class="dot" style="background:var(--amber)"></span>Migrating means losing the audit trail, calibration, and pre-fill — switching cost is financial, operational, and compliance-driven simultaneously</div>
+        <div class="moat-pill" style="background:var(--amber-lt);color:var(--amber)">All tiers · compounds linearly with usage</div>
+      </div>
+    </div>
+ 
+    <div class="moat-card">
+      <div class="moat-head" style="border-left: 3px solid var(--green);">
+        <div class="moat-n">Moat 04 · Certification</div>
+        <div class="moat-title">Sovereign certification — a barrier money can't accelerate</div>
+        <div class="moat-type">Tier 3 exclusive · 2–3 years for a new entrant to replicate</div>
+      </div>
+      <div class="moat-body">
+        <div class="moat-row"><span class="dot" style="background:var(--green)"></span>The only tendering decision platform designed to pass CC EAL4+, FIPS 140-3, and ITAR requirements — making it the only viable option for defense primes and national security contractors</div>
+        <div class="moat-row"><span class="dot" style="background:var(--green)"></span>Once a defense contractor's CISO certifies the platform, competitor recertification takes 2–3 years minimum — regardless of budget</div>
+        <div class="moat-row"><span class="dot" style="background:var(--green)"></span>The Model Base Update — sold annually at €15–30k per client — is a near-100% gross margin revenue stream with zero marginal infrastructure cost</div>
+        <div class="moat-pill" style="background:var(--green-lt);color:var(--green)">Tier 3 exclusive · highest margin · lowest churn</div>
+      </div>
+    </div>
+ 
+  </div>
+ 
+  <!-- ── FLYWHEEL ── -->
+  <div class="sl">The compounding flywheel</div>
+  <div class="flywheel">
+    <div class="fw-step">
+      <div class="fw-n">01</div>
+      <div class="fw-title">More tenders processed</div>
+      <div class="fw-body">Every Scan and Gate I enriches the requirement ontology and buyer profiles — purely from public data.</div>
+    </div>
+    <div class="fw-arrow">›</div>
+    <div class="fw-step">
+      <div class="fw-n">02</div>
+      <div class="fw-title">More accurate mandates</div>
+      <div class="fw-body">Better ontology → more precise Compliance Matrix → clients win more → they process more deals → they upgrade tiers.</div>
+    </div>
+    <div class="fw-arrow">›</div>
+    <div class="fw-step">
+      <div class="fw-n">03</div>
+      <div class="fw-title">Deeper switching cost</div>
+      <div class="fw-body">Every Gate II and III processed deepens the Decision History Audit. Compliance and operational value compounds.</div>
+    </div>
+    <div class="fw-arrow">›</div>
+    <div class="fw-step">
+      <div class="fw-n">04</div>
+      <div class="fw-title">Higher barrier to entry</div>
+      <div class="fw-body">A new entrant needs the ontology, the federation data, and the certifications. Time-to-moat: 18–36 months minimum.</div>
+    </div>
+  </div>
+ 
+  <!-- ── COMPETITIVE LANDSCAPE ── -->
+  <div class="sl">Competitive landscape — why the category is uncontested</div>
+  <div class="comp-wrap">
+    <div class="comp-row">
+      <div class="cr hd">Capability</div>
+      <div class="cr hd m-col">Mandatum</div>
+      <div class="cr hd">CLM platforms<br><span style="font-weight:400;font-size:9px;opacity:.7">Ironclad, Icertis</span></div>
+      <div class="cr hd">Proposal tools<br><span style="font-weight:400;font-size:9px;opacity:.7">Loopio, RFPIO</span></div>
+      <div class="cr hd">General AI<br><span style="font-weight:400;font-size:9px;opacity:.7">ChatGPT, Copilot</span></div>
+    </div>
+    <div class="comp-row">
+      <div class="cr cat">Bid / No-Bid decision engine</div>
+      <div class="cr m-col"><span class="chk">✓ Native</span></div>
+      <div class="cr"><span class="crss">✗</span></div>
+      <div class="cr"><span class="prtl">~ Manual</span></div>
+      <div class="cr"><span class="prtl">~ Unstructured</span></div>
+    </div>
+    <div class="comp-row">
+      <div class="cr cat">Compliance Matrix auto-generation</div>
+      <div class="cr m-col"><span class="chk">✓ Structured</span></div>
+      <div class="cr"><span class="crss">✗</span></div>
+      <div class="cr"><span class="prtl">~ Manual</span></div>
+      <div class="cr"><span class="prtl">~ Unstructured</span></div>
+    </div>
+    <div class="comp-row">
+      <div class="cr cat">Gate II / III margin protection</div>
+      <div class="cr m-col"><span class="chk">✓ Native</span></div>
+      <div class="cr"><span class="prtl">~ Partial</span></div>
+      <div class="cr"><span class="crss">✗</span></div>
+      <div class="cr"><span class="crss">✗</span></div>
+    </div>
+    <div class="comp-row">
+      <div class="cr cat">CISO-approvable architecture</div>
+      <div class="cr m-col"><span class="chk">✓ All tiers</span></div>
+      <div class="cr"><span class="prtl">~ SaaS only</span></div>
+      <div class="cr"><span class="prtl">~ SaaS only</span></div>
+      <div class="cr"><span class="crss">✗</span></div>
+    </div>
+    <div class="comp-row">
+      <div class="cr cat">Air-gapped / defense deployment</div>
+      <div class="cr m-col"><span class="chk">✓ Native</span></div>
+      <div class="cr"><span class="crss">✗</span></div>
+      <div class="cr"><span class="crss">✗</span></div>
+      <div class="cr"><span class="crss">✗</span></div>
+    </div>
+    <div class="comp-row">
+      <div class="cr cat">Proprietary requirement ontology</div>
+      <div class="cr m-col"><span class="chk">✓ Compounding</span></div>
+      <div class="cr"><span class="crss">✗</span></div>
+      <div class="cr"><span class="crss">✗</span></div>
+      <div class="cr"><span class="crss">✗</span></div>
+    </div>
+    <div class="comp-row">
+      <div class="cr cat">Federated win-rate benchmarks</div>
+      <div class="cr m-col"><span class="chk">✓ DP-protected</span></div>
+      <div class="cr"><span class="crss">✗</span></div>
+      <div class="cr"><span class="crss">✗</span></div>
+      <div class="cr"><span class="crss">✗</span></div>
+    </div>
+  </div>
+ 
+  <!-- ── BUSINESS MODEL ── -->
+  <div class="sl">Business model — three revenue streams that compound together</div>
+  <div class="bm-grid">
+    <div class="bm-card">
+      <div class="bm-accent" style="background:var(--teal)"></div>
+      <div class="bm-label">Stream 1 · Transactional</div>
+      <div class="bm-val" style="color:var(--teal)">€49 → €990</div>
+      <div class="bm-desc">Pay-per-decision across all four gates. Low-friction entry. The natural deal funnel takes a client from a €49 Scan to €1,678 total revenue per opportunity reaching signature. Fully expensable to bid budgets.</div>
+    </div>
+    <div class="bm-card">
+      <div class="bm-accent" style="background:var(--purple)"></div>
+      <div class="bm-label">Stream 2 · Subscription</div>
+      <div class="bm-val" style="color:var(--purple)">€1,450 → €4,900/mo</div>
+      <div class="bm-desc">Standardized discipline for bid desks and governance teams. Predictable ARR. Expansion is structural — a large deal activates Gate II/III needs automatically, pushing clients from Bid plan to Governance without a sales motion.</div>
+    </div>
+    <div class="bm-card">
+      <div class="bm-accent" style="background:var(--amber)"></div>
+      <div class="bm-label">Stream 3 · Sovereign</div>
+      <div class="bm-val" style="color:var(--amber)">Custom + €15–30k/yr</div>
+      <div class="bm-desc">Tier 3 deploy fee + annual Model Base Update. Near-100% gross margin on updates. Lowest churn of any tier. Once a defense prime certifies the platform, switching cost is political as much as technical. Multi-year contracts standard.</div>
+    </div>
+  </div>
+ 
+  <!-- ── MARKET SIZING ── -->
+  <div class="sl">Market sizing</div>
+  <div class="market-grid">
+    <div class="mkt-card">
+      <div class="mkt-val-wrap">
+        <div class="mkt-label">TAM</div>
+        <div class="mkt-val" style="color:var(--ink)">€12B+</div>
+      </div>
+      <div>
+        <div class="mkt-label" style="margin-bottom:4px">Total Addressable Market</div>
+        <div class="mkt-desc">Global enterprise spend on bid management, contract lifecycle, and commercial decision tooling. Fragmented across CLM, proposal tools, CRMs, and manual processes — no dominant player.</div>
+      </div>
+    </div>
+    <div class="mkt-card">
+      <div class="mkt-val-wrap">
+        <div class="mkt-label">SAM</div>
+        <div class="mkt-val" style="color:var(--teal)">€1.8B</div>
+      </div>
+      <div>
+        <div class="mkt-label" style="margin-bottom:4px">Serviceable Market · 5yr</div>
+        <div class="mkt-desc">Companies with structured bid operations: &gt;€50M revenue, &gt;10 bids/year. Europe + North America. Excludes SMB and ad-hoc bidders.</div>
+      </div>
+    </div>
+    <div class="mkt-card">
+      <div class="mkt-val-wrap">
+        <div class="mkt-label">Sovereign</div>
+        <div class="mkt-val" style="color:var(--amber)">€380M</div>
+      </div>
+      <div>
+        <div class="mkt-label" style="margin-bottom:4px">Defense &amp; Critical Infrastructure</div>
+        <div class="mkt-desc">Defense primes, government contractors, critical infrastructure operators. Highest ACV. Zero direct competition. Greenfield category — no incumbent.</div>
+      </div>
+    </div>
+    <div class="mkt-card">
+      <div class="mkt-val-wrap">
+        <div class="mkt-label">Adjacent</div>
+        <div class="mkt-val" style="color:var(--purple)">€2.4B</div>
+      </div>
+      <div>
+        <div class="mkt-label" style="margin-bottom:4px">Intelligence Products</div>
+        <div class="mkt-desc">Buyer intelligence, sector benchmarks, procurement analytics. Sold from the ontology and federated data — near-zero marginal cost once the moat exists.</div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- ── CTA ── -->
+  <div class="sl">Request access</div>
+  <div class="cta-section">
+    <div>
+      <div class="cta-eyebrow">Selectively speaking with investors</div>
+      <div class="cta-title">Building the decision layer<br>for commercial execution.</div>
+      <div class="cta-sub">We're speaking with investors who understand enterprise software with structural defensibility — and why the category winner compounds forever. If that's you, let's talk.</div>
+    </div>
+    <div class="cta-actions">
+      <a href="contact.html" class="btn btn-gold">Request a conversation</a>
+      <a href="#" class="btn btn-ghost">Download investor brief</a>
+    </div>
+  </div>
+ 
+</div><!-- /page-wrap -->
+ 
+<!-- ══ FOOTER ════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-brand">M<span>A</span>NDATUM</div>
+  <div class="footer-info">
+    © 2026 Mandatum &nbsp;·&nbsp;
+    <a href="mailto:investors@mandatum.io">investors@mandatum.io</a>
+    &nbsp;·&nbsp; mandatum.io
+  </div>
+</footer>
+ 
 </body>
 </html>
