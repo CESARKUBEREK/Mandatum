@@ -1,59 +1,1195 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AegisBid — Strategic Procurement</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="assets/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mandatum — Contact</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Cormorant+SC:wght@400;500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ── RESET ─────────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+ 
+    :root {
+      --ink:       #0D0F14;
+      --ink2:      #1A1D26;
+      --ink3:      #252933;
+      --gold:      #B8963E;
+      --gold-lt:   #D4AE5C;
+      --gold-dim:  #7A621F;
+      --stone:     #F2EDE4;
+      --stone2:    #E8E0D0;
+      --stone3:    #CFC4B0;
+      --parch:     #FAFAF8;
+      --muted:     #6B6560;
+      --border:    #E5E0D8;
+      --teal:      #0D9488;
+      --teal-lt:   #CCFBF1;
+      --blue:      #2563EB;
+      --blue-lt:   #DBEAFE;
+      --purple:    #7C3AED;
+      --purple-lt: #EDE9FE;
+      --amber:     #D97706;
+      --amber-lt:  #FEF3C7;
+      --green:     #059669;
+      --green-lt:  #D1FAE5;
+      --red:       #DC2626;
+      --red-lt:    #FEE2E2;
+      --r-sm: 6px;
+      --r-md: 10px;
+      --r-lg: 14px;
+    }
+ 
+    html { scroll-behavior: smooth; }
+ 
+    body {
+      background: var(--parch);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+ 
+    /* ── HEADER ─────────────────────────────────────── */
+    .site-header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(250,250,248,.93);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 0 40px; height: 60px;
+    }
+    .logo-container {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--ink);
+    }
+    .logo-container svg { color: var(--gold); flex-shrink: 0; }
+    .logo-wordmark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; font-weight: 400;
+      letter-spacing: 4px; text-transform: uppercase;
+    }
+    .logo-wordmark span { color: var(--gold); }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a {
+      font-size: 12px; font-weight: 400;
+      color: var(--muted); text-decoration: none;
+      letter-spacing: .5px; transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a.active { color: var(--ink); font-weight: 500; }
+    .lang-selector {
+      display: flex; align-items: center; gap: 8px;
+      padding-left: 20px; border-left: 1px solid var(--border);
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; letter-spacing: 1.5px;
+    }
+    .lang-selector a { color: var(--muted); text-decoration: none; }
+    .lang-selector a.active { color: var(--gold); }
+ 
+    /* ── HERO BAND ───────────────────────────────────── */
+    .hero-band {
+      background: var(--ink);
+      padding: 64px 40px 56px;
+      position: relative; overflow: hidden;
+    }
+    .hero-band::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,.018) 39px, rgba(255,255,255,.018) 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,.018) 39px, rgba(255,255,255,.018) 40px);
+      pointer-events: none;
+    }
+    /* gold radial */
+    .hero-band::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; right: -60px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(184,150,62,.10) 0%, transparent 68%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1080px; margin: 0 auto;
+      position: relative; z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px; align-items: center;
+    }
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px; letter-spacing: 3.5px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 16px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .hero-eyebrow::before { content:''; width:16px; height:1px; background:var(--gold); }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(28px, 4vw, 50px);
+      font-weight: 300; line-height: 1.1;
+      color: #fff; margin-bottom: 14px;
+    }
+    .hero-title em { font-style: italic; color: var(--gold-lt); }
+    .hero-sub {
+      font-size: 13px; color: rgba(255,255,255,.45);
+      line-height: 1.7; max-width: 400px;
+    }
+ 
+    /* Hero right — contact routing */
+    .hero-routing { display: flex; flex-direction: column; gap: 8px; }
+    .route-card {
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--r-md);
+      padding: 14px 16px;
+      display: flex; align-items: center; gap: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all .2s;
+      background: rgba(255,255,255,.03);
+    }
+    .route-card:hover {
+      background: rgba(255,255,255,.06);
+      border-color: rgba(184,150,62,.3);
+    }
+    .route-icon {
+      width: 36px; height: 36px;
+      border-radius: var(--r-sm);
+      display: flex; align-items: center;
+      justify-content: center; font-size: 14px;
+      flex-shrink: 0;
+    }
+    .route-content { flex: 1; }
+    .route-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 2px;
+      text-transform: uppercase; margin-bottom: 2px;
+    }
+    .route-title { font-size: 12px; font-weight: 500; color: #fff; margin-bottom: 1px; }
+    .route-sub   { font-size: 10px; color: rgba(255,255,255,.35); }
+    .route-arrow { color: rgba(255,255,255,.25); font-size: 14px; flex-shrink: 0; }
+ 
+    /* ── PAGE WRAP ───────────────────────────────────── */
+    .page-wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 40px 80px;
+    }
+ 
+    /* ── SECTION LABELS ──────────────────────────────── */
+    .sl {
+      display: flex; align-items: center; gap: 14px;
+      margin: 52px 0 22px;
+      font-family: 'DM Mono', monospace;
+      font-size: 9px; font-weight: 500;
+      letter-spacing: 3px; text-transform: uppercase; color: var(--gold);
+    }
+    .sl::before { content:''; width:20px; height:1px; background:var(--gold); flex-shrink:0; }
+    .sl::after  { content:''; flex:1; height:1px; background:var(--border); }
+    .sl:first-child { margin-top: 52px; }
+ 
+    /* ── MAIN CONTACT GRID ───────────────────────────── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 24px;
+      align-items: start;
+    }
+ 
+    /* ── FORM ────────────────────────────────────────── */
+    .form-card {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      background: #fff; overflow: hidden;
+    }
+    .form-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center;
+      justify-content: space-between;
+    }
+    .form-header-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; font-weight: 400; color: var(--ink);
+    }
+    .form-header-sub {
+      font-size: 11px; color: var(--muted); margin-top: 2px;
+    }
+    .form-tab-wrap {
+      display: flex; gap: 0;
+    }
+    .form-tab {
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 14px; border-radius: var(--r-sm);
+      cursor: pointer; transition: all .15s;
+      color: var(--muted); border: 1px solid transparent;
+    }
+    .form-tab.active {
+      background: var(--ink); color: #fff;
+      border-color: var(--ink);
+    }
+    .form-tab:not(.active):hover { color: var(--ink); }
+ 
+    .form-body { padding: 24px; }
+ 
+    /* Persona selector */
+    .persona-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px; margin-bottom: 20px;
+    }
+    .persona-card {
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 10px 12px;
+      cursor: pointer; transition: all .15s;
+      text-align: center;
+    }
+    .persona-card:hover { border-color: var(--stone3); background: var(--stone); }
+    .persona-card.selected {
+      border-color: var(--gold);
+      background: color-mix(in srgb, var(--stone) 60%, #fff);
+    }
+    .persona-icon { font-size: 16px; margin-bottom: 4px; }
+    .persona-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 2px;
+    }
+    .persona-title { font-size: 11px; font-weight: 500; color: var(--ink); }
+ 
+    /* Form fields */
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+    .field-row.full { grid-template-columns: 1fr; }
+    .field { display: flex; flex-direction: column; gap: 5px; }
+    .field-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .field-input {
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 9px 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px; font-weight: 300;
+      color: var(--ink); background: var(--parch);
+      transition: border-color .15s;
+      outline: none;
+      width: 100%;
+    }
+    .field-input:focus { border-color: var(--gold); background: #fff; }
+    .field-input::placeholder { color: var(--stone3); }
+    select.field-input {
+      appearance: none; cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23CFC4B0' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 32px;
+    }
+    textarea.field-input {
+      resize: vertical; min-height: 90px;
+      font-family: 'DM Sans', sans-serif;
+    }
+ 
+    /* Gate selector */
+    .gate-selector {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px; margin-bottom: 14px;
+    }
+    .gate-option {
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 8px 6px;
+      cursor: pointer; transition: all .15s;
+      text-align: center;
+    }
+    .gate-option:hover { border-color: var(--stone3); }
+    .gate-option.selected-scan   { border-color: var(--muted);   background: var(--stone); }
+    .gate-option.selected-g1     { border-color: var(--blue);    background: var(--blue-lt); }
+    .gate-option.selected-g2     { border-color: var(--purple);  background: var(--purple-lt); }
+    .gate-option.selected-g3     { border-color: var(--amber);   background: var(--amber-lt); }
+    .gate-option-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 7px; letter-spacing: 1.5px;
+      text-transform: uppercase; margin-bottom: 2px;
+    }
+    .gate-option-name { font-size: 10px; font-weight: 500; color: var(--ink); }
+    .gate-option-price { font-size: 9px; color: var(--muted); margin-top: 1px; }
+ 
+    /* Consent note */
+    .consent-row {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 12px 14px;
+      background: var(--stone);
+      border-radius: var(--r-sm);
+      margin-bottom: 16px;
+      font-size: 11px; color: var(--muted); line-height: 1.5;
+    }
+    .consent-check {
+      width: 16px; height: 16px;
+      border: 1px solid var(--border);
+      border-radius: 3px; flex-shrink: 0;
+      margin-top: 1px; cursor: pointer;
+      background: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px; color: var(--gold);
+      transition: all .15s;
+    }
+ 
+    /* Submit button */
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      border-radius: var(--r-sm);
+      border: none; cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px; font-weight: 500;
+      letter-spacing: .3px;
+      transition: all .2s;
+      background: var(--ink); color: #fff;
+    }
+    .submit-btn:hover { background: var(--ink2); }
+ 
+    /* ── SIDEBAR ─────────────────────────────────────── */
+    .sidebar { display: flex; flex-direction: column; gap: 10px; }
+ 
+    .info-card {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      background: #fff; overflow: hidden;
+    }
+    .ic-head {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--gold);
+    }
+    .ic-body { padding: 14px 16px; }
+    .ic-row {
+      display: flex; align-items: flex-start;
+      gap: 10px; padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 11px;
+    }
+    .ic-row:last-child { border-bottom: none; }
+    .ic-icon {
+      width: 28px; height: 28px;
+      border-radius: var(--r-sm);
+      background: var(--stone);
+      display: flex; align-items: center;
+      justify-content: center; font-size: 12px;
+      flex-shrink: 0;
+    }
+    .ic-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 2px;
+    }
+    .ic-value { font-size: 11px; color: var(--ink); font-weight: 400; }
+    .ic-value a { color: var(--gold-dim); text-decoration: none; }
+    .ic-value a:hover { color: var(--gold); }
+ 
+    /* What to expect */
+    .expect-card {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      background: #fff; overflow: hidden;
+    }
+    .ec-head {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--gold);
+    }
+    .ec-step {
+      display: flex; gap: 12px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .ec-step:last-child { border-bottom: none; }
+    .ec-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 300;
+      color: var(--stone2); line-height: 1;
+      flex-shrink: 0; margin-top: 2px;
+    }
+    .ec-title { font-size: 12px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+    .ec-body  { font-size: 11px; color: var(--muted); line-height: 1.5; }
+ 
+    /* Trust signals */
+    .trust-card {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      background: var(--stone); overflow: hidden;
+    }
+    .tc-head {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--stone2);
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--gold-dim);
+    }
+    .tc-body {
+      padding: 12px 16px;
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .tc-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; font-weight: 500;
+      letter-spacing: 1px; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 2px;
+      border: 1px solid var(--stone2);
+      color: var(--muted); background: #fff;
+    }
+    .tc-badge::before {
+      content: '';
+      width: 4px; height: 4px;
+      border-radius: 50%; background: var(--gold-dim);
+    }
+ 
+    /* ── PERSONAS SECTION ────────────────────────────── */
+    .personas-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px; margin-bottom: 10px;
+    }
+    .persona-route {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      background: #fff; overflow: hidden;
+      text-decoration: none; display: block;
+      transition: all .2s;
+    }
+    .persona-route:hover {
+      border-color: var(--stone3);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.06);
+    }
+    .pr-head {
+      padding: 16px 18px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .pr-icon {
+      width: 40px; height: 40px;
+      border-radius: var(--r-md);
+      display: flex; align-items: center;
+      justify-content: center; font-size: 18px;
+      margin-bottom: 10px;
+    }
+    .pr-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 2px;
+      text-transform: uppercase; margin-bottom: 4px;
+    }
+    .pr-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+    .pr-sub   { font-size: 11px; color: var(--muted); line-height: 1.4; }
+    .pr-body  { padding: 12px 18px; }
+    .pr-row {
+      display: flex; align-items: flex-start; gap: 7px;
+      padding: 4px 0; border-bottom: 1px solid var(--border);
+      font-size: 11px; color: var(--muted); line-height: 1.4;
+    }
+    .pr-row:last-child { border-bottom: none; }
+    .dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+    .pr-cta {
+      display: block; text-align: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 8px; margin: 10px 0 0;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--border);
+      color: var(--muted); transition: all .15s;
+    }
+    .persona-route:hover .pr-cta { border-color: var(--stone3); color: var(--ink); }
+ 
+    /* ── OFFICES / LOCATIONS ─────────────────────────── */
+    .offices-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px; margin-bottom: 10px;
+    }
+    .office-card {
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      background: #fff; padding: 18px 20px;
+    }
+    .office-region {
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .office-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; font-weight: 400;
+      color: var(--ink); margin-bottom: 8px;
+    }
+    .office-info { font-size: 11px; color: var(--muted); line-height: 1.7; }
+    .office-info a { color: var(--gold-dim); text-decoration: none; }
+    .office-info a:hover { color: var(--gold); }
+    .office-tag {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 2px 8px; border-radius: 2px;
+      margin-top: 8px;
+    }
+ 
+    /* ── BOTTOM CTA ──────────────────────────────────── */
+    .bottom-cta {
+      background: var(--ink);
+      border-radius: var(--r-lg);
+      padding: 40px 48px;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 32px;
+      position: relative; overflow: hidden;
+    }
+    .bottom-cta::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold-dim), var(--gold), var(--gold-dim));
+    }
+    .bc-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .bc-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px; font-weight: 300;
+      color: #fff; margin-bottom: 8px; line-height: 1.2;
+    }
+    .bc-sub {
+      font-size: 12px; color: rgba(255,255,255,.4);
+      line-height: 1.65; max-width: 400px;
+    }
+    .bc-actions { display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
+    .btn {
+      display: inline-block; text-align: center;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px; font-weight: 500;
+      padding: 10px 24px; border-radius: var(--r-sm);
+      border: 1px solid; cursor: pointer;
+      text-decoration: none; white-space: nowrap;
+      letter-spacing: .3px; transition: all .2s;
+    }
+    .btn-gold  { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+    .btn-gold:hover { background: var(--gold-lt); border-color: var(--gold-lt); }
+    .btn-ghost { background: transparent; color: rgba(255,255,255,.6); border-color: rgba(255,255,255,.2); }
+    .btn-ghost:hover { border-color: rgba(255,255,255,.4); color: #fff; }
+ 
+    /* ── SUCCESS STATE ───────────────────────────────── */
+    .success-state {
+      display: none;
+      padding: 40px 24px;
+      text-align: center;
+    }
+    .success-state.visible { display: block; }
+    .success-icon {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--green-lt);
+      display: flex; align-items: center;
+      justify-content: center; font-size: 22px;
+      margin: 0 auto 16px;
+    }
+    .success-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 400;
+      color: var(--ink); margin-bottom: 8px;
+    }
+    .success-sub { font-size: 12px; color: var(--muted); line-height: 1.6; }
+ 
+    /* ── FOOTER ──────────────────────────────────────── */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 40px;
+      display: flex; align-items: center;
+      justify-content: space-between;
+    }
+    .footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px; font-weight: 300;
+      letter-spacing: 3px; text-transform: uppercase;
+    }
+    .footer-brand span { color: var(--gold); }
+    .footer-info {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px; color: var(--muted); letter-spacing: 1px;
+    }
+    .footer-info a { color: var(--gold-dim); text-decoration: none; }
+    .footer-info a:hover { color: var(--gold); }
+ 
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 820px) {
+      .site-header { padding: 0 20px; }
+      .nav-links > a { display: none; }
+      .hero-band { padding: 48px 20px 40px; }
+      .hero-inner { grid-template-columns: 1fr; gap: 32px; }
+      .hero-routing { display: none; }
+      .page-wrap { padding: 0 20px 60px; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .sidebar { order: -1; }
+      .field-row { grid-template-columns: 1fr; }
+      .gate-selector { grid-template-columns: repeat(2, 1fr); }
+      .persona-grid { grid-template-columns: 1fr 1fr; }
+      .personas-grid { grid-template-columns: 1fr; }
+      .offices-grid { grid-template-columns: 1fr; }
+      .bottom-cta { flex-direction: column; padding: 32px 20px; }
+      .footer { flex-direction: column; gap: 8px; text-align: center; padding: 20px; }
+    }
+  </style>
 </head>
 <body>
-
-    <!-- HEADER IGUAL AL MODELO REACT -->
-    <header class="site-header">
-        <a href="index.html" class="logo-container">
-            <!-- INSERTA EL CÓDIGO DEL LOGO AQUÍ -->
-        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" class="text-[#3B82F6]">
-            <path d="M12 2L20 6V12C20 17 16.5 21 12 22C7.5 21 4 17 4 12V6L12 2Z" stroke="currentColor" stroke-width="1.6"/>
-            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.2"/>
-            <circle cx="12" cy="12" r="7" stroke="currentColor" stroke-opacity="0.4" stroke-width="1"/>
-        </svg>
-        <div class="text-xl font-semibold tracking-tight">AegisBid</div>
-    </a>
-        <nav class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="platform.html">Platform</a>
-            <a href="solutions.html">Solutions</a>
-            <a href="Command Center.html">Command Center</a>
-            <a href="security.html">Security</a>
-            <a href="contact.html">Contact</a>
-        </nav>
-    </header>
-
-    <main>
-        <section class="px-8 py-24 max-w-6xl mx-auto">
-            <h2 class="text-3xl font-semibold">Contact</h2>
-            <p class="mt-4 text-white/70">Write us</p>
-        
-        <div class="card">
-            <form>
-                <input placeholder="Name"><br><br>
-                <input placeholder="Email"><br><br>
-                <textarea placeholder="Message"></textarea><br><br>
-                <button class="btn">Send</button>
-            </form>
+ 
+<!-- ══ HEADER ════════════════════════════════════════ -->
+<header class="site-header">
+  <a href="index.html" class="logo-container">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2L20 6V12C20 17 16.5 21 12 22C7.5 21 4 17 4 12V6L12 2Z"
+            stroke="currentColor" stroke-width="1.6"/>
+      <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.2"/>
+      <circle cx="12" cy="12" r="7" stroke="currentColor" stroke-opacity="0.4" stroke-width="1"/>
+    </svg>
+    <div class="logo-wordmark">M<span>A</span>NDATUM</div>
+  </a>
+  <nav class="nav-links">
+    <a href="pricing.html">Pricing</a>
+    <a href="security.html">Security</a>
+    <a href="command-center.html">Command Center</a>
+    <a href="investors.html">Investors</a>
+    <a href="contact.html" class="active">Contact</a>
+    <div class="lang-selector">
+      <a href="contact.html" class="active">EN</a>
+      <a href="../es/contact.html">ES</a>
+      <a href="../pt/contact.html">PT</a>
+    </div>
+  </nav>
+</header>
+ 
+<!-- ══ HERO ══════════════════════════════════════════ -->
+<div class="hero-band">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">Contact</div>
+      <h1 class="hero-title">
+        The right decision<br>starts with<br>
+        <em>the right conversation.</em>
+      </h1>
+      <p class="hero-sub">
+        Whether you're running your first pursuit, evaluating enterprise deployment,
+        or exploring a sovereign edition — we'll route you to the right conversation
+        without wasting your time.
+      </p>
+    </div>
+ 
+    <!-- Routing cards -->
+    <div class="hero-routing">
+      <a href="#form" class="route-card" onclick="selectTab('access')">
+        <div class="route-icon" style="background:rgba(37,99,235,.15)">◈</div>
+        <div class="route-content">
+          <div class="route-label" style="color:var(--blue)">Capture teams · Bid desks</div>
+          <div class="route-title">Request platform access</div>
+          <div class="route-sub">Start with a free Scan. No commitment required.</div>
         </div>
-        
-        </section>
-    </main>
-    
-    
-    
-
-    <!-- FOOTER IGUAL AL MODELO REACT -->
-    <footer class="site-footer">
-        AegisBid © 2026 — Decision Intelligence for Strategic Procurement
-    </footer>
-
+        <div class="route-arrow">›</div>
+      </a>
+      <a href="#form" class="route-card" onclick="selectTab('enterprise')">
+        <div class="route-icon" style="background:rgba(124,58,237,.15)">⬡</div>
+        <div class="route-content">
+          <div class="route-label" style="color:var(--purple)">CFO · CISO · Legal Director</div>
+          <div class="route-title">Enterprise &amp; security review</div>
+          <div class="route-sub">BYOC, Private Cloud, DPA, SOC 2 review.</div>
+        </div>
+        <div class="route-arrow">›</div>
+      </a>
+      <a href="#form" class="route-card" onclick="selectTab('sovereign')">
+        <div class="route-icon" style="background:rgba(217,119,6,.15)">◎</div>
+        <div class="route-content">
+          <div class="route-label" style="color:var(--amber)">Defense · Gov · Critical infra</div>
+          <div class="route-title">Sovereign edition</div>
+          <div class="route-sub">Air-gapped deployment, ITAR, CC EAL4+.</div>
+        </div>
+        <div class="route-arrow">›</div>
+      </a>
+      <a href="#form" class="route-card" onclick="selectTab('investor')">
+        <div class="route-icon" style="background:rgba(184,150,62,.12)">◇</div>
+        <div class="route-content">
+          <div class="route-label" style="color:var(--gold)">Investors · Partners</div>
+          <div class="route-title">Investor conversation</div>
+          <div class="route-sub">Seed round · Strategic partnerships.</div>
+        </div>
+        <div class="route-arrow">›</div>
+      </a>
+    </div>
+  </div>
+</div>
+ 
+<!-- ══ PAGE CONTENT ══════════════════════════════════ -->
+<div class="page-wrap">
+ 
+  <!-- ── MAIN CONTACT FORM + SIDEBAR ── -->
+  <div class="sl" id="form">Get in touch</div>
+  <div class="contact-grid">
+ 
+    <!-- FORM -->
+    <div class="form-card">
+      <div class="form-header">
+        <div>
+          <div class="form-header-title">Send a message</div>
+          <div class="form-header-sub">We respond within one business day.</div>
+        </div>
+        <div class="form-tab-wrap">
+          <div class="form-tab active" id="tab-access"   onclick="selectTab('access')">Access</div>
+          <div class="form-tab"        id="tab-enterprise" onclick="selectTab('enterprise')">Enterprise</div>
+          <div class="form-tab"        id="tab-sovereign"  onclick="selectTab('sovereign')">Sovereign</div>
+          <div class="form-tab"        id="tab-investor"   onclick="selectTab('investor')">Investor</div>
+        </div>
+      </div>
+ 
+      <!-- FORM BODY -->
+      <div class="form-body" id="form-body">
+ 
+        <!-- Persona selector -->
+        <div style="margin-bottom:16px">
+          <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px">I am a</div>
+          <div class="persona-grid">
+            <div class="persona-card selected" onclick="selectPersona(this)">
+              <div class="persona-icon">📋</div>
+              <div class="persona-label">Ops</div>
+              <div class="persona-title">Bid Manager</div>
+            </div>
+            <div class="persona-card" onclick="selectPersona(this)">
+              <div class="persona-icon">💼</div>
+              <div class="persona-label">Finance</div>
+              <div class="persona-title">CFO / Finance Dir.</div>
+            </div>
+            <div class="persona-card" onclick="selectPersona(this)">
+              <div class="persona-icon">⚖️</div>
+              <div class="persona-label">Legal</div>
+              <div class="persona-title">CLO / Legal Dir.</div>
+            </div>
+            <div class="persona-card" onclick="selectPersona(this)">
+              <div class="persona-icon">🔒</div>
+              <div class="persona-label">Security</div>
+              <div class="persona-title">CISO / CTO</div>
+            </div>
+            <div class="persona-card" onclick="selectPersona(this)">
+              <div class="persona-icon">🛡</div>
+              <div class="persona-label">Sovereign</div>
+              <div class="persona-title">Defense / Gov</div>
+            </div>
+            <div class="persona-card" onclick="selectPersona(this)">
+              <div class="persona-icon">📈</div>
+              <div class="persona-label">Capital</div>
+              <div class="persona-title">Investor</div>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- Name / Company -->
+        <div class="field-row">
+          <div class="field">
+            <label class="field-label">First name</label>
+            <input class="field-input" type="text" placeholder="Andrea">
+          </div>
+          <div class="field">
+            <label class="field-label">Last name</label>
+            <input class="field-input" type="text" placeholder="Solano">
+          </div>
+        </div>
+ 
+        <!-- Email / Company -->
+        <div class="field-row">
+          <div class="field">
+            <label class="field-label">Work email</label>
+            <input class="field-input" type="email" placeholder="andrea@company.com">
+          </div>
+          <div class="field">
+            <label class="field-label">Company</label>
+            <input class="field-input" type="text" placeholder="Acme Infrastructure">
+          </div>
+        </div>
+ 
+        <!-- Gate interest -->
+        <div style="margin-bottom:14px">
+          <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Gate of interest</div>
+          <div class="gate-selector">
+            <div class="gate-option selected-scan" id="go-scan" onclick="selectGate('scan')">
+              <div class="gate-option-label" style="color:var(--muted)">Scan</div>
+              <div class="gate-option-name">Go / Reject</div>
+              <div class="gate-option-price">€49</div>
+            </div>
+            <div class="gate-option" id="go-g1" onclick="selectGate('g1')">
+              <div class="gate-option-label" style="color:var(--blue)">Gate I</div>
+              <div class="gate-option-name">Bid / No-Bid</div>
+              <div class="gate-option-price">€149</div>
+            </div>
+            <div class="gate-option" id="go-g2" onclick="selectGate('g2')">
+              <div class="gate-option-label" style="color:var(--purple)">Gate II</div>
+              <div class="gate-option-name">Submission</div>
+              <div class="gate-option-price">€490</div>
+            </div>
+            <div class="gate-option" id="go-g3" onclick="selectGate('g3')">
+              <div class="gate-option-label" style="color:var(--amber)">Gate III</div>
+              <div class="gate-option-name">Signature</div>
+              <div class="gate-option-price">€990</div>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- Deployment (visible for enterprise / sovereign tabs) -->
+        <div class="field-row">
+          <div class="field">
+            <label class="field-label">Deployment preference</label>
+            <select class="field-input">
+              <option value="">Select deployment model</option>
+              <option>Mandatum Cloud (SaaS)</option>
+              <option>Private Cloud (BYOC)</option>
+              <option>Air-Gapped / On-Premise</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field-label">Bids per month</label>
+            <select class="field-input">
+              <option value="">Volume estimate</option>
+              <option>1–5 bids / month</option>
+              <option>6–15 bids / month</option>
+              <option>15–30 bids / month</option>
+              <option>30+ bids / month</option>
+            </select>
+          </div>
+        </div>
+ 
+        <!-- Message -->
+        <div class="field-row full" style="margin-bottom:16px">
+          <div class="field">
+            <label class="field-label">Message <span style="color:var(--stone3)">(optional)</span></label>
+            <textarea class="field-input" placeholder="Tell us about your next tender, your security requirements, or what prompted you to reach out…"></textarea>
+          </div>
+        </div>
+ 
+        <!-- Consent -->
+        <div class="consent-row">
+          <div class="consent-check" id="consent-check" onclick="toggleConsent(this)"></div>
+          <div>
+            I agree to Mandatum processing my contact details to respond to this enquiry.
+            Data is handled in accordance with our Privacy Policy and never shared with third parties.
+          </div>
+        </div>
+ 
+        <button class="submit-btn" onclick="handleSubmit(event)">
+          Send message — we respond within one business day
+        </button>
+      </div>
+ 
+      <!-- SUCCESS STATE -->
+      <div class="success-state" id="success-state">
+        <div class="success-icon">✓</div>
+        <div class="success-title">Message received.</div>
+        <div class="success-sub">
+          We'll be in touch within one business day.<br>
+          In the meantime, you can explore the <a href="command-center.html" style="color:var(--gold-dim)">Command Center</a>
+          or review our <a href="security.html" style="color:var(--gold-dim)">Security &amp; Trust</a> documentation.
+        </div>
+      </div>
+    </div>
+ 
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+ 
+      <!-- Direct contacts -->
+      <div class="info-card">
+        <div class="ic-head">Direct contacts</div>
+        <div class="ic-body">
+          <div class="ic-row">
+            <div class="ic-icon">📋</div>
+            <div>
+              <div class="ic-label">Sales &amp; Access</div>
+              <div class="ic-value"><a href="mailto:sales@mandatum.io">sales@mandatum.io</a></div>
+            </div>
+          </div>
+          <div class="ic-row">
+            <div class="ic-icon">🔒</div>
+            <div>
+              <div class="ic-label">Security &amp; CISO</div>
+              <div class="ic-value"><a href="mailto:security@mandatum.io">security@mandatum.io</a></div>
+            </div>
+          </div>
+          <div class="ic-row">
+            <div class="ic-icon">📈</div>
+            <div>
+              <div class="ic-label">Investors</div>
+              <div class="ic-value"><a href="mailto:investors@mandatum.io">investors@mandatum.io</a></div>
+            </div>
+          </div>
+          <div class="ic-row">
+            <div class="ic-icon">🛡</div>
+            <div>
+              <div class="ic-label">Sovereign &amp; Defense</div>
+              <div class="ic-value"><a href="mailto:sovereign@mandatum.io">sovereign@mandatum.io</a></div>
+            </div>
+          </div>
+          <div class="ic-row">
+            <div class="ic-icon">⚙️</div>
+            <div>
+              <div class="ic-label">General</div>
+              <div class="ic-value"><a href="mailto:hello@mandatum.io">hello@mandatum.io</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- What to expect -->
+      <div class="expect-card">
+        <div class="ec-head">What happens next</div>
+        <div class="ec-step">
+          <div class="ec-num">01</div>
+          <div>
+            <div class="ec-title">We review your message</div>
+            <div class="ec-body">Within one business day, the right person reads your message and prepares a relevant response — not a generic follow-up.</div>
+          </div>
+        </div>
+        <div class="ec-step">
+          <div class="ec-num">02</div>
+          <div>
+            <div class="ec-title">A focused 30-min call</div>
+            <div class="ec-body">We'll align on your pursuit volume, deployment requirements, and the gate that matters most to you right now.</div>
+          </div>
+        </div>
+        <div class="ec-step">
+          <div class="ec-num">03</div>
+          <div>
+            <div class="ec-title">A live mandate in 20 minutes</div>
+            <div class="ec-body">Upload a real tender. We'll run it through Mandatum and show you the decision mandate before the call ends.</div>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- Trust signals -->
+      <div class="trust-card">
+        <div class="tc-head">Certifications &amp; compliance</div>
+        <div class="tc-body">
+          <div class="tc-badge">SOC 2 Type II</div>
+          <div class="tc-badge">ISO 27001</div>
+          <div class="tc-badge">FIPS 140-3</div>
+          <div class="tc-badge">GDPR</div>
+          <div class="tc-badge">ITAR</div>
+          <div class="tc-badge">CC EAL4+ path</div>
+        </div>
+      </div>
+ 
+    </div>
+  </div>
+ 
+  <!-- ── PERSONAS ── -->
+  <div class="sl">Not sure where to start? Find your path.</div>
+  <div class="personas-grid">
+ 
+    <div class="persona-route" href="#form">
+      <div class="pr-head">
+        <div class="pr-icon" style="background:var(--blue-lt)">📋</div>
+        <div class="pr-label" style="color:var(--blue)">Bid Manager · Capture Team</div>
+        <div class="pr-title">I need to filter and prioritize opportunities faster.</div>
+        <div class="pr-sub">High volume. Slow decisions. Resources wasted on the wrong bids.</div>
+      </div>
+      <div class="pr-body">
+        <div class="pr-row"><span class="dot" style="background:var(--blue)"></span>Start with Mandatum Scan (€49) — no account, no commitment</div>
+        <div class="pr-row"><span class="dot" style="background:var(--blue)"></span>Get a Go / Hold / Reject mandate in under 20 minutes</div>
+        <div class="pr-row"><span class="dot" style="background:var(--blue)"></span>Move to Gate I subscription when the volume justifies it</div>
+        <div class="pr-cta">→ Request free Scan</div>
+      </div>
+    </div>
+ 
+    <div class="persona-route" href="#form">
+      <div class="pr-head">
+        <div class="pr-icon" style="background:var(--purple-lt)">⚖️</div>
+        <div class="pr-label" style="color:var(--purple)">CFO · CLO · CISO</div>
+        <div class="pr-title">I need governance and margin protection across the full lifecycle.</div>
+        <div class="pr-sub">Submission errors. Negotiation creep. No audit trail. Hidden liability.</div>
+      </div>
+      <div class="pr-body">
+        <div class="pr-row"><span class="dot" style="background:var(--purple)"></span>Governance Plan — Gates I, II, and III · €4,900/mo</div>
+        <div class="pr-row"><span class="dot" style="background:var(--purple)"></span>BYOK encryption, SIEM export, DPA on request</div>
+        <div class="pr-row"><span class="dot" style="background:var(--purple)"></span>Security review and architecture brief available</div>
+        <div class="pr-cta">→ Request enterprise review</div>
+      </div>
+    </div>
+ 
+    <div class="persona-route" href="#form">
+      <div class="pr-head">
+        <div class="pr-icon" style="background:var(--amber-lt)">🛡</div>
+        <div class="pr-label" style="color:var(--amber)">Defense · Government · Critical Infrastructure</div>
+        <div class="pr-title">I need maximum assurance. No cloud. No connectivity.</div>
+        <div class="pr-sub">ITAR. Classified environments. CC EAL4+. Air-gapped requirements.</div>
+      </div>
+      <div class="pr-body">
+        <div class="pr-row"><span class="dot" style="background:var(--amber)"></span>Sovereign Edition — air-gapped, on-premise deployment</div>
+        <div class="pr-row"><span class="dot" style="background:var(--amber)"></span>FIPS 140-3 HSM · SBOM · signed offline bundles</div>
+        <div class="pr-row"><span class="dot" style="background:var(--amber)"></span>CC EAL4+ certification path · Strategic Advisor included</div>
+        <div class="pr-cta">→ Talk to the Sovereign team</div>
+      </div>
+    </div>
+ 
+  </div>
+ 
+  <!-- ── OFFICES ── -->
+  <div class="sl">Offices &amp; coverage</div>
+  <div class="offices-grid">
+ 
+    <div class="office-card">
+      <div class="office-region">Europe · Headquarters</div>
+      <div class="office-title">Madrid</div>
+      <div class="office-info">
+        Primary coverage: EU procurement, Spanish and<br>
+        Iberian public tenders, LATAM operations.<br><br>
+        <a href="mailto:hello@mandatum.io">hello@mandatum.io</a>
+      </div>
+      <div class="office-tag" style="background:var(--blue-lt);color:var(--blue)">EU · GDPR · DPDPA</div>
+    </div>
+ 
+    <div class="office-card">
+      <div class="office-region">Europe · UK &amp; Northern Europe</div>
+      <div class="office-title">London</div>
+      <div class="office-info">
+        Primary coverage: UK public procurement,<br>
+        NHS, MoD, Network Rail, Scottish and<br>
+        Welsh government frameworks.<br><br>
+        <a href="mailto:uk@mandatum.io">uk@mandatum.io</a>
+      </div>
+      <div class="office-tag" style="background:var(--stone);color:var(--muted)">UK · ICO · NCSC aligned</div>
+    </div>
+ 
+    <div class="office-card">
+      <div class="office-region">Defense &amp; Sovereign</div>
+      <div class="office-title">Brussels</div>
+      <div class="office-info">
+        Primary coverage: NATO procurement,<br>
+        EU defense frameworks, sovereign<br>
+        and critical infrastructure clients.<br><br>
+        <a href="mailto:sovereign@mandatum.io">sovereign@mandatum.io</a>
+      </div>
+      <div class="office-tag" style="background:var(--amber-lt);color:var(--amber)">ITAR · CC EAL4+ · FIPS</div>
+    </div>
+ 
+  </div>
+ 
+  <!-- ── BOTTOM CTA ── -->
+  <div class="bottom-cta">
+    <div>
+      <div class="bc-eyebrow">No account required to start</div>
+      <div class="bc-title">
+        Upload a tender.<br>Receive a mandate in 20 minutes.
+      </div>
+      <div class="bc-sub">
+        The fastest way to understand what Mandatum does is to run a real pursuit through it.
+        Start with a Scan at €49 — no setup, no contract, no commitment.
+      </div>
+    </div>
+    <div class="bc-actions">
+      <a href="#form" class="btn btn-gold">Try a free Mandatum Scan</a>
+      <a href="pricing.html" class="btn btn-ghost">View pricing</a>
+    </div>
+  </div>
+ 
+</div><!-- /page-wrap -->
+ 
+<!-- ══ FOOTER ════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-brand">M<span>A</span>NDATUM</div>
+  <div class="footer-info">
+    © 2026 Mandatum &nbsp;·&nbsp;
+    <a href="mailto:hello@mandatum.io">hello@mandatum.io</a>
+    &nbsp;·&nbsp; mandatum.io
+  </div>
+</footer>
+ 
+<!-- ══ INTERACTIONS ══════════════════════════════════ -->
+<script>
+  /* ── Tab switching ── */
+  function selectTab(tab) {
+    const tabs = ['access','enterprise','sovereign','investor'];
+    tabs.forEach(t => {
+      const el = document.getElementById('tab-' + t);
+      if (el) el.classList.toggle('active', t === tab);
+    });
+    // Scroll to form smoothly
+    setTimeout(() => {
+      const form = document.getElementById('form');
+      if (form) form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
+  }
+ 
+  /* ── Persona selection ── */
+  function selectPersona(el) {
+    document.querySelectorAll('.persona-card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+ 
+  /* ── Gate selection ── */
+  const gateClasses = {
+    scan: 'selected-scan',
+    g1:   'selected-g1',
+    g2:   'selected-g2',
+    g3:   'selected-g3'
+  };
+  let activeGate = 'scan';
+  function selectGate(gate) {
+    document.getElementById('go-' + activeGate).classList.remove(gateClasses[activeGate]);
+    activeGate = gate;
+    document.getElementById('go-' + gate).classList.add(gateClasses[gate]);
+  }
+ 
+  /* ── Consent toggle ── */
+  let consented = false;
+  function toggleConsent(el) {
+    consented = !consented;
+    el.textContent = consented ? '✓' : '';
+    el.style.borderColor = consented ? 'var(--gold)' : 'var(--border)';
+    el.style.background = consented ? 'color-mix(in srgb, var(--stone) 60%, #fff)' : '#fff';
+  }
+ 
+  /* ── Form submit ── */
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!consented) {
+      const check = document.getElementById('consent-check');
+      check.style.borderColor = 'var(--red)';
+      check.style.animation = 'none';
+      setTimeout(() => { check.style.borderColor = 'var(--border)'; }, 1500);
+      return;
+    }
+    // Hide form, show success
+    document.getElementById('form-body').style.display = 'none';
+    document.getElementById('success-state').classList.add('visible');
+    // Scroll to success
+    document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+ 
+  /* ── Persona route cards act as anchors ── */
+  document.querySelectorAll('.persona-route').forEach(card => {
+    card.addEventListener('click', () => {
+      document.getElementById('form').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+ 
 </body>
 </html>
