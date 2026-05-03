@@ -10,7 +10,7 @@ const CONFIG = {
   DEFAULT_THEME: 'mandatum',
  
   // Remember the user's last theme across sessions.
-  PERSIST_THEME: false,
+  PERSIST_THEME: true,
  
   // Show the theme toggle button in the header.
   // Set to false in production — use Mandatum.setTheme() from the console instead.
@@ -92,8 +92,8 @@ window.Mandatum = {
 const NAV_LINKS=[
   {href:'pricing.html',label:'Pricing'},
   {href:'security.html',label:'Security'},
-  {href:'command.html',label:'Command Center'},
-  {href:'LATAM.html',label:'LATAM'},
+  {href:'command-center.html',label:'Command Center'},
+  {href:'latam.html',label:'LATAM'},
   {href:'investors.html',label:'Investors'},
   {href:'contact.html',label:'Contact'},
 ];
@@ -186,3 +186,4 @@ class MandatumFooter extends HTMLElement{
 customElements.define('mandatum-header',MandatumHeader);
 customElements.define('mandatum-footer',MandatumFooter);
 })();
+ 
