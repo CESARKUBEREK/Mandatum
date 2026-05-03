@@ -3,42 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mandatum — Pricing</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant+SC:wght@400;500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+ 
+  <!-- SEO -->
+  <title>Mandatum — Pricing · Pay-as-you-go and Subscription Plans</title>
+  <meta name="description" content="Start with a €49 Scan and scale to full lifecycle governance. Pay-per-decision or subscribe. Sovereign edition for defense and critical infrastructure.">
+  <meta name="keywords" content="bid management pricing, tender analysis cost, pay per bid, procurement software pricing, bid no-bid subscription, mandate software">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://mandatum.io/pricing.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mandatum.io/pricing.html">
+  <meta property="og:title" content="Mandatum — Pricing">
+  <meta property="og:description" content="Start with a €49 Scan. Scale to full lifecycle governance. No commitment required.">
+  <meta property="og:image" content="https://mandatum.io/assets/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mandatum — Pricing">
+  <meta name="twitter:description" content="Pay-per-decision or subscribe. From €49 Scan to Sovereign enterprise deployment.">
+ 
+  <link rel="stylesheet" href="assets/styles.css">
   <style>
-    /* ── RESET ─────────────────────────────────────── */
+/* ── RESET ─────────────────────────────────────── */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
  
-    :root {
-      --ink:       #0D0F14;
-      --ink2:      #1A1D26;
-      --ink3:      #252933;
-      --gold:      #B8963E;
-      --gold-lt:   #D4AE5C;
-      --gold-dim:  #7A621F;
-      --stone:     #F2EDE4;
-      --stone2:    #E8E0D0;
-      --stone3:    #CFC4B0;
-      --parch:     #FAFAF8;
-      --muted:     #6B6560;
-      --border:    #E5E0D8;
-      --teal:      #0D9488;
-      --teal-lt:   #CCFBF1;
-      --blue:      #2563EB;
-      --blue-lt:   #DBEAFE;
-      --purple:    #7C3AED;
-      --purple-lt: #EDE9FE;
-      --amber:     #D97706;
-      --amber-lt:  #FEF3C7;
-      --green:     #059669;
-      --green-lt:  #D1FAE5;
-      --red:       #DC2626;
-      --red-lt:    #FEE2E2;
-      --r-sm: 6px;
-      --r-md: 10px;
-      --r-lg: 14px;
-    }
+    
  
     html { scroll-behavior: smooth; }
  
@@ -562,31 +548,11 @@
   </style>
 </head>
 <body>
+  <mandatum-header></mandatum-header>
  
+  <main>
 <!-- ══ HEADER ════════════════════════════════════════ -->
-<header class="site-header">
-  <a href="index.html" class="logo-container">
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
-      <path d="M12 2L20 6V12C20 17 16.5 21 12 22C7.5 21 4 17 4 12V6L12 2Z"
-            stroke="currentColor" stroke-width="1.6"/>
-      <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.2"/>
-      <circle cx="12" cy="12" r="7" stroke="currentColor" stroke-opacity="0.4" stroke-width="1"/>
-    </svg>
-    <div class="logo-wordmark">M<span>A</span>NDATUM</div>
-  </a>
-  <nav class="nav-links">
-    <a href="pricing.html" class="active">Pricing</a>
-    <a href="security.html">Security</a>
-    <a href="command.html">Command Center</a>
-    <a href="investors.html">Investors</a>
-    <a href="contact.html">Contact</a>
-    <div class="lang-selector">
-      <a href="pricing.html" class="active">EN</a>
-      <a href="../es/pricing.html">ES</a>
-      <a href="../pt/pricing.html">PT</a>
-    </div>
-  </nav>
-</header>
+ 
  
 <!-- ══ HERO ══════════════════════════════════════════ -->
 <div class="hero-band">
@@ -985,14 +951,7 @@
 </div><!-- /page-wrap -->
  
 <!-- ══ FOOTER ════════════════════════════════════════ -->
-<footer class="footer">
-  <div class="footer-brand">M<span>A</span>NDATUM</div>
-  <div class="footer-info">
-    © 2026 Mandatum &nbsp;·&nbsp;
-    <a href="mailto:sales@mandatum.io">sales@mandatum.io</a>
-    &nbsp;·&nbsp; mandatum.io
-  </div>
-</footer>
+ 
  
 <script>
   let annual = true;
@@ -1004,6 +963,10 @@
     document.getElementById('p2').textContent = annual ? '€4,900' : '€6,125';
   }
 </script>
+  </main>
  
+  <mandatum-footer></mandatum-footer>
+  <script src="assets/components.js"></script>
 </body>
 </html>
+ 
