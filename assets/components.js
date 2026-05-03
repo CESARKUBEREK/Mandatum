@@ -92,8 +92,8 @@ window.Mandatum = {
 const NAV_LINKS=[
   {href:'pricing.html',label:'Pricing'},
   {href:'security.html',label:'Security'},
-  {href:'command-center.html',label:'Command Center'},
-  {href:'latam.html',label:'LATAM'},
+  {href:'command.html',label:'Command Center'},
+  {href:'LATAM.html',label:'LATAM'},
   {href:'investors.html',label:'Investors'},
   {href:'contact.html',label:'Contact'},
 ];
