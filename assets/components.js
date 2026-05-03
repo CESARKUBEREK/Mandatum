@@ -7,7 +7,7 @@
    Edit only this block.
    ═══════════════════════════════════════════════════════ */
 var CONFIG = {
-  DEFAULT_THEME : 'mandatum',  // 'mandatum' | 'aegis'
+  DEFAULT_THEME : 'aegis',  // 'mandatum' | 'aegis'
   PERSIST_THEME : true,        // remember across sessions
   SHOW_TOGGLE   : false,       // true = show button in header
   SHORTCUT      : { key: 'T', ctrlKey: true, shiftKey: true }
