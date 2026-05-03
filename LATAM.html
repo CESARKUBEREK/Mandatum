@@ -3,38 +3,1096 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mandatum — Countries Coverage</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Cormorant+SC:wght@400;500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+ 
+  <!-- SEO -->
+  <title>Mandatum LATAM — Chile, México, Colombia, Argentina, Brasil</title>
+  <meta name="description" content="Mandatum connects natively to ChileCompra, CompraNet, SECOP, COMPR.AR, and Compras.gov.br. Full tender analysis in Spanish and Portuguese with local regulatory context.">
+  <meta name="keywords" content="licitaciones públicas software, ChileCompra análisis, CompraNet México, SECOP Colombia, COMPR.AR Argentina, Compras.gov.br Brasil, gestión de licitaciones LATAM">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://mandatum.io/latam.html">
+ 
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://mandatum.io/latam.html">
+  <meta property="og:title"       content="Mandatum LATAM — Chile, México, Colombia, Argentina, Brasil">
+  <meta property="og:description" content="Mandatum connects natively to ChileCompra, CompraNet, SECOP, COMPR.AR, and Compras.gov.br. Full tender analysis in Spanish and Portuguese with local regulatory context.">
+  <meta property="og:image"       content="https://mandatum.io/assets/og-image.jpg">
+ 
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="Mandatum LATAM — Chile, México, Colombia, Argentina, Brasil">
+  <meta name="twitter:description" content="Mandatum connects natively to ChileCompra, CompraNet, SECOP, COMPR.AR, and Compras.gov.br. Full tender analysis in Spanish and Portuguese with local regulatory context.">
+ 
+  <!-- Shared design system -->
+  <link rel="stylesheet" href="assets/styles.css">
   <style>
-    /* ── RESET ─────────────────────────────────────── */
+/* ── RESET ─────────────────────────────────────── */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
  
-    :root {
-      --ink:       #0D0F14;
-      --ink2:      #1A1D26;
-      --ink3:      #252933;
-      --gold:      #B8963E;
-      --gold-lt:   #D4AE5C;
-      --gold-dim:  #7A621F;
-      --stone:     #F2EDE4;
-      --stone2:    #E8E0D0;
-      --stone3:    #CFC4B0;
-      --parch:     #FAFAF8;
-      --muted:     #6B6560;
-      --border:    #E5E0D8;
-      --teal:      #0D9488;
-      --teal-lt:   #CCFBF1;
-      --blue:      #2563EB;
-      --blue-lt:   #DBEAFE;
-      --purple:    #7C3AED;
-      --purple-lt: #EDE9FE;
-      --amber:     #D97706;
-      --amber-lt:  #FEF3C7;
-      --green:     #059669;
-      --green-lt:  #D1FAE5;
-      --red:       #DC2626;
-      --red-lt:    #FEE2E2;
+    
+ 
+    html { scroll-behavior: smooth; }
+ 
+    body {
+      background: var(--parch);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+ 
+    /* ── HEADER ─────────────────────────────────────── */
+    
+    
+    .logo-container svg { color: var(--gold); flex-shrink: 0; }
+    .logo-wordmark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; font-weight: 400;
+      letter-spacing: 4px; text-transform: uppercase;
+    }
+    .logo-wordmark span { color: var(--gold); }
+    
+    
+    
+    
+    
+    
+    
+ 
+    /* ── HERO ────────────────────────────────────────── */
+    .hero-band {
+      background: var(--ink);
+      padding: 64px 40px 52px;
+      position: relative; overflow: hidden;
+    }
+    .hero-band::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,.018) 39px, rgba(255,255,255,.018) 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,.018) 39px, rgba(255,255,255,.018) 40px);
+      pointer-events: none;
+    }
+    /* Gold radial glow — bottom right */
+    .hero-band::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; right: 40px;
+      width: 480px; height: 480px;
+      background: radial-gradient(circle, rgba(184,150,62,.09) 0%, transparent 68%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1080px; margin: 0 auto;
+      position: relative; z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px; align-items: center;
+    }
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px; letter-spacing: 3.5px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 16px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .hero-eyebrow::before { content:''; width:16px; height:1px; background:var(--gold); }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(28px, 4vw, 50px);
+      font-weight: 300; line-height: 1.1;
+      color: #fff; margin-bottom: 14px;
+    }
+    .hero-title em { font-style: italic; color: var(--gold-lt); }
+    .hero-sub {
+      font-size: 13px; color: rgba(255,255,255,.45);
+      line-height: 1.75; max-width: 420px;
+      margin-bottom: 24px;
+    }
+    .hero-stats {
+      display: flex; gap: 32px; flex-wrap: wrap;
+    }
+    .hs-item { }
+    .hs-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px; font-weight: 300;
+      line-height: 1; margin-bottom: 3px;
+    }
+    .hs-label { font-size: 10px; color: rgba(255,255,255,.35); }
+ 
+    /* Hero right — flag mosaic */
+    .flag-mosaic {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .flag-tile {
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--r-md);
+      padding: 14px 16px;
+      background: rgba(255,255,255,.03);
+      display: flex; align-items: center; gap: 10px;
+      transition: background .2s;
+    }
+    .flag-tile:hover { background: rgba(255,255,255,.06); }
+    .flag-tile.wide { grid-column: span 2; }
+    .flag-emoji { font-size: 22px; flex-shrink: 0; }
+    .flag-content { }
+    .flag-country {
+      font-size: 13px; font-weight: 500; color: #fff; margin-bottom: 2px;
+    }
+    .flag-portal {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px; letter-spacing: 1px;
+      color: rgba(255,255,255,.35);
+    }
+    .flag-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      flex-shrink: 0; margin-left: auto;
+    }
+ 
+    /* ── PAGE WRAP ───────────────────────────────────── */
+    .page-wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 40px 80px;
+    }
+ 
+    /* ── SECTION LABELS ──────────────────────────────── */
+    .sl {
+      display: flex; align-items: center; gap: 14px;
+      margin: 56px 0 22px;
+      font-family: 'DM Mono', monospace;
+      font-size: 9px; font-weight: 500;
+      letter-spacing: 3px; text-transform: uppercase; color: var(--gold);
+    }
+    .sl::before { content:''; width:20px; height:1px; background:var(--gold); flex-shrink:0; }
+    .sl::after  { content:''; flex:1; height:1px; background:var(--border); }
+    .sl:first-child { margin-top: 56px; }
+ 
+    /* ── COUNTRY CARDS ───────────────────────────────── */
+    .countries { display: flex; flex-direction: column; gap: 10px; }
+ 
+    .country-card {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      background: #fff; overflow: hidden;
+    }
+    .country-header {
+      display: grid;
+      grid-template-columns: 64px 1fr auto;
+      align-items: center; gap: 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .country-flag-block {
+      display: flex; align-items: center; justify-content: center;
+      height: 72px;
+      font-size: 32px;
+      border-right: 1px solid var(--border);
+    }
+    .country-title-block {
+      padding: 14px 20px;
+    }
+    .country-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px; font-weight: 400;
+      color: var(--ink); margin-bottom: 3px;
+      line-height: 1;
+    }
+    .country-body-sub {
+      font-size: 11px; color: var(--muted);
+    }
+    .country-status-block {
+      padding: 14px 20px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .status-live {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; font-weight: 500;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--green);
+      padding: 5px 12px; border-radius: 3px;
+      background: var(--green-lt);
+      border: 1px solid color-mix(in srgb, var(--green-lt) 60%, var(--green));
+    }
+    .status-live::before {
+      content: '';
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+ 
+    .country-body {
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr 1px 1fr;
+    }
+    .col-divider { background: var(--border); }
+    .country-col { padding: 18px 20px; }
+    .cc-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .cc-entity {
+      font-size: 13px; font-weight: 500;
+      color: var(--ink); margin-bottom: 4px;
+      line-height: 1.3;
+    }
+    .cc-desc { font-size: 11px; color: var(--muted); line-height: 1.55; }
+    .cc-portal-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; font-weight: 500;
+      color: var(--ink); text-decoration: none;
+      margin-top: 8px;
+      padding: 5px 10px; border-radius: var(--r-sm);
+      border: 1px solid var(--border);
+      background: var(--stone);
+      transition: all .15s;
+    }
+    .cc-portal-link:hover {
+      border-color: var(--stone3);
+      background: var(--stone2);
+    }
+    .cc-portal-link::before {
+      content: '↗';
+      font-size: 9px; opacity: .5;
+    }
+ 
+    .cc-row {
+      display: flex; align-items: flex-start; gap: 7px;
+      padding: 5px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 11px; color: var(--muted); line-height: 1.4;
+    }
+    .cc-row:last-child { border-bottom: none; }
+    .dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+ 
+    /* Country accent left borders */
+    .cc-chile   { border-left: 3px solid var(--cl); }
+    .cc-mexico  { border-left: 3px solid var(--mx); }
+    .cc-colombia{ border-left: 3px solid var(--co-ink); }
+    .cc-arg     { border-left: 3px solid var(--ar-ink); }
+    .cc-brasil  { border-left: 3px solid var(--br); }
+ 
+    /* ── PORTAL TABLE ────────────────────────────────── */
+    .portal-table {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      background: #fff; overflow: hidden;
+      margin-bottom: 10px;
+    }
+    .pt-header {
+      display: grid;
+      grid-template-columns: 140px 1fr 1fr 120px 100px;
+      background: var(--stone);
+      border-bottom: 1px solid var(--border);
+    }
+    .pt-h {
+      padding: 10px 16px;
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--muted);
+      border-right: 1px solid var(--border);
+    }
+    .pt-h:last-child { border-right: none; }
+    .pt-row {
+      display: grid;
+      grid-template-columns: 140px 1fr 1fr 120px 100px;
+      border-bottom: 1px solid var(--border);
+      transition: background .15s; cursor: default;
+    }
+    .pt-row:last-child { border-bottom: none; }
+    .pt-row:hover { background: var(--stone); }
+    .pt-cell {
+      padding: 13px 16px;
+      border-right: 1px solid var(--border);
+      font-size: 11px; color: var(--muted);
+      display: flex; align-items: center; line-height: 1.4;
+    }
+    .pt-cell:last-child { border-right: none; }
+    .pt-cell.country {
+      font-weight: 500; color: var(--ink);
+      gap: 10px;
+    }
+    .pt-flag { font-size: 16px; flex-shrink: 0; }
+    .pt-portal-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px; font-weight: 400; color: var(--ink);
+    }
+    .pt-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px; color: var(--gold-dim);
+      text-decoration: none; display: block; margin-top: 2px;
+      transition: color .15s;
+    }
+    .pt-link:hover { color: var(--gold); }
+    .live-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; font-weight: 500;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--green);
+      background: var(--green-lt); padding: 3px 9px;
+      border-radius: 2px;
+    }
+    .live-badge::before {
+      content: '';
+      width: 4px; height: 4px; border-radius: 50%;
+      background: var(--green);
+    }
+    .lang-badge {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 3px 8px; border-radius: 2px;
+      background: var(--stone); color: var(--muted);
+    }
+ 
+    /* ── MARKET STATS ────────────────────────────────── */
+    .market-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px; margin-bottom: 10px;
+    }
+    .mkt-card {
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      background: #fff; padding: 16px;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .mkt-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .mkt-flag { font-size: 24px; margin-bottom: 8px; }
+    .mkt-country {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px; font-weight: 400;
+      color: var(--ink); margin-bottom: 8px;
+    }
+    .mkt-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px; font-weight: 300;
+      line-height: 1; margin-bottom: 3px;
+    }
+    .mkt-label { font-size: 10px; color: var(--muted); line-height: 1.4; }
+ 
+    /* ── HOW IT WORKS LATAM ──────────────────────────── */
+    .how-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px; margin-bottom: 10px;
+    }
+    .how-card {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      background: #fff; padding: 22px 20px;
+    }
+    .how-step {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 44px; font-weight: 300;
+      color: var(--stone2); line-height: 1; margin-bottom: 12px;
+    }
+    .how-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
+    .how-body  { font-size: 12px; color: var(--muted); line-height: 1.65; }
+    .how-portals {
+      margin-top: 12px; padding-top: 12px;
+      border-top: 1px solid var(--border);
+      display: flex; flex-wrap: wrap; gap: 4px;
+    }
+    .portal-chip {
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 1px;
+      padding: 3px 8px; border-radius: 2px;
+      background: var(--stone); color: var(--muted);
+      border: 1px solid var(--border);
+    }
+ 
+    /* ── COMING SOON ─────────────────────────────────── */
+    .coming-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px; margin-bottom: 10px;
+    }
+    .coming-card {
+      border: 1px dashed var(--border);
+      border-radius: var(--r-md);
+      padding: 16px;
+      display: flex; align-items: center; gap: 10px;
+      opacity: .65;
+    }
+    .coming-flag { font-size: 20px; flex-shrink: 0; }
+    .coming-name {
+      font-size: 12px; font-weight: 500; color: var(--ink);
+      margin-bottom: 2px;
+    }
+    .coming-portal { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); }
+    .coming-badge {
+      margin-left: auto; flex-shrink: 0;
+      font-family: 'DM Mono', monospace;
+      font-size: 7px; letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 2px 7px; border-radius: 2px;
+      background: var(--stone); color: var(--muted);
+    }
+ 
+    /* ── BOTTOM CTA ──────────────────────────────────── */
+    .bottom-cta {
+      background: var(--ink);
+      border-radius: var(--r-lg);
+      padding: 40px 48px;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 32px;
+      position: relative; overflow: hidden;
+    }
+    .bottom-cta::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold-dim), var(--gold), var(--gold-dim));
+    }
+    .bc-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 8px; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .bc-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px; font-weight: 300;
+      color: #fff; margin-bottom: 8px; line-height: 1.2;
+    }
+    .bc-sub {
+      font-size: 12px; color: rgba(255,255,255,.4);
+      line-height: 1.65; max-width: 400px;
+    }
+    .bc-actions { display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
+    .btn {
+      display: inline-block; text-align: center;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px; font-weight: 500;
+      padding: 10px 24px; border-radius: var(--r-sm);
+      border: 1px solid; cursor: pointer;
+      text-decoration: none; white-space: nowrap;
+      letter-spacing: .3px; transition: all .2s;
+    }
+    .btn-gold  { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+    .btn-gold:hover { background: var(--gold-lt); border-color: var(--gold-lt); }
+    .btn-ghost { background: transparent; color: rgba(255,255,255,.6); border-color: rgba(255,255,255,.2); }
+    .btn-ghost:hover { border-color: rgba(255,255,255,.4); color: #fff; }
+ 
+    /* ── FOOTER ──────────────────────────────────────── */
+    
+    
+    
+    
+    
+    
+ 
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 820px) {
+      
+      .nav-links > a { display: none; }
+      .hero-band { padding: 48px 20px 40px; }
+      .hero-inner { grid-template-columns: 1fr; gap: 32px; }
+      .flag-mosaic { display: none; }
+      .page-wrap { padding: 0 20px 60px; }
+      .country-body { grid-template-columns: 1fr; }
+      .col-divider { display: none; }
+      .country-header { grid-template-columns: 56px 1fr; }
+      .country-status-block { display: none; }
+      .pt-header, .pt-row { grid-template-columns: 110px 1fr 1fr; }
+      .pt-h:nth-child(4), .pt-h:nth-child(5),
+      .pt-cell:nth-child(4), .pt-cell:nth-child(5) { display: none; }
+      .market-grid { grid-template-columns: 1fr 1fr; }
+      .how-grid { grid-template-columns: 1fr; }
+      .coming-grid { grid-template-columns: 1fr 1fr; }
+      .bottom-cta { flex-direction: column; padding: 32px 20px; }
+      
+    }
+  </style>
+</head>
+<body>
+  <mandatum-header></mandatum-header>
+ 
+  <main>
+<!-- ══ HEADER ════════════════════════════════════════ -->
+ 
+ 
+<!-- ══ HERO ══════════════════════════════════════════ -->
+<div class="hero-band">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">LATAM Coverage · América Latina</div>
+      <h1 class="hero-title">
+        Five countries.<br>Five portals.<br>
+        <em>One decision engine.</em>
+      </h1>
+      <p class="hero-sub">
+        Mandatum connects natively to the five largest public procurement
+        portals in Latin America. Analyze tenders from ChileCompra to
+        Compras.gov.br using the same structured decision process — in
+        Spanish and Portuguese, with local regulatory context built in.
+      </p>
+      <div class="hero-stats">
+        <div class="hs-item">
+          <div class="hs-val" style="color:var(--gold-lt)">$320B</div>
+          <div class="hs-label">Annual public procurement<br>across the five countries</div>
+        </div>
+        <div class="hs-item">
+          <div class="hs-val" style="color:#6EE7B7">5</div>
+          <div class="hs-label">Native portal<br>integrations live</div>
+        </div>
+        <div class="hs-item">
+          <div class="hs-val" style="color:#C4B5FD">2</div>
+          <div class="hs-label">Languages — Spanish<br>and Portuguese</div>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- Flag mosaic -->
+    <div class="flag-mosaic">
+      <div class="flag-tile">
+        <div class="flag-emoji">🇨🇱</div>
+        <div class="flag-content">
+          <div class="flag-country">Chile</div>
+          <div class="flag-portal">Mercado Público</div>
+        </div>
+        <div class="flag-dot" style="background:var(--cl)"></div>
+      </div>
+      <div class="flag-tile">
+        <div class="flag-emoji">🇲🇽</div>
+        <div class="flag-content">
+          <div class="flag-country">México</div>
+          <div class="flag-portal">CompraNet</div>
+        </div>
+        <div class="flag-dot" style="background:var(--mx)"></div>
+      </div>
+      <div class="flag-tile">
+        <div class="flag-emoji">🇨🇴</div>
+        <div class="flag-content">
+          <div class="flag-country">Colombia</div>
+          <div class="flag-portal">SECOP</div>
+        </div>
+        <div class="flag-dot" style="background:var(--co-ink)"></div>
+      </div>
+      <div class="flag-tile">
+        <div class="flag-emoji">🇦🇷</div>
+        <div class="flag-content">
+          <div class="flag-country">Argentina</div>
+          <div class="flag-portal">COMPR.AR</div>
+        </div>
+        <div class="flag-dot" style="background:var(--ar-ink)"></div>
+      </div>
+      <div class="flag-tile wide">
+        <div class="flag-emoji">🇧🇷</div>
+        <div class="flag-content">
+          <div class="flag-country">Brasil</div>
+          <div class="flag-portal">Compras.gov.br</div>
+        </div>
+        <div class="flag-dot" style="background:var(--br)"></div>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<!-- ══ PAGE CONTENT ══════════════════════════════════ -->
+<div class="page-wrap">
+ 
+  <!-- ── MARKET SIZE ── -->
+  <div class="sl">Market overview — public procurement by country</div>
+  <div class="market-grid">
+ 
+    <div class="mkt-card cc-chile">
+      <div class="mkt-flag">🇨🇱</div>
+      <div class="mkt-country">Chile</div>
+      <div class="mkt-val" style="color:var(--cl)">$18B</div>
+      <div class="mkt-label">Annual public procurement<br>via Mercado Público</div>
+    </div>
+ 
+    <div class="mkt-card cc-mexico">
+      <div class="mkt-flag">🇲🇽</div>
+      <div class="mkt-country">México</div>
+      <div class="mkt-val" style="color:var(--mx)">$72B</div>
+      <div class="mkt-label">Annual public procurement<br>via CompraNet</div>
+    </div>
+ 
+    <div class="mkt-card cc-colombia">
+      <div class="mkt-flag">🇨🇴</div>
+      <div class="mkt-country">Colombia</div>
+      <div class="mkt-val" style="color:var(--co-ink)">$24B</div>
+      <div class="mkt-label">Annual public procurement<br>via SECOP</div>
+    </div>
+ 
+    <div class="mkt-card cc-arg">
+      <div class="mkt-flag">🇦🇷</div>
+      <div class="mkt-country">Argentina</div>
+      <div class="mkt-val" style="color:var(--ar-ink)">$38B</div>
+      <div class="mkt-label">Annual public procurement<br>via COMPR.AR</div>
+    </div>
+ 
+    <div class="mkt-card cc-brasil">
+      <div class="mkt-flag">🇧🇷</div>
+      <div class="mkt-country">Brasil</div>
+      <div class="mkt-val" style="color:var(--br)">$168B</div>
+      <div class="mkt-label">Annual public procurement<br>via Compras.gov.br</div>
+    </div>
+ 
+  </div>
+ 
+  <!-- ── PORTAL REFERENCE TABLE ── -->
+  <div class="sl">Procurement portal reference</div>
+  <div class="portal-table">
+    <div class="pt-header">
+      <div class="pt-h">Country</div>
+      <div class="pt-h">Regulatory authority</div>
+      <div class="pt-h">Official portal</div>
+      <div class="pt-h">Language</div>
+      <div class="pt-h">Status</div>
+    </div>
+ 
+    <div class="pt-row">
+      <div class="pt-cell country">
+        <div class="pt-flag">🇨🇱</div>
+        <div>
+          <div style="font-weight:500;color:var(--ink)">Chile</div>
+          <div style="font-size:9px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:.5px">CL</div>
+        </div>
+      </div>
+      <div class="pt-cell">
+        <div>
+          <div style="font-weight:500;color:var(--ink);margin-bottom:2px">ChileCompra</div>
+          <div>Dirección ChileCompra · Ministerio de Hacienda</div>
+        </div>
+      </div>
+      <div class="pt-cell">
+        <div class="pt-portal-name">Mercado Público</div>
+        <a href="https://www.mercadopublico.cl" target="_blank" class="pt-link">mercadopublico.cl ↗</a>
+      </div>
+      <div class="pt-cell"><span class="lang-badge">ES</span></div>
+      <div class="pt-cell"><span class="live-badge">Live</span></div>
+    </div>
+ 
+    <div class="pt-row">
+      <div class="pt-cell country">
+        <div class="pt-flag">🇲🇽</div>
+        <div>
+          <div style="font-weight:500;color:var(--ink)">México</div>
+          <div style="font-size:9px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:.5px">MX</div>
+        </div>
+      </div>
+      <div class="pt-cell">
+        <div>
+          <div style="font-weight:500;color:var(--ink);margin-bottom:2px">Secretaría de Hacienda y Crédito Público</div>
+          <div>SHCP · Gobierno Federal de México</div>
+        </div>
+      </div>
+      <div class="pt-cell">
+        <div class="pt-portal-name">CompraNet</div>
+        <a href="https://compranet.hacienda.gob.mx" target="_blank" class="pt-link">compranet.hacienda.gob.mx ↗</a>
+      </div>
+      <div class="pt-cell"><span class="lang-badge">ES</span></div>
+      <div class="pt-cell"><span class="live-badge">Live</span></div>
+    </div>
+ 
+    <div class="pt-row">
+      <div class="pt-cell country">
+        <div class="pt-flag">🇨🇴</div>
+        <div>
+          <div style="font-weight:500;color:var(--ink)">Colombia</div>
+          <div style="font-size:9px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:.5px">CO</div>
+        </div>
+      </div>
+      <div class="pt-cell">
+        <div>
+          <div style="font-weight:500;color:var(--ink);margin-bottom:2px">Colombia Compra Eficiente</div>
+          <div>CCE · Agencia Nacional de Contratación Pública</div>
+        </div>
+      </div>
+      <div class="pt-cell">
+        <div class="pt-portal-name">SECOP</div>
+        <a href="https://www.colombiacompra.gov.co" target="_blank" class="pt-link">colombiacompra.gov.co ↗</a>
+      </div>
+      <div class="pt-cell"><span class="lang-badge">ES</span></div>
+      <div class="pt-cell"><span class="live-badge">Live</span></div>
+    </div>
+ 
+    <div class="pt-row">
+      <div class="pt-cell country">
+        <div class="pt-flag">🇦🇷</div>
+        <div>
+          <div style="font-weight:500;color:var(--ink)">Argentina</div>
+          <div style="font-size:9px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:.5px">AR</div>
+        </div>
+      </div>
+      <div class="pt-cell">
+        <div>
+          <div style="font-weight:500;color:var(--ink);margin-bottom:2px">Oficina Nacional de Contrataciones</div>
+          <div>ONC · Jefatura de Gabinete de Ministros</div>
+        </div>
+      </div>
+      <div class="pt-cell">
+        <div class="pt-portal-name">COMPR.AR</div>
+        <a href="https://comprar.gob.ar" target="_blank" class="pt-link">comprar.gob.ar ↗</a>
+      </div>
+      <div class="pt-cell"><span class="lang-badge">ES</span></div>
+      <div class="pt-cell"><span class="live-badge">Live</span></div>
+    </div>
+ 
+    <div class="pt-row">
+      <div class="pt-cell country">
+        <div class="pt-flag">🇧🇷</div>
+        <div>
+          <div style="font-weight:500;color:var(--ink)">Brasil</div>
+          <div style="font-size:9px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:.5px">BR</div>
+        </div>
+      </div>
+      <div class="pt-cell">
+        <div>
+          <div style="font-weight:500;color:var(--ink);margin-bottom:2px">Governo Federal do Brasil</div>
+          <div>Ministério da Gestão e da Inovação em Serviços Públicos</div>
+        </div>
+      </div>
+      <div class="pt-cell">
+        <div class="pt-portal-name">Compras.gov.br</div>
+        <a href="https://www.compras.gov.br" target="_blank" class="pt-link">compras.gov.br ↗</a>
+      </div>
+      <div class="pt-cell"><span class="lang-badge">PT</span></div>
+      <div class="pt-cell"><span class="live-badge">Live</span></div>
+    </div>
+ 
+  </div>
+ 
+  <!-- ── COUNTRY CARDS ── -->
+  <div class="sl">Country detail — integration and regulatory context</div>
+  <div class="countries">
+ 
+    <!-- CHILE -->
+    <div class="country-card">
+      <div class="country-header">
+        <div class="country-flag-block">🇨🇱</div>
+        <div class="country-title-block">
+          <div class="country-name">Chile</div>
+          <div class="country-body-sub">Mercado Público · Most mature e-procurement system in LATAM</div>
+        </div>
+        <div class="country-status-block">
+          <div class="status-live">Live</div>
+        </div>
+      </div>
+      <div class="country-body cc-chile">
+        <div class="country-col">
+          <div class="cc-label">Regulatory authority</div>
+          <div class="cc-entity">ChileCompra</div>
+          <div class="cc-desc">Dirección ChileCompra, under the Ministerio de Hacienda. Governs all public procurement above threshold values, including frameworks, concessions, and direct contracting.</div>
+          <a href="https://www.chilecompra.cl" target="_blank" class="cc-portal-link">chilecompra.cl</a>
+        </div>
+        <div class="col-divider"></div>
+        <div class="country-col">
+          <div class="cc-label">Portal — Mercado Público</div>
+          <div class="cc-row"><span class="dot" style="background:var(--cl)"></span>Licitaciones Públicas (LP) — open competitive tenders</div>
+          <div class="cc-row"><span class="dot" style="background:var(--cl)"></span>Trato Directo (TD) — direct contracting with justification</div>
+          <div class="cc-row"><span class="dot" style="background:var(--cl)"></span>Convenio Marco — framework agreements via catalogue</div>
+          <div class="cc-row"><span class="dot" style="background:var(--cl)"></span>Grandes Compras — high-value competitive processes</div>
+          <a href="https://www.mercadopublico.cl" target="_blank" class="cc-portal-link">mercadopublico.cl</a>
+        </div>
+        <div class="col-divider"></div>
+        <div class="country-col">
+          <div class="cc-label">Mandatum integration</div>
+          <div class="cc-row"><span class="dot" style="background:var(--teal)"></span>Native ingestion of LP tender documents in Spanish</div>
+          <div class="cc-row"><span class="dot" style="background:var(--teal)"></span>Buyer profile from ChileCompra adjudication history</div>
+          <div class="cc-row"><span class="dot" style="background:var(--teal)"></span>Sanctions screening — Chilean Contraloría watchlists</div>
+          <div class="cc-row"><span class="dot" style="background:var(--teal)"></span>Compliance Matrix aligned to Ley 19.886 requirements</div>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- MÉXICO -->
+    <div class="country-card">
+      <div class="country-header">
+        <div class="country-flag-block">🇲🇽</div>
+        <div class="country-title-block">
+          <div class="country-name">México</div>
+          <div class="country-body-sub">CompraNet · Federal procurement under LAASSP and LOPSRM</div>
+        </div>
+        <div class="country-status-block">
+          <div class="status-live">Live</div>
+        </div>
+      </div>
+      <div class="country-body cc-mexico">
+        <div class="country-col">
+          <div class="cc-label">Regulatory authority</div>
+          <div class="cc-entity">Secretaría de Hacienda y Crédito Público</div>
+          <div class="cc-desc">SHCP oversees public procurement governed by LAASSP (goods and services) and LOPSRM (public works). Compliance with SFP (Secretaría de la Función Pública) oversight is mandatory.</div>
+          <a href="https://www.gob.mx/shcp" target="_blank" class="cc-portal-link">gob.mx/shcp</a>
+        </div>
+        <div class="col-divider"></div>
+        <div class="country-col">
+          <div class="cc-label">Portal — CompraNet</div>
+          <div class="cc-row"><span class="dot" style="background:var(--mx)"></span>Licitación Pública Nacional e Internacional</div>
+          <div class="cc-row"><span class="dot" style="background:var(--mx)"></span>Invitación a cuando menos tres personas</div>
+          <div class="cc-row"><span class="dot" style="background:var(--mx)"></span>Adjudicación directa</div>
+          <div class="cc-row"><span class="dot" style="background:var(--mx)"></span>OSD — obra y servicios relacionados</div>
+          <a href="https://compranet.hacienda.gob.mx" target="_blank" class="cc-portal-link">compranet.hacienda.gob.mx</a>
+        </div>
+        <div class="col-divider"></div>
+        <div class="country-col">
+          <div class="cc-label">Mandatum integration</div>
+          <div class="cc-row"><span class="dot" style="background:var(--teal)"></span>Tender analysis under LAASSP and LOPSRM frameworks</div>
+          <div class="cc-row"><span class="dot" style="background:var(--teal)"></span>IMSS, ISSSTE, CFE — public entity buyer profiling</div>
+          <div class="cc-row"><span class="dot" style="background:var(--teal)"></span>OFAC and SAT sanctions screening</div>
+          <div class="cc-row"><span class="dot" style="background:var(--teal)"></span>Anticorruption compliance (SNA) flagging</div>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- COLOMBIA -->
+    <div class="country-card">
+      <div class="country-header">
+        <div class="country-flag-block">🇨🇴</div>
+        <div class="country-title-block">
+          <div class="country-name">Colombia</div>
+          <div class="country-body-sub">SECOP · Colombia Compra Eficiente · Estatuto General de Contratación</div>
+        </div>
+        <div class="country-status-block">
+          <div class="status-live">Live</div>
+        </div>
+      </div>
+      <div class="country-body cc-colombia">
+        <div class="country-col">
+          <div class="cc-label">Regulatory authority</div>
+          <div class="cc-entity">Colombia Compra Eficiente</div>
+          <div class="cc-desc">Agencia Nacional de Contratación Pública. Governs procurement under Ley 80 de 1993 and Ley 1150 de 2007. SECOP II is the mandatory electronic platform for all public entities since 2020.</div>
+          <a href="https://www.colombiacompra.gov.co" target="_blank" class="cc-portal-link">colombiacompra.gov.co</a>
+        </div>
+        <div class="col-divider"></div>
+        <div class="country-col">
+          <div class="cc-label">Portal — SECOP I &amp; II</div>
+          <div class="cc-row"><span class="dot" style="background:var(--co-ink)"></span>Licitación pública — open competitive bidding</div>
+          <div class="cc-row"><span class="dot" style="background:var(--co-ink)"></span>Selección abreviada — simplified competitive process</div>
+          <div class="cc-row"><span class="dot" style="background:var(--co-ink)"></span>Concurso de méritos — merit-based selection</div>
+          <div class="cc-row"><span class="dot" style="background:var(--co-ink)"></span>Acuerdos Marco de Precio — CCE framework agreements</div>
+          <a href="https://community.secop.gov.co" target="_blank" class="cc-portal-link">community.secop.gov.co</a>
+        </div>
+        <div class="col-divider"></div>
+        <div class="country-col">
+          <div class="cc-label">Mandatum integration</div>
+          <div class="cc-row"><span class="dot" style="background:var(--teal)"></span>SECOP I and SECOP II document ingestion</div>
+          <div class="cc-row"><span class="dot" style="background:var(--teal)"></span>Estudios previos and pliego de condiciones analysis</div>
+          <div class="cc-row"><span class="dot" style="background:var(--teal)"></span>SARLAFT and OFAC sanctions screening</div>
+          <div class="cc-row"><span class="dot" style="background:var(--teal)"></span>RUP (Registro Único de Proponentes) compliance flagging</div>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- ARGENTINA -->
+    <div class="country-card">
+      <div class="country-header">
+        <div class="country-flag-block">🇦🇷</div>
+        <div class="country-title-block">
+          <div class="country-name">Argentina</div>
+          <div class="country-body-sub">COMPR.AR · Oficina Nacional de Contrataciones · Decreto 1023/01</div>
+        </div>
+        <div class="country-status-block">
+          <div class="status-live">Live</div>
+        </div>
+      </div>
+      <div class="country-body cc-arg">
+        <div class="country-col">
+          <div class="cc-label">Regulatory authority</div>
+          <div class="cc-entity">Oficina Nacional de Contrataciones</div>
+          <div class="cc-desc">ONC under the Jefatura de Gabinete de Ministros. Governs federal procurement under Decreto 1023/2001 and Decreto 1030/2016 (RCAN). COMPR.AR is the unified digital procurement platform since 2021.</div>
+          <a href="https://www.argentina.gob.ar/jefatura/onc" target="_blank" class="cc-portal-link">argentina.gob.ar/onc</a>
+        </div>
+        <div class="col-divider"></div>
+        <div class="country-col">
+          <div class="cc-label">Portal — COMPR.AR</div>
+          <div class="cc-row"><span class="dot" style="background:var(--ar-ink)"></span>Licitación pública nacional e internacional</div>
+          <div class="cc-row"><span class="dot" style="background:var(--ar-ink)"></span>Contratación directa — by threshold or exception</div>
+          <div class="cc-row"><span class="dot" style="background:var(--ar-ink)"></span>Concurso de precios — simplified competitive</div>
+          <div class="cc-row"><span class="dot" style="background:var(--ar-ink)"></span>Convenios marco — framework agreements</div>
+          <a href="https://comprar.gob.ar" target="_blank" class="cc-portal-link">comprar.gob.ar</a>
+        </div>
+        <div class="col-divider"></div>
+        <div class="country-col">
+          <div class="cc-label">Mandatum integration</div>
+          <div class="cc-row"><span class="dot" style="background:var(--teal)"></span>COMPR.AR pliego ingestion and requirements extraction</div>
+          <div class="cc-row"><span class="dot" style="background:var(--teal)"></span>Macroeconomic risk flags — FX exposure, indexation clauses</div>
+          <div class="cc-row"><span class="dot" style="background:var(--teal)"></span>UIF and OFAC sanctions screening</div>
+          <div class="cc-row"><span class="dot" style="background:var(--teal)"></span>SIPRO (Proveedores del Estado) compliance verification</div>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- BRASIL -->
+    <div class="country-card">
+      <div class="country-header">
+        <div class="country-flag-block">🇧🇷</div>
+        <div class="country-title-block">
+          <div class="country-name">Brasil</div>
+          <div class="country-body-sub">Compras.gov.br · Lei 14.133/2021 (Nova Lei de Licitações) · Portuguese language</div>
+        </div>
+        <div class="country-status-block">
+          <div class="status-live">Live · PT</div>
+        </div>
+      </div>
+      <div class="country-body cc-brasil">
+        <div class="country-col">
+          <div class="cc-label">Regulatory authority</div>
+          <div class="cc-entity">Governo Federal do Brasil</div>
+          <div class="cc-desc">Ministério da Gestão e da Inovação em Serviços Públicos. Procurement governed by the Nova Lei de Licitações (Lei 14.133/2021), which replaced Lei 8.666/93. Full transition mandated since December 2023.</div>
+          <a href="https://www.gov.br/compras" target="_blank" class="cc-portal-link">gov.br/compras</a>
+        </div>
+        <div class="col-divider"></div>
+        <div class="country-col">
+          <div class="cc-label">Portal — Compras.gov.br</div>
+          <div class="cc-row"><span class="dot" style="background:var(--br)"></span>Concorrência pública — open competitive bidding</div>
+          <div class="cc-row"><span class="dot" style="background:var(--br)"></span>Pregão eletrônico — reverse auction (most common)</div>
+          <div class="cc-row"><span class="dot" style="background:var(--br)"></span>Dispensa e inexigibilidade — waiver and sole-source</div>
+          <div class="cc-row"><span class="dot" style="background:var(--br)"></span>Ata de Registro de Preços — framework price registration</div>
+          <a href="https://www.compras.gov.br" target="_blank" class="cc-portal-link">compras.gov.br</a>
+        </div>
+        <div class="col-divider"></div>
+        <div class="country-col">
+          <div class="cc-label">Mandatum integration</div>
+          <div class="cc-row"><span class="dot" style="background:var(--teal)"></span>Full Portuguese-language edital analysis and extraction</div>
+          <div class="cc-row"><span class="dot" style="background:var(--teal)"></span>Lei 14.133/2021 compliance matrix — habilitação and proposta</div>
+          <div class="cc-row"><span class="dot" style="background:var(--teal)"></span>COAF / BACEN / OFAC sanctions screening</div>
+          <div class="cc-row"><span class="dot" style="background:var(--teal)"></span>SICAF (Cadastro Unificado de Fornecedores) flag detection</div>
+        </div>
+      </div>
+    </div>
+ 
+  </div>
+ 
+  <!-- ── HOW IT WORKS IN LATAM ── -->
+  <div class="sl">How Mandatum works across LATAM portals</div>
+  <div class="how-grid">
+ 
+    <div class="how-card">
+      <div class="how-step">01</div>
+      <div class="how-title">Connect or upload the tender</div>
+      <div class="how-body">
+        Paste the portal URL or upload the pliego / edital directly. Mandatum
+        reads Spanish and Portuguese natively — no translation required.
+        Supports PDF, DOCX, and portal-native formats from all five systems.
+      </div>
+      <div class="how-portals">
+        <span class="portal-chip">Mercado Público</span>
+        <span class="portal-chip">CompraNet</span>
+        <span class="portal-chip">SECOP</span>
+        <span class="portal-chip">COMPR.AR</span>
+        <span class="portal-chip">Compras.gov.br</span>
+      </div>
+    </div>
+ 
+    <div class="how-card">
+      <div class="how-step">02</div>
+      <div class="how-title">Regulatory context applied automatically</div>
+      <div class="how-body">
+        Mandatum identifies the country, the governing law, and the procurement
+        modality automatically. Ley 80 in Colombia, LAASSP in México, Lei 14.133
+        in Brasil — each triggers its own compliance framework and risk flags.
+      </div>
+      <div class="how-portals">
+        <span class="portal-chip">Ley 19.886 CL</span>
+        <span class="portal-chip">LAASSP MX</span>
+        <span class="portal-chip">Ley 80 CO</span>
+        <span class="portal-chip">Dto. 1023 AR</span>
+        <span class="portal-chip">Lei 14.133 BR</span>
+      </div>
+    </div>
+ 
+    <div class="how-card">
+      <div class="how-step">03</div>
+      <div class="how-title">Executive mandate in your language</div>
+      <div class="how-body">
+        The decision mandate — Go / Hold / Reject, Bid / No-Bid, Authorization
+        to Submit — is delivered in Spanish or Portuguese, with local regulatory
+        references cited directly. Ready for executive review without translation.
+      </div>
+      <div class="how-portals">
+        <span class="portal-chip">ES · Español</span>
+        <span class="portal-chip">PT · Português</span>
+        <span class="portal-chip">EN · English</span>
+      </div>
+    </div>
+ 
+  </div>
+ 
+  <!-- ── COMING SOON ── -->
+  <div class="sl">Coming soon — next LATAM markets</div>
+  <div class="coming-grid">
+    <div class="coming-card">
+      <div class="coming-flag">🇵🇪</div>
+      <div>
+        <div class="coming-name">Perú</div>
+        <div class="coming-portal">SEACE · OSCE</div>
+      </div>
+      <div class="coming-badge">Q3 2026</div>
+    </div>
+    <div class="coming-card">
+      <div class="coming-flag">🇺🇾</div>
+      <div>
+        <div class="coming-name">Uruguay</div>
+        <div class="coming-portal">ACCE · Comprasestatales</div>
+      </div>
+      <div class="coming-badge">Q3 2026</div>
+    </div>
+    <div class="coming-card">
+      <div class="coming-flag">🇪🇨</div>
+      <div>
+        <div class="coming-name">Ecuador</div>
+        <div class="coming-portal">SERCOP · COMPRASPUBLICAS</div>
+      </div>
+      <div class="coming-badge">Q4 2026</div>
+    </div>
+    <div class="coming-card">
+      <div class="coming-flag">🇵🇦</div>
+      <div>
+        <div class="coming-name">Panamá</div>
+        <div class="coming-portal">PanamaCompra</div>
+      </div>
+      <div class="coming-badge">Q4 2026</div>
+    </div>
+  </div>
+ 
+  <!-- ── BOTTOM CTA ── -->
+  <div class="bottom-cta">
+    <div>
+      <div class="bc-eyebrow">LATAM · Sin compromiso inicial</div>
+      <div class="bc-title">
+        Analiza tu próximo pliego<br>
+        en menos de 20 minutos.
+      </div>
+      <div class="bc-sub">
+        Sube cualquier licitación de Mercado Público, CompraNet, SECOP,
+        COMPR.AR o Compras.gov.br y recibe el mandato ejecutivo antes
+        de terminar la llamada. Sin cuenta. Sin contrato.
+      </div>
+    </div>
+    <div class="bc-actions">
+      <a href="contact.html" class="btn btn-gold">Solicitar acceso LATAM</a>
+      <a href="pricing.html" class="btn btn-ghost">Ver precios</a>
+    </div>
+  </div>
+ 
+</div><!-- /page-wrap -->
+ 
+<!-- ══ FOOTER ════════════════════════════════════════ -->
+  </main>
+ 
+  <mandatum-footer></mandatum-footer>
+  <script src="assets/components.js"></script>
+</body>
+</html>
+       --red-lt:    #FEE2E2;
       --r-sm: 6px;
       --r-md: 10px;
       --r-lg: 14px;
