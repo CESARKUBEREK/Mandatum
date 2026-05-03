@@ -10,7 +10,7 @@ const CONFIG = {
   DEFAULT_THEME: 'aegis',
  
   // Remember the user's last theme across sessions.
-  PERSIST_THEME: true,
+  PERSIST_THEME: false,
  
   // Show the theme toggle button in the header.
   // Set to false in production — use Mandatum.setTheme() from the console instead.
