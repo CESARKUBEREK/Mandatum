@@ -1,29 +1,94 @@
 (function(){
 'use strict';
-const THEMES=['mandatum','aegis'],STORAGE_KEY='mandatum-theme',DEFAULT='mandatum';
-function getTheme(){try{return localStorage.getItem(STORAGE_KEY)||DEFAULT}catch{return DEFAULT}}
-function saveTheme(t){try{localStorage.setItem(STORAGE_KEY,t)}catch{}}
-function applyTheme(theme,animate){
-  const html=document.documentElement;
-  if(animate){html.classList.add('theme-transitioning');setTimeout(()=>html.classList.remove('theme-transitioning'),400)}
-  html.setAttribute('data-theme',theme);
-  document.querySelectorAll('.theme-orb').forEach(el=>el.style.display=theme==='aegis'?'block':'none');
-  document.querySelectorAll('.theme-toggle').forEach(btn=>{
-    const labelEl=btn.querySelector('.theme-toggle-label');
-    const iconEl=btn.querySelector('.theme-toggle-icon');
-    if(labelEl)labelEl.textContent=theme==='aegis'?'Mandatum':'Aegis';
-    if(iconEl)iconEl.textContent=theme==='aegis'?'◐':'◑';
+ 
+/* ═══════════════════════════════════════════════════════
+   CONFIGURATION — edit here, nothing else needs changing
+   ═══════════════════════════════════════════════════════ */
+const CONFIG = {
+  // Active theme at launch. Options: 'mandatum' | 'aegis'
+  // If PERSIST_THEME is true, localStorage overrides this on return visits.
+  DEFAULT_THEME: 'mandatum',
+ 
+  // Remember the user's last theme across sessions.
+  PERSIST_THEME: true,
+ 
+  // Show the theme toggle button in the header.
+  // Set to false in production — use Mandatum.setTheme() from the console instead.
+  SHOW_TOGGLE: false,
+ 
+  // Keyboard shortcut to switch theme (admin convenience).
+  // e.g. { key: 'T', ctrlKey: true, shiftKey: true }
+  // Set to null to disable.
+  SHORTCUT: { key: 'T', ctrlKey: true, shiftKey: true },
+};
+/* ═══════════════════════════════════════════════════════ */
+ 
+const THEMES      = ['mandatum', 'aegis'];
+const STORAGE_KEY = 'mandatum-theme';
+ 
+function getTheme() {
+  if (CONFIG.PERSIST_THEME) {
+    try { const s = localStorage.getItem(STORAGE_KEY); if (s) return s; } catch {}
+  }
+  return CONFIG.DEFAULT_THEME;
+}
+ 
+function saveTheme(t) {
+  if (CONFIG.PERSIST_THEME) { try { localStorage.setItem(STORAGE_KEY, t); } catch {} }
+}
+ 
+function applyTheme(theme, animate) {
+  const html = document.documentElement;
+  if (animate) {
+    html.classList.add('theme-transitioning');
+    setTimeout(() => html.classList.remove('theme-transitioning'), 400);
+  }
+  html.setAttribute('data-theme', theme);
+  // Orbs: visible only in aegis
+  document.querySelectorAll('.theme-orb').forEach(el =>
+    el.style.display = theme === 'aegis' ? 'block' : 'none'
+  );
+  // Update any visible toggle buttons (only present if SHOW_TOGGLE: true)
+  document.querySelectorAll('.theme-toggle').forEach(btn => {
+    const lbl = btn.querySelector('.theme-toggle-label');
+    const ico = btn.querySelector('.theme-toggle-icon');
+    if (lbl) lbl.textContent = theme === 'aegis' ? 'Mandatum' : 'Aegis';
+    if (ico) ico.textContent  = theme === 'aegis' ? '◐' : '◑';
   });
 }
-function toggleTheme(){
-  const current=document.documentElement.getAttribute('data-theme')||DEFAULT;
-  const next=THEMES.find(t=>t!==current)||DEFAULT;
-  saveTheme(next);applyTheme(next,true);
-}
-// Apply before paint to avoid FOUC
-const saved=getTheme();
-document.documentElement.setAttribute('data-theme',saved);
  
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme') || CONFIG.DEFAULT_THEME;
+  const next    = THEMES.find(t => t !== current) || CONFIG.DEFAULT_THEME;
+  saveTheme(next);
+  applyTheme(next, true);
+}
+ 
+// Apply before first paint — prevents flash of wrong theme
+document.documentElement.setAttribute('data-theme', getTheme());
+ 
+// Keyboard shortcut (admin only — not visible to users)
+if (CONFIG.SHORTCUT) {
+  document.addEventListener('keydown', e => {
+    const s = CONFIG.SHORTCUT;
+    if (e.key === s.key &&
+        !!e.ctrlKey  === !!s.ctrlKey &&
+        !!e.shiftKey === !!s.shiftKey &&
+        !!e.altKey   === !!s.altKey) {
+      e.preventDefault();
+      toggleTheme();
+    }
+  });
+}
+ 
+// Public API — callable from browser console: Mandatum.setTheme('aegis')
+window.Mandatum = {
+  setTheme(t)    { if (THEMES.includes(t)) { saveTheme(t); applyTheme(t, true); } },
+  getTheme()     { return document.documentElement.getAttribute('data-theme'); },
+  toggleTheme()  { toggleTheme(); },
+};
+ 
+/* ── NAV CONFIG ──────────────────────────────────────── */
 const NAV_LINKS=[
   {href:'pricing.html',label:'Pricing'},
   {href:'security.html',label:'Security'},
@@ -37,6 +102,7 @@ function isActive(href){const p=window.location.pathname.split('/').pop()||'inde
 function root(){return typeof MANDATUM_ROOT!=='undefined'?MANDATUM_ROOT:''}
  
 function themeToggleHTML(){
+  if (!CONFIG.SHOW_TOGGLE) return '';
   const t=getTheme(),icon=t==='aegis'?'◐':'◑',label=t==='aegis'?'Mandatum':'Aegis';
   return `<button class="theme-toggle" id="theme-toggle" aria-label="Switch theme"><span class="theme-toggle-icon">${icon}</span><span class="theme-toggle-label">${label}</span></button>`;
 }
@@ -76,10 +142,11 @@ class MandatumHeader extends HTMLElement{
   <div class="nav-mobile-lang" aria-label="Language">${lM}</div>
   <a href="${root()}contact.html" class="nav-mobile-cta">Request access →</a>
 </nav>`;
-    // Apply orb state
     const cur=getTheme();
     this.querySelectorAll('.theme-orb').forEach(el=>el.style.display=cur==='aegis'?'block':'none');
-    this._initMenu();this._initToggle();this._initScroll();
+    this._initMenu();
+    if(CONFIG.SHOW_TOGGLE) this._initToggle();
+    this._initScroll();
   }
   _initMenu(){
     const btn=this.querySelector('#nav-hamburger'),drawer=this.querySelector('#nav-mobile'),overlay=this.querySelector('#nav-overlay');
@@ -119,4 +186,3 @@ class MandatumFooter extends HTMLElement{
 customElements.define('mandatum-header',MandatumHeader);
 customElements.define('mandatum-footer',MandatumFooter);
 })();
- 
