@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="assets/styles.css">
  
   <style>
-    /* ── Page-specific styles ── */
+/* ── Page-specific styles ── */
  
     /* Hero */
     .home-hero {
@@ -61,7 +61,7 @@
       grid-template-columns: 1fr 380px;
       gap: 80px; align-items: center;
     }
-    .hero-rule { width: 48px; height: 1px; background: var(--gold-dim); margin: 20px 0; }
+    .hero-rule { width: 48px; height: 1px; background: var(--accent-dim); margin: 20px 0; }
     .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
  
     /* Hero card */
@@ -138,7 +138,7 @@
     .hs-label { font-size: 11px; color: rgba(255,255,255,.35); line-height: 1.4; }
  
     /* Problem band */
-    .problem-band { background: var(--stone); padding: 72px 40px; }
+    .problem-band { background: var(--surface2); padding: 72px 40px; }
     .problem-inner { max-width: 1080px; margin: 0 auto; }
     .problem-title {
       font-family: var(--font-display);
@@ -146,39 +146,39 @@
       line-height: 1.15; color: var(--ink);
       max-width: 640px; margin-bottom: 10px;
     }
-    .problem-title em { font-style: italic; color: var(--gold-dim); }
+    .problem-title em { font-style: italic; color: var(--accent-dim); }
     .problem-sub {
-      font-size: 14px; color: var(--muted);
+      font-size: 14px; color: var(--text-sec);
       max-width: 560px; margin-bottom: 48px; line-height: 1.7;
     }
     .problem-grid {
       display: grid; grid-template-columns: repeat(4,1fr);
-      gap: 1px; background: var(--stone2);
-      border: 1px solid var(--stone2);
+      gap: 1px; background: var(--surface3);
+      border: 1px solid var(--surface3);
     }
-    .problem-item { background: var(--stone); padding: 28px 24px; }
+    .problem-item { background: var(--surface2); padding: 28px 24px; }
     .pi-num {
       font-family: var(--font-display);
       font-size: 40px; font-weight: 300;
-      color: var(--stone2); line-height: 1; margin-bottom: 12px;
+      color: var(--surface3); line-height: 1; margin-bottom: 12px;
     }
     .pi-title { font-size: 13px; font-weight: 500; color: var(--red); margin-bottom: 8px; }
-    .pi-body { font-size: 12px; color: var(--muted); line-height: 1.6; }
+    .pi-
  
     /* How it works */
     .how-card { padding: 28px 24px; }
     .how-step {
       font-family: var(--font-display);
       font-size: 56px; font-weight: 300;
-      color: var(--stone2); line-height: 1; margin-bottom: 16px;
+      color: var(--surface3); line-height: 1; margin-bottom: 16px;
     }
     .how-title { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 8px; }
-    .how-body  { font-size: 12px; color: var(--muted); line-height: 1.65; }
+    .how-
     .how-outputs { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
     .how-outputs-label {
       font-family: var(--font-mono);
       font-size: 8px; letter-spacing: 2px;
-      text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
+      text-transform: uppercase; color: var(--text-sec); margin-bottom: 8px;
     }
  
     /* Gates */
@@ -189,45 +189,45 @@
       padding: 20px 28px; border-bottom: 1px solid var(--border);
       cursor: default; transition: background var(--t-fast);
     }
-    .gate-header:hover { background: var(--stone); }
+    .gate-header:hover { background: var(--surface2); }
     .gate-num-block { display: flex; flex-direction: column; align-items: center; gap: 2px; flex-shrink: 0; }
     .gate-num { font-family: var(--font-display); font-size: 32px; font-weight: 300; line-height: 1; }
     .gate-roman { font-family: var(--font-mono); font-size: 8px; letter-spacing: 2px; text-transform: uppercase; }
-    .gate-label { font-family: var(--font-mono); font-size: 8px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+    .gate-label { font-family: var(--font-mono); font-size: 8px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--text-sec); margin-bottom: 3px; }
     .gate-name { font-family: var(--font-display); font-size: 22px; font-weight: 400; color: var(--ink); }
-    .gate-sub  { font-size: 11px; color: var(--muted); margin-top: 3px; }
+    .gate-sub  { font-size: 11px; color: var(--text-sec); margin-top: 3px; }
     .gate-badge {
       font-family: var(--font-mono); font-size: 8px; font-weight: 500;
       letter-spacing: 1.5px; text-transform: uppercase;
       padding: 4px 12px; border-radius: 2px; flex-shrink: 0;
     }
-    .gate-body { display: grid; grid-template-columns: 1fr 1px 1fr 1px 1fr; }
+    .gate-
     .col-div   { background: var(--border); }
     .gate-col  { padding: 24px 28px; }
     .gate-col-label {
       font-family: var(--font-mono); font-size: 8px; letter-spacing: 2.5px;
-      text-transform: uppercase; color: var(--gold); margin-bottom: 14px;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
     }
-    .gate-col-desc { font-size: 12px; color: var(--muted); line-height: 1.6; margin-bottom: 14px; }
+    .gate-col-desc { font-size: 12px; color: var(--text-sec); line-height: 1.6; margin-bottom: 14px; }
  
-    .gate-scan .gate-num, .gate-scan .gate-roman { color: var(--muted); }
-    .gate-scan .gate-badge { background: var(--stone); color: var(--muted); }
-    .gate-scan .dot { background: var(--muted); }
+    .gate-scan .gate-num, .gate-scan .gate-roman { color: var(--text-sec); }
+    .gate-scan .gate-badge { background: var(--surface2); color: var(--text-sec); }
+    .gate-scan 
     .gate-1 .gate-num, .gate-1 .gate-roman { color: var(--blue); }
     .gate-1 .gate-badge { background: var(--blue-lt); color: var(--blue); }
-    .gate-1 .dot { background: var(--blue); }
+    .gate-1 
     .gate-2 .gate-num, .gate-2 .gate-roman { color: var(--purple); }
     .gate-2 .gate-badge { background: var(--purple-lt); color: var(--purple); }
-    .gate-2 .dot { background: var(--purple); }
+    .gate-2 
     .gate-3 .gate-num, .gate-3 .gate-roman { color: var(--amber); }
     .gate-3 .gate-badge { background: var(--amber-lt); color: var(--amber); }
-    .gate-3 .dot { background: var(--amber); }
+    .gate-3 
  
     /* Deploy band */
     .deploy-band { background: var(--ink2); padding: 72px 40px; }
     .deploy-inner { max-width: 1080px; margin: 0 auto; }
     .deploy-title { font-family: var(--font-display); font-size: clamp(24px,3vw,42px); font-weight: 300; line-height: 1.15; color: #fff; max-width: 580px; margin-bottom: 10px; }
-    .deploy-title em { font-style: italic; color: var(--gold-lt); }
+    .deploy-title em { font-style: italic; color: var(--accent-lt); }
     .deploy-sub { font-size: 13px; color: rgba(255,255,255,.4); max-width: 480px; margin-bottom: 40px; line-height: 1.7; }
     .deploy-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.06); }
     .deploy-card { background: var(--ink2); padding: 28px 24px; transition: background var(--t-base); }
@@ -243,33 +243,32 @@
     .phil-band::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,255,255,.015) 59px, rgba(255,255,255,.015) 60px); pointer-events: none; }
     .phil-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
     .phil-rule { display: flex; align-items: center; gap: 16px; margin-bottom: 40px; }
-    .phil-rule::before, .phil-rule::after { content: ''; flex: 1; height: 1px; background: var(--gold-dim); }
-    .phil-diamond { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); }
+    .phil-rule::before, .phil-rule::after { content: ''; flex: 1; height: 1px; background: var(--accent-dim); }
+    .phil-diamond { width: 6px; height: 6px; background: var(--accent); transform: rotate(45deg); }
     .phil-text { font-family: var(--font-display); font-size: clamp(22px,3vw,34px); font-weight: 300; line-height: 1.45; color: #fff; margin-bottom: 20px; }
-    .phil-text em { font-style: italic; color: var(--gold-lt); }
+    .phil-text em { font-style: italic; color: var(--accent-lt); }
     .phil-attr { font-family: var(--font-mono); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,.25); }
     .phil-trio { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.06); margin-top: 48px; text-align: left; }
     .pt { padding: 24px; background: rgba(255,255,255,.02); }
-    .pt-label { font-family: var(--font-mono); font-size: 8px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 8px; }
+    .pt-label { font-family: var(--font-mono); font-size: 8px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 8px; }
     .pt-text { font-family: var(--font-display); font-size: 20px; font-weight: 300; color: #fff; }
  
     /* Final CTA */
-    .final-cta { padding: 80px 40px; }
+    .final-ct
     .final-inner { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; }
-    .fc-eyebrow { font-family: var(--font-mono); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .fc-eyebrow { font-family: var(--font-mono); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
     .fc-title { font-family: var(--font-display); font-size: clamp(24px,3vw,38px); font-weight: 300; line-height: 1.2; color: var(--ink); margin-bottom: 10px; }
-    .fc-title em { font-style: italic; color: var(--gold-dim); }
-    .fc-sub { font-size: 13px; color: var(--muted); line-height: 1.65; max-width: 480px; }
+    .fc-title em { font-style: italic; color: var(--accent-dim); }
+    .fc-sub { font-size: 13px; color: var(--text-sec); line-height: 1.65; max-width: 480px; }
     .fc-actions { display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
  
-    @media (max-width: 900px) {
-      .hero-main { grid-template-columns: 1fr; gap: 40px; padding: 120px 24px 60px; }
+    
       .hero-card { display: none; }
       .hero-stats-strip { grid-template-columns: 1fr 1fr; padding: 0 24px 48px; }
       .hs { border-right: none; border-bottom: 1px solid rgba(255,255,255,.06); }
       .problem-band { padding: 56px 24px; }
       .problem-grid { grid-template-columns: 1fr 1fr; }
-      .gate-body { grid-template-columns: 1fr; }
+      .gate-
       .col-div { display: none; }
       .gate-header { grid-template-columns: auto 1fr; }
       .gate-badge { display: none; }
@@ -277,7 +276,7 @@
       .deploy-grid { grid-template-columns: 1fr; }
       .phil-band { padding: 56px 24px; }
       .phil-trio { grid-template-columns: 1fr; }
-      .final-cta { padding: 56px 24px; }
+      .final-ct
       .final-inner { grid-template-columns: 1fr; gap: 28px; }
     }
   </style>
@@ -317,7 +316,7 @@
         <div class="hc-gate gate-scan">
           <div class="hc-gate-num">S</div>
           <div>
-            <div class="hc-gate-label" style="color:var(--muted)">Mandatum Scan</div>
+            <div class="hc-gate-label" style="color:var(--text-sec)">Mandatum Scan</div>
             <div class="hc-gate-name">Go / Hold / Reject</div>
             <div class="hc-gate-desc">Buyer credibility · Payment risk · Red flags</div>
           </div>
@@ -354,7 +353,7 @@
     </div>
  
     <div class="hero-stats-strip">
-      <div class="hs"><div class="hs-val" style="color:var(--gold-lt)">€280B</div><div class="hs-label">Public procurement processed in the EU annually</div></div>
+      <div class="hs"><div class="hs-val" style="color:var(--accent-lt)">€280B</div><div class="hs-label">Public procurement processed in the EU annually</div></div>
       <div class="hs"><div class="hs-val" style="color:#6EE7B7">&lt; 20 min</div><div class="hs-label">From tender upload to executive mandate</div></div>
       <div class="hs"><div class="hs-val" style="color:#C4B5FD">4 gates</div><div class="hs-label">Full decision lifecycle — first look to final signature</div></div>
       <div class="hs"><div class="hs-val" style="color:#FCD34D">3 tiers</div><div class="hs-label">Deployment — managed SaaS to air-gapped sovereign</div></div>
@@ -458,7 +457,7 @@
   <!-- ══ DEPLOY ════════════════════════════════════════ -->
   <section class="deploy-band" aria-labelledby="deploy-heading">
     <div class="deploy-inner">
-      <p class="label" style="color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:10px"><span style="display:inline-block;width:16px;height:1px;background:var(--gold)"></span>Enterprise-grade deployment</p>
+      <p class="label" style="color:var(--accent);margin-bottom:16px;display:flex;align-items:center;gap:10px"><span style="display:inline-block;width:16px;height:1px;background:var(--accent)"></span>Enterprise-grade deployment</p>
       <h2 class="deploy-title" id="deploy-heading">Trust is <em>engineered</em> into<br>the architecture.</h2>
       <p class="deploy-sub">Because Gates II and III involve sensitive commercial data, we offer deployment models where exposure is structurally minimized — not just contractually promised.</p>
       <div class="deploy-grid">
@@ -503,4 +502,3 @@
   <script src="assets/components.js"></script>
 </body>
 </html>
-  
