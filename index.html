@@ -388,6 +388,360 @@
   <mandatum-footer dark></mandatum-footer>
   <script src="assets/components.js"></script>
 </body>
+</html>    .hero-actions { display:flex; gap:12px; flex-wrap:wrap; }
+ 
+    /* Hero card */
+    .hero-card { border:1px solid rgba(255,255,255,.08); border-radius:var(--r-lg); background:rgba(255,255,255,.03); overflow:hidden; }
+    .hc-header { padding:14px 18px; border-bottom:1px solid rgba(255,255,255,.06); display:flex; align-items:center; justify-content:space-between; }
+    .hc-title { font-family:var(--font-mono); font-size:8px; letter-spacing:2.5px; text-transform:uppercase; color:rgba(255,255,255,.3); }
+    .hc-live { display:flex; align-items:center; gap:5px; font-family:var(--font-mono); font-size:8px; color:var(--green); letter-spacing:1.5px; }
+    .hc-live::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--green); animation:pulse 2s infinite; }
+    .hc-gate { padding:14px 18px; border-bottom:1px solid rgba(255,255,255,.06); display:flex; align-items:flex-start; gap:12px; }
+    .hc-gate:last-child { border-bottom:none; }
+    .hc-gate-num { font-family:var(--font-display); font-size:22px; font-weight:300; color:rgba(255,255,255,.15); flex-shrink:0; line-height:1; margin-top:2px; }
+    .hc-gate-label { font-family:var(--font-mono); font-size:8px; letter-spacing:2px; text-transform:uppercase; margin-bottom:3px; }
+    .hc-gate-name { font-size:13px; font-weight:500; color:#fff; margin-bottom:4px; }
+    .hc-gate-desc { font-size:10px; color:rgba(255,255,255,.35); line-height:1.4; }
+    .hc-badge { align-self:center; flex-shrink:0; font-family:var(--font-mono); font-size:8px; font-weight:500; letter-spacing:1.5px; text-transform:uppercase; padding:3px 8px; border-radius:2px; }
+ 
+    /* Stats strip */
+    .hero-stats-strip { max-width:1080px; margin:0 auto; width:100%; padding:0 40px 64px; position:relative; z-index:1; display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid rgba(255,255,255,.06); }
+    .hs { padding:28px 24px; border-right:1px solid rgba(255,255,255,.06); }
+    .hs:last-child { border-right:none; }
+    .hs-val { font-family:var(--font-display); font-size:34px; font-weight:300; line-height:1; margin-bottom:6px; }
+    .hs-label { font-size:11px; color:rgba(255,255,255,.35); line-height:1.4; }
+ 
+    /* Problem band */
+    .problem-band { background:var(--surface2); padding:72px 40px; }
+    .problem-inner { max-width:1080px; margin:0 auto; }
+    .problem-title { font-family:var(--font-display); font-size:clamp(24px,3.5vw,44px); font-weight:300; line-height:1.15; color:var(--text-pri); max-width:640px; margin-bottom:10px; }
+    .problem-title em { font-style:italic; color:var(--accent-dim); }
+    .problem-sub { font-size:14px; color:var(--text-sec); max-width:560px; margin-bottom:48px; line-height:1.7; }
+    .problem-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--surface3); border:1px solid var(--surface3); }
+    .problem-item { background:var(--surface2); padding:28px 24px; }
+    .pi-num { font-family:var(--font-display); font-size:40px; font-weight:300; color:var(--surface3); line-height:1; margin-bottom:12px; }
+    .pi-title { font-size:13px; font-weight:500; color:var(--red); margin-bottom:8px; }
+    .pi-body { font-size:12px; color:var(--text-sec); line-height:1.6; }
+ 
+    /* How it works */
+    .how-card { padding:28px 24px; }
+    .how-step { font-family:var(--font-display); font-size:56px; font-weight:300; color:var(--surface3); line-height:1; margin-bottom:16px; }
+    .how-title { font-size:15px; font-weight:500; color:var(--text-pri); margin-bottom:8px; }
+    .how-body { font-size:12px; color:var(--text-sec); line-height:1.65; }
+    .how-outputs { margin-top:16px; padding-top:16px; border-top:1px solid var(--border); }
+    .how-outputs-label { font-family:var(--font-mono); font-size:8px; letter-spacing:2px; text-transform:uppercase; color:var(--text-sec); margin-bottom:8px; }
+ 
+    /* Gates */
+    .gate-card { overflow:hidden; }
+    .gate-header { display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:20px; padding:20px 28px; border-bottom:1px solid var(--border); cursor:default; transition:background var(--t-fast); }
+    .gate-header:hover { background:var(--surface2); }
+    .gate-num-block { display:flex; flex-direction:column; align-items:center; gap:2px; flex-shrink:0; }
+    .gate-num { font-family:var(--font-display); font-size:32px; font-weight:300; line-height:1; }
+    .gate-roman { font-family:var(--font-mono); font-size:8px; letter-spacing:2px; text-transform:uppercase; }
+    .gate-label { font-family:var(--font-mono); font-size:8px; letter-spacing:2.5px; text-transform:uppercase; color:var(--text-sec); margin-bottom:3px; }
+    .gate-name { font-family:var(--font-display); font-size:22px; font-weight:400; color:var(--text-pri); }
+    .gate-sub  { font-size:11px; color:var(--text-sec); margin-top:3px; }
+    .gate-badge { font-family:var(--font-mono); font-size:8px; font-weight:500; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:2px; flex-shrink:0; }
+    .gate-body { display:grid; grid-template-columns:1fr 1px 1fr 1px 1fr; }
+    .col-div   { background:var(--border); }
+    .gate-col  { padding:24px 28px; }
+    .gate-col-label { font-family:var(--font-mono); font-size:8px; letter-spacing:2.5px; text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+    .gate-col-desc { font-size:12px; color:var(--text-sec); line-height:1.6; margin-bottom:14px; }
+ 
+    .gate-scan .gate-num, .gate-scan .gate-roman { color:var(--text-sec); }
+    .gate-scan .gate-badge { background:var(--surface2); color:var(--text-sec); }
+    .gate-scan .dot { background:var(--text-sec); }
+    .gate-1 .gate-num, .gate-1 .gate-roman { color:var(--blue); }
+    .gate-1 .gate-badge { background:var(--blue-lt); color:var(--blue); }
+    .gate-1 .dot { background:var(--blue); }
+    .gate-2 .gate-num, .gate-2 .gate-roman { color:var(--purple); }
+    .gate-2 .gate-badge { background:var(--purple-lt); color:var(--purple); }
+    .gate-2 .dot { background:var(--purple); }
+    .gate-3 .gate-num, .gate-3 .gate-roman { color:var(--amber); }
+    .gate-3 .gate-badge { background:var(--amber-lt); color:var(--amber); }
+    .gate-3 .dot { background:var(--amber); }
+ 
+    /* Deploy band */
+    .deploy-band { background:var(--ink2); padding:72px 40px; }
+    .deploy-inner { max-width:1080px; margin:0 auto; }
+    .deploy-title { font-family:var(--font-display); font-size:clamp(24px,3vw,42px); font-weight:300; line-height:1.15; color:#fff; max-width:580px; margin-bottom:10px; }
+    .deploy-title em { font-style:italic; color:var(--accent-lt); }
+    .deploy-sub { font-size:13px; color:rgba(255,255,255,.4); max-width:480px; margin-bottom:40px; line-height:1.7; }
+    .deploy-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.06); }
+    .deploy-card { background:var(--ink2); padding:28px 24px; transition:background var(--t-base); }
+    .deploy-card:hover { background:var(--ink3); }
+    .deploy-card-eyebrow { font-family:var(--font-mono); font-size:8px; letter-spacing:2.5px; text-transform:uppercase; margin-bottom:8px; }
+    .deploy-card-title { font-family:var(--font-display); font-size:20px; font-weight:400; color:#fff; margin-bottom:4px; }
+    .deploy-card-sub { font-size:11px; color:rgba(255,255,255,.35); margin-bottom:20px; }
+    .deploy-item { display:flex; align-items:flex-start; gap:7px; padding:5px 0; border-bottom:1px solid rgba(255,255,255,.06); font-size:11px; color:rgba(255,255,255,.45); line-height:1.4; }
+    .deploy-item:last-child { border-bottom:none; }
+ 
+    /* Philosophy */
+    .phil-band { background:var(--ink); padding:80px 40px; text-align:center; position:relative; overflow:hidden; }
+    .phil-band::before { content:''; position:absolute; inset:0; background:repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(255,255,255,.015) 59px,rgba(255,255,255,.015) 60px); pointer-events:none; }
+    .phil-inner { position:relative; z-index:1; max-width:700px; margin:0 auto; }
+    .phil-rule { display:flex; align-items:center; gap:16px; margin-bottom:40px; }
+    .phil-rule::before, .phil-rule::after { content:''; flex:1; height:1px; background:var(--accent-dim); }
+    .phil-diamond { width:6px; height:6px; background:var(--accent); transform:rotate(45deg); }
+    .phil-text { font-family:var(--font-display); font-size:clamp(22px,3vw,34px); font-weight:300; line-height:1.45; color:#fff; margin-bottom:20px; }
+    .phil-text em { font-style:italic; color:var(--accent-lt); }
+    .phil-attr { font-family:var(--font-mono); font-size:9px; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,.25); }
+    .phil-trio { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.06); margin-top:48px; text-align:left; }
+    .pt { padding:24px; background:rgba(255,255,255,.02); }
+    .pt-label { font-family:var(--font-mono); font-size:8px; letter-spacing:2.5px; text-transform:uppercase; color:var(--accent-dim); margin-bottom:8px; }
+    .pt-text { font-family:var(--font-display); font-size:20px; font-weight:300; color:#fff; }
+ 
+    /* Final CTA */
+    .final-cta { padding:80px 40px; }
+    .final-inner { max-width:1080px; margin:0 auto; display:grid; grid-template-columns:1fr auto; gap:48px; align-items:center; }
+    .fc-eyebrow { font-family:var(--font-mono); font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--accent); margin-bottom:12px; }
+    .fc-title { font-family:var(--font-display); font-size:clamp(24px,3vw,38px); font-weight:300; line-height:1.2; color:var(--text-pri); margin-bottom:10px; }
+    .fc-title em { font-style:italic; color:var(--accent-dim); }
+    .fc-sub { font-size:13px; color:var(--text-sec); line-height:1.65; max-width:480px; }
+    .fc-actions { display:flex; flex-direction:column; gap:10px; flex-shrink:0; }
+ 
+    /* Responsive */
+    @media (max-width:900px) {
+      .hero-main { grid-template-columns:1fr; gap:40px; padding:120px 24px 60px; }
+      .hero-card { display:none; }
+      .hero-stats-strip { grid-template-columns:1fr 1fr; padding:0 24px 48px; }
+      .hs { border-right:none; border-bottom:1px solid rgba(255,255,255,.06); }
+      .problem-band { padding:56px 24px; }
+      .problem-grid { grid-template-columns:1fr 1fr; }
+      .gate-body { grid-template-columns:1fr; }
+      .col-div { display:none; }
+      .gate-header { grid-template-columns:auto 1fr; }
+      .gate-badge { display:none; }
+      .deploy-band { padding:56px 24px; }
+      .deploy-grid { grid-template-columns:1fr; }
+      .phil-band { padding:56px 24px; }
+      .phil-trio { grid-template-columns:1fr; }
+      .final-cta { padding:56px 24px; }
+      .final-inner { grid-template-columns:1fr; gap:28px; }
+    }
+ 
+  </style>
+</head>
+<body>
+ 
+  <mandatum-header dark></mandatum-header>
+ 
+  <!-- ══ HERO ══════════════════════════════════════════ -->
+  <main>
+  <div class="home-hero">
+    <div class="hero-main">
+      <div>
+        <div class="hero-eyebrow">The Executive Decision Engine</div>
+        <h1 class="hero-title">
+          Win the right<br>opportunities.
+          <em>Decide with discipline.</em>
+        </h1>
+        <div class="hero-rule"></div>
+        <p class="hero-sub">
+          Mandatum transforms fragmented commercial data into fast, structured,
+          defensible executive mandates — from first tender to final signature.
+          Stop personality-driven pursuits. Deploy scarce resources only where
+          the odds justify the investment.
+        </p>
+        <div class="hero-actions">
+          <a href="contact.html" class="btn btn-gold btn-lg">Request access</a>
+          <a href="pricing.html" class="btn btn-ghost-light btn-lg">See pricing →</a>
+        </div>
+      </div>
+ 
+      <div class="hero-card">
+        <div class="hc-header">
+          <div class="hc-title">Mandatum · Active pursuit</div>
+          <div class="hc-live">Live</div>
+        </div>
+        <div class="hc-gate gate-scan">
+          <div class="hc-gate-num">S</div>
+          <div>
+            <div class="hc-gate-label" style="color:var(--text-sec)">Mandatum Scan</div>
+            <div class="hc-gate-name">Go / Hold / Reject</div>
+            <div class="hc-gate-desc">Buyer credibility · Payment risk · Red flags</div>
+          </div>
+          <div class="hc-badge" style="background:rgba(255,255,255,.06);color:rgba(255,255,255,.35)">€49</div>
+        </div>
+        <div class="hc-gate gate-1">
+          <div class="hc-gate-num">I</div>
+          <div>
+            <div class="hc-gate-label" style="color:var(--blue)">Gate I · Mandatum Bid</div>
+            <div class="hc-gate-name">Bid / No-Bid</div>
+            <div class="hc-gate-desc">Pursuit Score · Compliance Matrix · Executive Mandate</div>
+          </div>
+          <div class="hc-badge" style="background:var(--blue-lt);color:var(--blue)">Active</div>
+        </div>
+        <div class="hc-gate gate-2" style="opacity:.5">
+          <div class="hc-gate-num">II</div>
+          <div>
+            <div class="hc-gate-label" style="color:var(--purple)">Gate II · Mandatum Submit</div>
+            <div class="hc-gate-name">Control Submission</div>
+            <div class="hc-gate-desc">Margin thresholds · Walk-away mandate</div>
+          </div>
+          <div class="hc-badge" style="background:rgba(124,58,237,.1);color:var(--purple)">Locked</div>
+        </div>
+        <div class="hc-gate gate-3" style="opacity:.35">
+          <div class="hc-gate-num">III</div>
+          <div>
+            <div class="hc-gate-label" style="color:var(--amber)">Gate III · Mandatum Sign</div>
+            <div class="hc-gate-name">Control Signature</div>
+            <div class="hc-gate-desc">Variance vs mandate · Sign-off package</div>
+          </div>
+          <div class="hc-badge" style="background:rgba(217,119,6,.1);color:var(--amber)">Locked</div>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="hero-stats-strip">
+      <div class="hs"><div class="hs-val" style="color:var(--accent-lt)">€280B</div><div class="hs-label">Public procurement processed in the EU annually</div></div>
+      <div class="hs"><div class="hs-val" style="color:#6EE7B7">&lt; 20 min</div><div class="hs-label">From tender upload to executive mandate</div></div>
+      <div class="hs"><div class="hs-val" style="color:#C4B5FD">4 gates</div><div class="hs-label">Full decision lifecycle — first look to final signature</div></div>
+      <div class="hs"><div class="hs-val" style="color:#FCD34D">3 tiers</div><div class="hs-label">Deployment — managed SaaS to air-gapped sovereign</div></div>
+    </div>
+  </div>
+ 
+  <!-- ══ PROBLEM ═══════════════════════════════════════ -->
+  <section class="problem-band" aria-labelledby="problem-heading">
+    <div class="problem-inner">
+      <p class="label label-gold" style="margin-bottom:16px">The problem</p>
+      <h2 class="problem-title" id="problem-heading">
+        Most companies don't lose because they lack effort.
+        <em>They lose because they make the wrong decisions at the wrong time.</em>
+      </h2>
+      <p class="problem-sub">Capital is finite. Engineering capacity is finite. Legal attention is finite. Every mis-directed pursuit is a cost that cannot be recovered.</p>
+      <div class="problem-grid">
+        <div class="problem-item"><div class="pi-num">01</div><div class="pi-title">Pursue weak opportunities</div><div class="pi-body">Teams chase tenders with no realistic path to win, burning engineering, legal, and finance capacity on bids that were never winnable.</div></div>
+        <div class="problem-item"><div class="pi-num">02</div><div class="pi-title">Commit talent too early</div><div class="pi-body">Scarce technical resources are deployed before strategic fit and compliance burden have been assessed — before leadership has decided to bid.</div></div>
+        <div class="problem-item"><div class="pi-num">03</div><div class="pi-title">Submit offers with hidden risk</div><div class="pi-body">Pricing errors, unchecked deviations, and unreviewed legal clauses destroy margin at the moment of submission — when it's already too late.</div></div>
+        <div class="problem-item"><div class="pi-num">04</div><div class="pi-title">Sign contracts that erode margin</div><div class="pi-body">Negotiation creep turns revenue into loss. Unauthorized concessions are made under pressure, without executive visibility or approved boundaries.</div></div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- ══ HOW IT WORKS ═══════════════════════════════════ -->
+  <div class="page-wrap">
+    <div class="sl" id="how">How it works</div>
+    <div class="grid-3" style="margin-bottom:10px">
+      <div class="card how-card"><div class="how-step">01</div><div class="how-title">Ingest the opportunity</div><div class="how-body">Upload tender, RFP documents, T&Cs, and payment terms. Answer focused Yes / No questions. No sensitive pricing required.</div><div class="how-outputs"><div class="how-outputs-label">You provide</div><div class="dot-row"><span class="dot"></span>Tender / RFP documents</div><div class="dot-row"><span class="dot"></span>Standard T&Cs</div><div class="dot-row"><span class="dot"></span>Payment terms</div></div></div>
+      <div class="card how-card"><div class="how-step">02</div><div class="how-title">Structure the unknowns</div><div class="how-body">Mandatum automatically extracts requirements, identifies contract risk, flags jurisdiction issues, screens sanctions exposure, and builds the compliance matrix.</div><div class="how-outputs"><div class="how-outputs-label">Mandatum does</div><div class="dot-row"><span class="dot dot-teal"></span>Extracts requirements</div><div class="dot-row"><span class="dot dot-teal"></span>Identifies contract risks</div><div class="dot-row"><span class="dot dot-teal"></span>Screens sanctions / export control</div></div></div>
+      <div class="card how-card"><div class="how-step">03</div><div class="how-title">Generate executive clarity</div><div class="how-body">Move from inbox to decision in under 20 minutes. Replace slide decks and email chains with a single, structured, defensible mandate.</div><div class="how-outputs"><div class="how-outputs-label">You receive</div><div class="dot-row"><span class="dot dot-gold"></span>Executive decision mandate</div><div class="dot-row"><span class="dot dot-gold"></span>Deviation heatmap</div><div class="dot-row"><span class="dot dot-gold"></span>Commercial risk summary</div></div></div>
+    </div>
+ 
+    <!-- GATES -->
+    <div class="sl">The four gates — full pursuit lifecycle</div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+ 
+      <article class="card gate-card gate-scan">
+        <div class="gate-header">
+          <div class="gate-num-block"><div class="gate-num">S</div><div class="gate-roman">Scan</div></div>
+          <div><div class="gate-label">Mandatum Scan · €49 per opportunity</div><div class="gate-name">Go / Hold / Reject</div><div class="gate-sub">Strategic filter — low-friction entry, minimal confidentiality exposure</div></div>
+          <div class="gate-badge">Public cloud</div>
+        </div>
+        <div class="gate-body">
+          <div class="gate-col"><div class="gate-col-label">Decision</div><div class="gate-col-desc">Is this a real opportunity — or a distraction? Filter noise before any resources are committed.</div></div>
+          <div class="col-div"></div>
+          <div class="gate-col"><div class="gate-col-label">Intelligence</div><div class="dot-row"><span class="dot"></span>Buyer credibility</div><div class="dot-row"><span class="dot"></span>Commercial term acceptability</div><div class="dot-row"><span class="dot"></span>Payment risk exposure</div><div class="dot-row"><span class="dot"></span>Reward vs effort ratio</div></div>
+          <div class="col-div"></div>
+          <div class="gate-col"><div class="gate-col-label">Outcome</div><div class="dot-row"><span class="dot"></span>Go / Hold / Reject mandate</div><div class="dot-row"><span class="dot"></span>Commercial red flags</div><div class="dot-row"><span class="dot"></span>Payment exposure review</div><div class="dot-row"><span class="dot"></span>Deadline feasibility score</div></div>
+        </div>
+      </article>
+ 
+      <article class="card gate-card gate-1">
+        <div class="gate-header">
+          <div class="gate-num-block"><div class="gate-num">I</div><div class="gate-roman">Gate I</div></div>
+          <div><div class="gate-label">Mandatum Bid · €149 per opportunity</div><div class="gate-name">Bid / No-Bid</div><div class="gate-sub">Commit resources only where you have a credible path to victory</div></div>
+          <div class="gate-badge">Public cloud</div>
+        </div>
+        <div class="gate-body">
+          <div class="gate-col"><div class="gate-col-label">Decision</div><div class="gate-col-desc">Do we have bandwidth and a credible path to victory? Stop personality-driven pursuits.</div></div>
+          <div class="col-div"></div>
+          <div class="gate-col"><div class="gate-col-label">Intelligence</div><div class="dot-row"><span class="dot dot-blue"></span>Strategic fit</div><div class="dot-row"><span class="dot dot-blue"></span>Technical feasibility</div><div class="dot-row"><span class="dot dot-blue"></span>Internal capacity</div><div class="dot-row"><span class="dot dot-blue"></span>Competitive posture</div><div class="dot-row"><span class="dot dot-blue"></span>Compliance burden</div></div>
+          <div class="col-div"></div>
+          <div class="gate-col"><div class="gate-col-label">Outcome</div><div class="dot-row"><span class="dot dot-blue"></span>Executive Decision Mandate</div><div class="dot-row"><span class="dot dot-blue"></span>Pursuit Score</div><div class="dot-row"><span class="dot dot-blue"></span>Compliance Matrix (XLSX/CSV)</div><div class="dot-row"><span class="dot dot-blue"></span>Bid / Conditional Bid / No-Bid</div></div>
+        </div>
+      </article>
+ 
+      <article class="card gate-card gate-2">
+        <div class="gate-header">
+          <div class="gate-num-block"><div class="gate-num">II</div><div class="gate-roman">Gate II</div></div>
+          <div><div class="gate-label">Mandatum Submit · €490 per opportunity · Isolated tenant</div><div class="gate-name">Control Submission</div><div class="gate-sub">Winning the bid is not the finish line — it is often the danger zone</div></div>
+          <div class="gate-badge">Isolated tenant</div>
+        </div>
+        <div class="gate-body">
+          <div class="gate-col"><div class="gate-col-label">Decision</div><div class="gate-col-desc">Should we submit? Certainty before the offer leaves the company. Submission mistakes destroy margin.</div></div>
+          <div class="col-div"></div>
+          <div class="gate-col"><div class="gate-col-label">Verification</div><div class="dot-row"><span class="dot dot-purple"></span>Delivery assumptions realistic?</div><div class="dot-row"><span class="dot dot-purple"></span>Pricing meets internal thresholds?</div><div class="dot-row"><span class="dot dot-purple"></span>Walk-away conditions defined?</div><div class="dot-row"><span class="dot dot-purple"></span>Legal deviations understood?</div></div>
+          <div class="col-div"></div>
+          <div class="gate-col"><div class="gate-col-label">Outcome</div><div class="dot-row"><span class="dot dot-purple"></span>Authorization to submit</div><div class="dot-row"><span class="dot dot-purple"></span>Approved negotiation mandate</div><div class="dot-row"><span class="dot dot-purple"></span>Margin thresholds</div><div class="dot-row"><span class="dot dot-purple"></span>Legal boundaries defined</div></div>
+        </div>
+      </article>
+ 
+      <article class="card gate-card gate-3">
+        <div class="gate-header">
+          <div class="gate-num-block"><div class="gate-num">III</div><div class="gate-roman">Gate III</div></div>
+          <div><div class="gate-label">Mandatum Sign · €990 per opportunity · Maximum confidentiality</div><div class="gate-name">Control Signature</div><div class="gate-sub">Maintain discipline until the ink is dry</div></div>
+          <div class="gate-badge">Isolated tenant</div>
+        </div>
+        <div class="gate-body">
+          <div class="gate-col"><div class="gate-col-label">Decision</div><div class="gate-col-desc">Should we sign? Verify reality against the approved mandate. Prevent margin erosion and hidden liability.</div></div>
+          <div class="col-div"></div>
+          <div class="gate-col"><div class="gate-col-label">Verification</div><div class="dot-row"><span class="dot dot-amber"></span>Did negotiation change the economics?</div><div class="dot-row"><span class="dot dot-amber"></span>Were unauthorized concessions made?</div><div class="dot-row"><span class="dot dot-amber"></span>Has liability increased?</div><div class="dot-row"><span class="dot dot-amber"></span>Is margin preserved?</div></div>
+          <div class="col-div"></div>
+          <div class="gate-col"><div class="gate-col-label">Outcome</div><div class="dot-row"><span class="dot dot-amber"></span>Signature recommendation</div><div class="dot-row"><span class="dot dot-amber"></span>Variance vs mandate review</div><div class="dot-row"><span class="dot dot-amber"></span>Risk acceptance record</div><div class="dot-row"><span class="dot dot-amber"></span>Executive sign-off package</div></div>
+        </div>
+      </article>
+ 
+    </div>
+  </div>
+ 
+  <!-- ══ DEPLOY ════════════════════════════════════════ -->
+  <section class="deploy-band" aria-labelledby="deploy-heading">
+    <div class="deploy-inner">
+      <p class="label" style="color:var(--accent);margin-bottom:16px;display:flex;align-items:center;gap:10px"><span style="display:inline-block;width:16px;height:1px;background:var(--accent)"></span>Enterprise-grade deployment</p>
+      <h2 class="deploy-title" id="deploy-heading">Trust is <em>engineered</em> into<br>the architecture.</h2>
+      <p class="deploy-sub">Because Gates II and III involve sensitive commercial data, we offer deployment models where exposure is structurally minimized — not just contractually promised.</p>
+      <div class="deploy-grid">
+        <div class="deploy-card"><div class="deploy-card-eyebrow" style="color:var(--blue)">Mandatum Cloud</div><div class="deploy-card-title">Dedicated Single-Tenant</div><div class="deploy-card-sub">Managed by Mandatum · fastest to deploy</div><div class="deploy-item"><span class="dot dot-blue" style="margin-top:4px"></span>Isolated databases, storage, and compute</div><div class="deploy-item"><span class="dot dot-blue" style="margin-top:4px"></span>BYOK: your encryption keys in your KMS</div><div class="deploy-item"><span class="dot dot-blue" style="margin-top:4px"></span>Private Link · no public internet exposure</div><div class="deploy-item"><span class="dot dot-blue" style="margin-top:4px"></span>SOC 2 Type II · ISO 27001 · GDPR</div></div>
+        <div class="deploy-card"><div class="deploy-card-eyebrow" style="color:var(--purple)">Private Cloud · BYOC</div><div class="deploy-card-title">Customer-Owned Tenant</div><div class="deploy-card-sub">Your AWS · Azure · GCP · your rules</div><div class="deploy-item"><span class="dot dot-purple" style="margin-top:4px"></span>Deploy inside your own cloud account</div><div class="deploy-item"><span class="dot dot-purple" style="margin-top:4px"></span>You control encryption keys, logs, IAM</div><div class="deploy-item"><span class="dot dot-purple" style="margin-top:4px"></span>Mandatum has zero access to data at rest</div><div class="deploy-item"><span class="dot dot-purple" style="margin-top:4px"></span>Inherits your cloud compliance posture</div></div>
+        <div class="deploy-card"><div class="deploy-card-eyebrow" style="color:var(--amber)">Air-Gapped Edition</div><div class="deploy-card-title">On-Premise · Sovereign</div><div class="deploy-card-sub">Defense · Government · Critical infrastructure</div><div class="deploy-item"><span class="dot dot-amber" style="margin-top:4px"></span>Physical install via signed offline bundle + SBOM</div><div class="deploy-item"><span class="dot dot-amber" style="margin-top:4px"></span>Zero connectivity with Mandatum post-installation</div><div class="deploy-item"><span class="dot dot-amber" style="margin-top:4px"></span>FIPS 140-3 HSM · CC EAL4+ path</div><div class="deploy-item"><span class="dot dot-amber" style="margin-top:4px"></span>ITAR compliance package included</div></div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- ══ PHILOSOPHY ════════════════════════════════════ -->
+  <section class="phil-band" aria-label="Philosophy">
+    <div class="phil-inner">
+      <div class="phil-rule"><div class="phil-diamond"></div></div>
+      <blockquote class="phil-text">It is not <em>can you bid.</em><br>Not can you submit.<br>Not can you sign.<br><em>Should you?</em></blockquote>
+      <p class="phil-attr">Mandatum · The executive decision engine</p>
+      <div class="phil-trio">
+        <div class="pt"><div class="pt-label">The best companies</div><div class="pt-text">Decide earlier.</div></div>
+        <div class="pt"><div class="pt-label">Not just faster</div><div class="pt-text">Decide faster.</div></div>
+        <div class="pt"><div class="pt-label">But always</div><div class="pt-text">Decide with discipline.</div></div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- ══ FINAL CTA ══════════════════════════════════════ -->
+  <div class="final-cta">
+    <div class="final-inner">
+      <div>
+        <div class="fc-eyebrow">Turn opportunities into mandates</div>
+        <h2 class="fc-title">Built for companies<br><em>that win repeatedly.</em></h2>
+        <p class="fc-sub">Start with a single opportunity to prove the value, then transition to a subscription for standardized global discipline.</p>
+      </div>
+      <div class="fc-actions">
+        <a href="contact.html" class="btn btn-ink btn-lg">Request access</a>
+        <a href="pricing.html" class="btn btn-ghost btn-lg">View pricing</a>
+      </div>
+    </div>
+  </div>
+  </main>
+ 
+  <mandatum-footer dark></mandatum-footer>
+  <script src="assets/components.js"></script>
+</body>
 </html>      position: relative; overflow: hidden;
     }
     .home-hero::before {
