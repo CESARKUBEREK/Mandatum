@@ -7,7 +7,7 @@
 const CONFIG = {
   // Active theme at launch. Options: 'mandatum' | 'aegis'
   // If PERSIST_THEME is true, localStorage overrides this on return visits.
-  DEFAULT_THEME: 'mandatum',
+  DEFAULT_THEME: 'aegis',
  
   // Remember the user's last theme across sessions.
   PERSIST_THEME: true,
