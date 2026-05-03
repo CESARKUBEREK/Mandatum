@@ -15,7 +15,7 @@ var CONFIG = {
 /* ═══════════════════════════════════════════════════════ */
 
 var THEMES = ['mandatum', 'aegis'];
-var STORAGE_KEY = 'mandatum-theme';
+var STORAGE_KEY = 'aegis-theme';
 
 /* ── THEME HELPERS ─────────────────────────────────────── */
 function getTheme() {
