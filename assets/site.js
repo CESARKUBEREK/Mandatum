@@ -5,7 +5,7 @@
  
 /* ── CONFIG ── */
 var CFG = {
-  DEFAULT_THEME : 'mandatum',   /* 'mandatum' | 'aegis' */
+  DEFAULT_THEME : 'aegis',   /* 'mandatum' | 'aegis' */
   PERSIST       : true,
   SHOW_TOGGLE   : false,        /* true = button visible in header */
   SHORTCUT      : { key:'T', ctrl:true, shift:true }
