@@ -1104,16 +1104,71 @@
     </div>
   </div>
 
-</div><!-- /page-wrap -->
+</head>
+<body>
+<div class="nav-overlay" id="nav-overlay"></div>
+<header class="site-header" id="site-header">
+  <a href="index.html" class="logo-container">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2L20 6V12C20 17 16.5 21 12 22C7.5 21 4 17 4 12V6L12 2Z" stroke="currentColor" stroke-width="1.6"/>
+      <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.2"/>
+      <circle cx="12" cy="12" r="7" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/>
+    </svg>
+    <div class="logo-wordmark">M<span>A</span>NDATUM</div>
+  </a>
+  <nav class="site-nav">
+    <a href="pricing.html" class="active">Pricing</a>
+        <a href="security.html">Security</a>
+        <a href="command-center.html">Command Center</a>
+        <a href="latam.html">LATAM</a>
+        <a href="investors.html">Investors</a>
+        <a href="contact.html">Contact</a>
+    <div class="lang-sel">
+      <a href="#" class="active">EN</a>
+      <a href="#">ES</a>
+      <a href="#">PT</a>
+    </div>
+    <a href="contact.html" class="nav-cta">Request access</a>
+  </nav>
+  <button class="nav-burger" id="nav-burger" aria-label="Toggle navigation" aria-expanded="false">
+    <span class="burger-bar"></span><span class="burger-bar"></span><span class="burger-bar"></span>
+  </button>
+</header>
+<nav class="nav-drawer" id="nav-drawer">
+  <a href="pricing.html" class="active">Pricing</a>
+        <a href="security.html">Security</a>
+        <a href="command-center.html">Command Center</a>
+        <a href="latam.html">LATAM</a>
+        <a href="investors.html">Investors</a>
+        <a href="contact.html">Contact</a>
+  <div class="drawer-lang">
+    <a href="#" class="active">EN</a><a href="#">ES</a><a href="#">PT</a>
+  </div>
+  <a href="contact.html" class="drawer-cta">Request access</a>
+</nav>
+<main>
+ 
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <a href="index.html" class="footer-brand">M<span>A</span>NDATUM</a>
+    <nav class="footer-nav"><a href="pricing.html">Pricing</a>
+        <a href="security.html">Security</a>
+        <a href="command-center.html">Command Center</a>
+        <a href="latam.html">LATAM</a>
+        <a href="investors.html">Investors</a>
+        <a href="contact.html">Contact</a></nav>
+    <div class="footer-info">&copy; 2026 Mandatum &nbsp;&middot;&nbsp; <a href="mailto:hello@mandatum.io">hello@mandatum.io</a></div>
+  </div>
+</footer>
 <script>
-
-  /* MANDATUM · site.js */
+/* MANDATUM · site.js */
 document.addEventListener('DOMContentLoaded', function () {
   var burger  = document.getElementById('nav-burger');
   var drawer  = document.getElementById('nav-drawer');
   var overlay = document.getElementById('nav-overlay');
   var header  = document.getElementById('site-header');
-
+ 
   if (burger && drawer && overlay) {
     function openMenu()  { drawer.classList.add('open'); overlay.classList.add('open'); burger.classList.add('open'); burger.setAttribute('aria-expanded','true');  document.body.style.overflow = 'hidden'; }
     function closeMenu() { drawer.classList.remove('open'); overlay.classList.remove('open'); burger.classList.remove('open'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow = ''; }
@@ -1122,14 +1177,14 @@ document.addEventListener('DOMContentLoaded', function () {
     drawer.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', closeMenu); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
   }
-
+ 
   if (header) {
     window.addEventListener('scroll', function () {
       header.classList.toggle('scrolled', window.scrollY > 8);
     }, { passive: true });
   }
 });
-
+ 
 </script>
 </body>
 </html>
