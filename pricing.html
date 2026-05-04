@@ -677,26 +677,7 @@
     }
     .btn-ghost:hover { border-color: rgba(255,255,255,.4); color: #fff; }
 
-    /* ── FOOTER ─────────────────────────────────────── */
-    .footer {
-      border-top: 1px solid var(--border);
-      padding: 24px 40px;
-      display: flex; align-items: center;
-      justify-content: space-between;
-    }
-    .footer-brand {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 15px; font-weight: 300;
-      letter-spacing: 3px; text-transform: uppercase;
-      color: var(--ink);
-    }
-    .footer-brand span { color: var(--gold); }
-    .footer-info {
-      font-family: 'DM Mono', monospace;
-      font-size: 9px; color: var(--muted); letter-spacing: 1px;
-    }
-    .footer-info a { color: var(--gold-dim); text-decoration: none; }
-    .footer-info a:hover { color: var(--gold); }
+    
 
     /* ── RESPONSIVE ─────────────────────────────────── */
     @media (max-width: 800px) {
@@ -715,12 +696,6 @@
       .footer { flex-direction: column; gap: 8px; text-align: center; padding: 20px; }
     }
   </style>
-</head>
-<body>
-  <mandatum-header></mandatum-header>
-
-  <main>
-<!-- ══ HEADER ════════════════════════════════════════ -->
 
 
 <!-- ══ HERO ══════════════════════════════════════════ -->
@@ -1119,22 +1094,6 @@
 
 </div><!-- /page-wrap -->
 
-<!-- ══ FOOTER ════════════════════════════════════════ -->
 
-
-<script>
-  let annual = true;
-  function toggleBilling() {
-    annual = !annual;
-    const t = document.getElementById('billing-toggle');
-    t.classList.toggle('on', annual);
-    document.getElementById('p1').textContent = annual ? '€1,450' : '€1,810';
-    document.getElementById('p2').textContent = annual ? '€4,900' : '€6,125';
-  }
-</script>
-  </main>
-
-  <mandatum-footer></mandatum-footer>
-  <script src="assets/components.js"></script>
 </body>
 </html>
