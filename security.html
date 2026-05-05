@@ -887,8 +887,8 @@ textarea.field-input { resize: vertical; min-height: 100px; }
       <div class="p-number">Principle 01</div>
       <div class="p-title">Your data never crosses our boundary.</div>
       <div class="p-body">
-        Gates II and III \— where your pricing, margins, walk-away conditions, and final
-        contracts live \— run inside an isolated data plane. That plane has no connection
+        Gates II and III — where your pricing, margins, walk-away conditions, and final
+        contracts live — run inside an isolated data plane. That plane has no connection
         to our intelligence layer. This is an architectural separation, not a policy.
       </div>
       <div class="p-proof">
@@ -902,7 +902,7 @@ textarea.field-input { resize: vertical; min-height: 100px; }
       <div class="p-title">You hold the keys. Always.</div>
       <div class="p-body">
         Bring Your Own Key encryption means your data is encrypted with keys that live
-        in your KMS \— AWS KMS, Azure Key Vault, or GCP Cloud KMS. Mandatum cannot
+        in your KMS — AWS KMS, Azure Key Vault, or GCP Cloud KMS. Mandatum cannot
         decrypt your data even if compelled. Revoking your key deletes everything,
         immediately.
       </div>
@@ -916,7 +916,7 @@ textarea.field-input { resize: vertical; min-height: 100px; }
       <div class="p-number">Principle 03</div>
       <div class="p-title">Your SOC sees everything. We see nothing.</div>
       <div class="p-body">
-        Every event \— every document accessed, every query run, every login \— is exported
+        Every event — every document accessed, every query run, every login — is exported
         via OpenTelemetry to your SIEM. Your security team has full visibility without
         depending on Mandatum to surface it. The logs belong to you.
       </div>
@@ -940,45 +940,45 @@ textarea.field-input { resize: vertical; min-height: 100px; }
 
     <div class="df-row">
       <div class="df-cell gate">
-        Mandatum Scan<br>
-        <span style="font-weight:400;font-size:10px;color:var(--text-sec)">Go / Hold / Reject</span>
+        Gate O · Scan<br>
+        <span style="font-weight:400;font-size:10px;color:var(--text-sec)">Go / No-Go</span>
       </div>
-      <div class="df-cell">Public tender documents \· Standard T&amp;Cs \· Payment terms \· Buyer credibility signals</div>
+      <div class="df-cell">Public tender documents · Standard T&amp;Cs · Payment terms · Buyer credibility signals</div>
       <div class="df-cell">
         <span class="badge b-blue">Public cloud</span><br>
         Fully managed by Mandatum. No confidential data involved.
       </div>
       <div class="df-cell">
-        <span class="badge b-green">Yes \— public data only</span><br>
+        <span class="badge b-green">Yes — public data only</span><br>
         Enriches buyer profiles and requirement ontology.
       </div>
     </div>
 
     <div class="df-row">
       <div class="df-cell gate">
-        Gate I \· Bid<br>
+        Gate I · Bid<br>
         <span style="font-weight:400;font-size:10px;color:var(--text-sec)">Bid / No-Bid</span>
       </div>
-      <div class="df-cell">Tender requirements \· Compliance Matrix \· Pursuit Score \· Executive Mandate</div>
+      <div class="df-cell">Tender requirements · Compliance Matrix · Pursuit Score · Executive Mandate</div>
       <div class="df-cell">
         <span class="badge b-blue">Public cloud</span><br>
         No confidential internal data required at this stage.
       </div>
       <div class="df-cell">
         <span class="badge b-green">Anonymized signals only</span><br>
-        Aggregated decision metadata with k-anonymity \≥ 10.
+        Aggregated decision metadata with k-anonymity ≥ 10.
       </div>
     </div>
 
     <div class="df-row row-conf">
       <div class="df-cell gate">
-        Gate II \· Submit<br>
+        Gate II · Submit<br>
         <span style="font-weight:400;font-size:10px;color:var(--text-sec)">Control Submission</span>
       </div>
-      <div class="df-cell">Pricing \· Internal margins \· Walk-away thresholds \· Legal deviations \· Delivery assumptions \· Negotiation mandate</div>
+      <div class="df-cell">Pricing · Internal margins · Walk-away thresholds · Legal deviations · Delivery assumptions · Negotiation mandate</div>
       <div class="df-cell">
         <span class="badge b-purple">Isolated tenant</span><br>
-        Runs inside your deployment \— Mandatum Cloud, your cloud, or on-premise.
+        Runs inside your deployment — Mandatum Cloud, your cloud, or on-premise.
       </div>
       <div class="df-cell">
         <span class="badge b-red">Never</span><br>
@@ -988,10 +988,10 @@ textarea.field-input { resize: vertical; min-height: 100px; }
 
     <div class="df-row row-max">
       <div class="df-cell gate">
-        Gate III \· Sign<br>
+        Gate III · Sign<br>
         <span style="font-weight:400;font-size:10px;color:var(--text-sec)">Control Signature</span>
       </div>
-      <div class="df-cell">Final contract \· Variance vs mandate \· Unauthorized concessions \· Liability exposure \· Margin erosion record \· Executive sign-off</div>
+      <div class="df-cell">Final contract · Variance vs mandate · Unauthorized concessions · Liability exposure · Margin erosion record · Executive sign-off</div>
       <div class="df-cell">
         <span class="badge b-amber">Maximum isolation</span><br>
         Same isolated tenant as Gate II. Highest confidentiality classification.
@@ -1005,30 +1005,30 @@ textarea.field-input { resize: vertical; min-height: 100px; }
   </div>
 
   <!-- -- DEPLOYMENT TIERS -- -->
-  <div class="sl">Choose your deployment model \— choose your control level</div>
+  <div class="sl">Choose your deployment model — choose your control level</div>
   <div class="tiers">
 
     <div class="t-card tc1">
       <div class="t-head">
         <div class="t-eyebrow">Mandatum Cloud</div>
         <div class="t-name">Dedicated Single-Tenant</div>
-        <div class="t-sub">Fastest to deploy \· managed by Mandatum</div>
+        <div class="t-sub">Fastest to deploy · managed by Mandatum</div>
       </div>
       <div class="t-body">
         <div class="t-row"><span class="dot"></span>Your VPC, isolated from all other customers</div>
         <div class="t-row"><span class="dot"></span>BYOK: your keys in your external KMS</div>
-        <div class="t-row"><span class="dot"></span>Private Link \— no public internet exposure</div>
-        <div class="t-row"><span class="dot"></span>SSO with your IdP \· zero standing privileges</div>
+        <div class="t-row"><span class="dot"></span>Private Link — no public internet exposure</div>
+        <div class="t-row"><span class="dot"></span>SSO with your IdP · zero standing privileges</div>
         <div class="t-row"><span class="dot"></span>Logs streamed to your SIEM in real time</div>
-        <div class="t-row"><span class="dot"></span>SOC 2 Type II \· ISO 27001 \· GDPR</div>
+        <div class="t-row"><span class="dot"></span>SOC 2 Type II · ISO 27001 · GDPR</div>
       </div>
     </div>
 
     <div class="t-card tc2">
       <div class="t-head">
-        <div class="t-eyebrow">Private Cloud \· BYOC</div>
+        <div class="t-eyebrow">Private Cloud · BYOC</div>
         <div class="t-name">Your AWS / Azure / GCP</div>
-        <div class="t-sub">Your cloud account \· your IAM \· your rules</div>
+        <div class="t-sub">Your cloud account · your IAM · your rules</div>
       </div>
       <div class="t-body">
         <div class="t-row"><span class="dot"></span>Mandatum deployed inside your cloud account</div>
@@ -1042,9 +1042,9 @@ textarea.field-input { resize: vertical; min-height: 100px; }
 
     <div class="t-card tc3">
       <div class="t-head">
-        <div class="t-eyebrow">Air-Gapped \· On-Premise</div>
-        <div class="t-name">Zero connectivity \· maximum assurance</div>
-        <div class="t-sub">Defense \· Government \· Critical infrastructure</div>
+        <div class="t-eyebrow">Air-Gapped · On-Premise</div>
+        <div class="t-name">Zero connectivity · maximum assurance</div>
+        <div class="t-sub">Defense · Government · Critical infrastructure</div>
       </div>
       <div class="t-body">
         <div class="t-row"><span class="dot"></span>Physical install via signed offline bundle + SBOM</div>
@@ -1059,7 +1059,7 @@ textarea.field-input { resize: vertical; min-height: 100px; }
   </div>
 
   <!-- -- DIFFERENTIAL PRIVACY -- -->
-  <div class="sl">How the intelligence layer learns \— without seeing your data</div>
+  <div class="sl">How the intelligence layer learns — without seeing your data</div>
   <div class="dp-grid">
 
     <div class="dp-explainer">
@@ -1069,23 +1069,23 @@ textarea.field-input { resize: vertical; min-height: 100px; }
         When Gate I signals contribute to our shared intelligence layer, they do so through
         a mathematical mechanism called Differential Privacy. It adds precisely calibrated
         noise to the data before it leaves your tenant. The result: the intelligence layer
-        learns patterns across thousands of tenders \— but cannot determine whether your
+        learns patterns across thousands of tenders — but cannot determine whether your
         company participated in any given round, or reconstruct any of your decisions.
       </p>
       <p>
         This is a mathematical guarantee, not a contractual promise. The proof is auditable
         by your security team or any independent third party. The \ε value \— the privacy
-        budget \— is a number, not a policy document.
+        budget — is a number, not a policy document.
       </p>
     </div>
 
     <div class="dp-cards">
       <div class="dp-card">
         <div class="dp-label">Gate I signals</div>
-        <div class="dp-eps" style="color:var(--green)">\ε = 1.0</div>
+        <div class="dp-eps" style="color:var(--green)">ε = 1.0</div>
         <div class="dp-bar-wrap">
           <div class="dp-bar" style="width:20%"></div>
-          <div class="dp-bar-label">20% of risk threshold \— strong privacy guarantee</div>
+          <div class="dp-bar-label">20% of risk threshold — strong privacy guarantee</div>
         </div>
         <div class="dp-desc">
           An attacker with full access to our servers cannot determine if your company
@@ -1095,15 +1095,15 @@ textarea.field-input { resize: vertical; min-height: 100px; }
       </div>
 
       <div class="dp-card">
-        <div class="dp-label">Gates II &amp; III \— pricing, mandates, contracts</div>
-        <div class="dp-eps" style="color:var(--green)">No \ε needed</div>
+        <div class="dp-label">Gates II &amp; III — pricing, mandates, contracts</div>
+        <div class="dp-eps" style="color:var(--green)">No ε needed</div>
         <div class="dp-bar-wrap">
           <div class="dp-bar" style="width:0%;background:var(--red)"></div>
           <div class="dp-bar-label">These data points never enter the intelligence layer</div>
         </div>
         <div class="dp-desc">
           Pricing, margins, mandates, and contracts require no privacy budget because
-          they never move. The protection is architectural isolation \— not noise,
+          they never move. The protection is architectural isolation — not noise,
           not policy, not a promise.
         </div>
       </div>
@@ -1124,7 +1124,7 @@ textarea.field-input { resize: vertical; min-height: 100px; }
     <div class="audit-card">
       <div class="audit-icon">ε</div>
       <div class="audit-title">Privacy Budget Report</div>
-      <div class="audit-desc">Quarterly document showing the exact \ε consumed per operation per round. Third-party signed proof that reconstruction of source data is computationally infeasible.</div>
+      <div class="audit-desc">Quarterly document showing the exact ε consumed per operation per round. Third-party signed proof that reconstruction of source data is computationally infeasible.</div>
     </div>
 
     <div class="audit-card">
@@ -1148,13 +1148,13 @@ textarea.field-input { resize: vertical; min-height: 100px; }
     <div class="audit-card">
       <div class="audit-icon">⊘</div>
       <div class="audit-title">Instant opt-out</div>
-      <div class="audit-desc">One-click suspension of participation in the intelligence layer. Effective immediately \— no grace period, no negotiation required. Your data stays yours.</div>
+      <div class="audit-desc">One-click suspension of participation in the intelligence layer. Effective immediately — no grace period, no negotiation required. Your data stays yours.</div>
     </div>
 
   </div>
 
   <!-- -- OBJECTIONS -- -->
-  <div class="sl">Questions your security team will ask \— answered directly</div>
+  <div class="sl">Questions your security team will ask — answered directly</div>
   <div class="objections">
 
     <div class="obj-item">
@@ -1164,7 +1164,7 @@ textarea.field-input { resize: vertical; min-height: 100px; }
       </div>
       <div class="obj-a-side">
         <div class="obj-a-label">Answer</div>
-        <div class="obj-a">No. The intelligence layer only receives anonymized Gate I signals and optional differentially private gradients. With \ε \≤ 1.0, reconstructing any source data is mathematically infeasible. This is independently verifiable \— not a promise we ask you to trust.</div>
+        <div class="obj-a">No. The intelligence layer only receives anonymized Gate I signals and optional differentially private gradients. With ε ≤ 1.0, reconstructing any source data is mathematically infeasible. This is independently verifiable — not a promise we ask you to trust.</div>
       </div>
     </div>
 
@@ -1217,9 +1217,9 @@ textarea.field-input { resize: vertical; min-height: 100px; }
   <!-- -- CTA -- -->
   <div class="bottom-cta">
     <div>
-      <div class="bc-eyebrow">On your terms \· in your environment</div>
+      <div class="bc-eyebrow">On your terms · in your environment</div>
       <div class="bc-title">Ready to review the architecture<br>with your security team?</div>
-      <div class="bc-sub">We'll walk through the data plane isolation, the SBOM, and the Privacy Budget Report \— in a format your team can verify independently.</div>
+      <div class="bc-sub">We'll walk through the data plane isolation, the SBOM, and the Privacy Budget Report — in a format your team can verify independently.</div>
     </div>
     <div class="bc-actions">
       <a href="contact.html" class="btn btn-gold">Request security review</a>
