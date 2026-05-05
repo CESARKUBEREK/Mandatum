@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mandatum — System Architecture</title>
+  <meta name="description" content="Three deployment phases, four gates, four intelligence layers. The complete Mandatum system architecture from MVP to Sovereign.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://mandatum.io/architecture.html">
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400;500&display=swap');
+:root {
+  --bg:#05070b; --surface:rgba(255,255,255,.05); --surface2:rgba(255,255,255,.08); --surface3:rgba(255,255,255,.04);
+  --ink:#080c12; --ink2:#0d1117; --ink3:#111620;
+  --accent:#22d3ee; --accent-lt:#67e8f9; --accent-dim:#0891b2;
+  --text-pri:#f0f6ff; --text-sec:rgba(240,246,255,.55); --text-ter:rgba(240,246,255,.28); --text-inv:#05070b;
+  --border:rgba(255,255,255,.10); --border-str:rgba(255,255,255,.18);
+  --blue:#3b82f6; --blue-lt:rgba(59,130,246,.15);
+  --purple:#a855f7; --purple-lt:rgba(168,85,247,.14);
+  --amber:#f59e0b; --amber-lt:rgba(245,158,11,.14);
+  --green:#10b981; --green-lt:rgba(16,185,129,.14);
+  --teal:#06b6d4; --teal-lt:rgba(6,182,212,.14);
+  --red:#f43f5e; --red-lt:rgba(244,63,94,.14);
+  --font-display:'Cormorant Garamond',Georgia,serif;
+  --font-body:'DM Sans',system-ui,sans-serif;
+  --font-mono:'DM Mono',monospace;
+  --r-sm:8px; --r-md:14px; --r-lg:20px;
+  --t-fast:.15s ease; --t-base:.25s ease;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text-pri);font-family:var(--font-body);font-weight:300;font-size:14px;line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+/* Header */
+.site-header{position:sticky;top:0;z-index:200;height:64px;background:rgba(5,7,11,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 48px;transition:box-shadow .2s}
+.site-header.scrolled{box-shadow:0 1px 32px rgba(0,0,0,.4)}
+.logo-container{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
+.logo-container svg{color:var(--accent)}
+.logo-wordmark{font-family:var(--font-display);font-size:18px;font-weight:400;letter-spacing:5px;text-transform:uppercase;color:var(--text-pri)}
+.logo-wordmark span{color:var(--accent)}
+.site-nav{display:flex;align-items:center;gap:28px}
+.site-nav a{font-size:11px;font-weight:400;color:var(--text-sec);text-decoration:none;letter-spacing:.8px;white-space:nowrap;transition:color var(--t-fast)}
+.site-nav a:hover{color:var(--text-pri)}
+.site-nav a.active{color:var(--accent)}
+.lang-sel{display:flex;align-items:center;gap:10px;padding-left:20px;border-left:1px solid var(--border);font-family:var(--font-mono);font-size:9px;letter-spacing:2px}
+.lang-sel a{color:var(--text-ter);text-decoration:none;transition:color var(--t-fast)}
+.lang-sel a.active,.lang-sel a:hover{color:var(--accent)}
+.nav-cta{display:inline-block;font-size:11px;font-weight:500;padding:8px 20px;border-radius:var(--r-sm);background:var(--accent);color:var(--text-inv);text-decoration:none;white-space:nowrap;transition:background var(--t-fast),box-shadow var(--t-fast);box-shadow:0 0 20px rgba(34,211,238,.2)}
+.nav-cta:hover{background:var(--accent-lt);box-shadow:0 0 28px rgba(34,211,238,.35)}
+.nav-burger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:40px;height:40px;background:none;border:none;cursor:pointer;padding:4px;border-radius:var(--r-sm)}
+.nav-burger:hover{background:var(--surface2)}
+.burger-bar{display:block;width:22px;height:1.5px;background:var(--text-pri);border-radius:2px;transition:transform .2s,opacity .2s;transform-origin:center}
+.nav-burger.open .burger-bar:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.nav-burger.open .burger-bar:nth-child(2){opacity:0;transform:scaleX(0)}
+.nav-burger.open .burger-bar:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.nav-drawer{display:none;position:fixed;top:64px;left:0;right:0;z-index:190;background:var(--ink2);border-bottom:1px solid var(--border);padding:16px 24px 28px;flex-direction:column;box-shadow:0 24px 48px rgba(0,0,0,.5);animation:drawerIn .2s ease}
+@keyframes drawerIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+.nav-drawer.open{display:flex}
+.nav-drawer a{font-size:15px;color:var(--text-pri);text-decoration:none;padding:13px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;transition:color var(--t-fast)}
+.nav-drawer a:last-of-type{border-bottom:none}
+.nav-drawer a:hover,.nav-drawer a.active{color:var(--accent)}
+.nav-drawer a::after{content:"›";font-size:16px;color:var(--text-ter)}
+.drawer-lang{display:flex;gap:14px;padding-top:18px;margin-top:4px;font-family:var(--font-mono);font-size:9px;letter-spacing:2px}
+.drawer-lang a{color:var(--text-sec);text-decoration:none}
+.drawer-lang a.active,.drawer-lang a:hover{color:var(--accent)}
+.drawer-cta{display:block;text-align:center;font-size:13px;font-weight:500;padding:12px;border-radius:var(--r-sm);background:var(--accent);color:var(--text-inv);text-decoration:none;margin-top:14px}
+.nav-overlay{display:none;position:fixed;inset:0;z-index:180;background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
+.nav-overlay.open{display:block}
+/* Footer */
+.site-footer{border-top:1px solid var(--border);padding:36px 48px;background:var(--ink)}
+.footer-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:24px}
+.footer-brand{font-family:var(--font-display);font-size:15px;font-weight:300;letter-spacing:4px;text-transform:uppercase;color:var(--text-pri);text-decoration:none}
+.footer-brand span{color:var(--accent)}
+.footer-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 22px}
+.footer-nav a{font-size:11px;color:var(--text-ter);text-decoration:none;letter-spacing:.3px;transition:color var(--t-fast)}
+.footer-nav a:hover{color:var(--text-sec)}
+.footer-info{font-family:var(--font-mono);font-size:9px;color:var(--text-ter);letter-spacing:.8px;text-align:right}
+.footer-info a{color:var(--accent-dim)}
+.footer-info a:hover{color:var(--accent)}
+/* Layout */
+.page-wrap{max-width:1080px;margin:0 auto;padding:0 48px 96px}
+.sl{display:flex;align-items:center;gap:14px;margin:64px 0 24px;font-family:var(--font-mono);font-size:9px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--accent)}
+.sl::before{content:"";width:20px;height:1px;background:var(--accent);flex-shrink:0}
+.sl::after{content:"";flex:1;height:1px;background:var(--border)}
+.sl:first-child{margin-top:56px}
+.btn{display:inline-block;text-align:center;font-family:var(--font-body);font-size:12px;font-weight:500;padding:10px 26px;border-radius:var(--r-sm);border:1px solid transparent;cursor:pointer;text-decoration:none;white-space:nowrap;transition:all var(--t-base)}
+.btn-gold{background:var(--accent);color:var(--text-inv);border-color:var(--accent);box-shadow:0 0 20px rgba(34,211,238,.2)}
+.btn-gold:hover{background:var(--accent-lt);box-shadow:0 0 32px rgba(34,211,238,.35)}
+.btn-ghost{background:transparent;color:var(--text-pri);border-color:var(--border-str)}
+.btn-ghost:hover{background:var(--surface2)}
+.btn-ghost-light{background:transparent;color:rgba(255,255,255,.65);border-color:rgba(255,255,255,.2)}
+.btn-ghost-light:hover{color:#fff;border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.04)}
+.btn-lg{font-size:13px;padding:13px 32px}
+.btn-sm{font-size:10px;padding:6px 14px}
+.dot-row{display:flex;align-items:flex-start;gap:8px;padding:5px 0;border-bottom:1px solid var(--border);font-size:11px;color:var(--text-sec);line-height:1.4}
+.dot-row:last-child{border-bottom:none}
+.dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:4px;background:var(--text-sec)}
+.dot-blue{background:var(--blue)}.dot-purple{background:var(--purple)}.dot-amber{background:var(--amber)}.dot-green{background:var(--green)}.dot-teal{background:var(--teal)}.dot-gold{background:var(--accent)}.dot-red{background:var(--red)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@media(max-width:900px){
+  .site-header{padding:0 24px}
+  .site-nav{display:none}
+  .nav-burger{display:flex}
+  .page-wrap{padding:0 24px 64px}
+  .site-footer{padding:24px}
+  .footer-inner{grid-template-columns:1fr;gap:16px}
+  .footer-info{text-align:left}
+}
+@media(max-width:600px){
+  .site-header{padding:0 16px}
+  .page-wrap{padding:0 16px 48px}
+}
+  </style>
+  <style>
+/* ══ PAGE: SYSTEM ARCHITECTURE ══════════════════════════════════════ */
+
+/* HERO */
+.arch-hero {
+  background: var(--ink);
+  padding: 96px 48px 80px;
+  position: relative; overflow: hidden;
+}
+.arch-hero::before {
+  content: "";
+  position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(255,255,255,.018) 59px,rgba(255,255,255,.018) 60px),
+    repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(255,255,255,.018) 59px,rgba(255,255,255,.018) 60px);
+  pointer-events: none;
+}
+.arch-hero::after {
+  content: "";
+  position: absolute; top: -120px; right: -120px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(34,211,238,.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+.hero-inner { max-width: 1080px; margin: 0 auto; position: relative; z-index: 1; }
+.hero-eyebrow {
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 3.5px;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
+}
+.hero-eyebrow::before { content: ""; width: 16px; height: 1px; background: var(--accent); }
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 4.5vw, 58px);
+  font-weight: 300; line-height: 1.08;
+  color: var(--text-pri); margin-bottom: 20px; max-width: 780px;
+}
+.hero-title em { font-style: italic; color: var(--accent-lt); }
+.hero-sub {
+  font-size: 14px; color: var(--text-sec);
+  line-height: 1.75; max-width: 560px; margin-bottom: 36px;
+}
+.hero-meta {
+  display: flex; gap: 32px; flex-wrap: wrap;
+}
+.hero-meta-item {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.hm-label {
+  font-family: var(--font-mono); font-size: 8px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--text-ter);
+}
+.hm-val {
+  font-family: var(--font-display); font-size: 22px; font-weight: 300;
+  color: var(--text-pri);
+}
+.hm-val.c-blue   { color: var(--blue); }
+.hm-val.c-purple { color: var(--purple); }
+.hm-val.c-amber  { color: var(--amber); }
+.hm-val.c-teal   { color: var(--teal); }
+
+/* ── MASTER ARCHITECTURE MATRIX ──────────────────────────────────── */
+.arch-matrix-section {
+  background: var(--ink2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 72px 48px;
+}
+.arch-matrix-inner { max-width: 1080px; margin: 0 auto; }
+.section-eyebrow {
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 36px;
+  display: flex; align-items: center; gap: 10px;
+}
+.section-eyebrow::before { content: ""; width: 16px; height: 1px; background: var(--accent); }
+
+/* The big matrix table */
+.arch-matrix {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+.arch-matrix th {
+  font-family: var(--font-mono); font-size: 8px; font-weight: 500;
+  letter-spacing: 2px; text-transform: uppercase;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  text-align: left;
+  background: var(--surface2);
+}
+.arch-matrix th:last-child { border-right: none; }
+.arch-matrix th.th-phase { width: 18%; }
+.arch-matrix th.th-gates { width: 24%; }
+.arch-matrix th.th-prompts { width: 28%; }
+.arch-matrix th.th-deploy { width: 18%; }
+.arch-matrix th.th-target { width: 12%; }
+
+.arch-matrix td {
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  vertical-align: top;
+  font-size: 12px; color: var(--text-sec);
+  line-height: 1.55;
+}
+.arch-matrix tr:last-child td { border-bottom: none; }
+.arch-matrix td:last-child { border-right: none; }
+
+/* Phase cell */
+.phase-cell { display: flex; flex-direction: column; gap: 6px; }
+.phase-num {
+  font-family: var(--font-display); font-size: 36px; font-weight: 300;
+  line-height: 1;
+}
+.phase-name {
+  font-size: 13px; font-weight: 500; color: var(--text-pri);
+  margin-bottom: 2px;
+}
+.phase-tag {
+  font-family: var(--font-mono); font-size: 8px; font-weight: 500;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 3px; display: inline-block;
+}
+
+.phase-1 .phase-num { color: var(--teal); }
+.phase-1 .phase-tag { background: var(--teal-lt); color: var(--teal); }
+.phase-2 .phase-num { color: var(--purple); }
+.phase-2 .phase-tag { background: var(--purple-lt); color: var(--purple); }
+.phase-3 .phase-num { color: var(--amber); }
+.phase-3 .phase-tag { background: var(--amber-lt); color: var(--amber); }
+
+/* Gate pills in matrix */
+.gate-list { display: flex; flex-direction: column; gap: 4px; }
+.gate-pill {
+  display: flex; align-items: center; gap: 8px;
+  padding: 5px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px; background: var(--surface);
+  font-size: 11px;
+}
+.gate-pill-num {
+  font-family: var(--font-display); font-size: 16px; font-weight: 300;
+  line-height: 1; flex-shrink: 0; width: 20px; text-align: center;
+}
+.gate-scan .gate-pill-num { color: var(--text-sec); }
+.gate-i    .gate-pill-num { color: var(--blue); }
+.gate-ii   .gate-pill-num { color: var(--purple); }
+.gate-iii  .gate-pill-num { color: var(--amber); }
+.gate-pill-text { flex: 1; color: var(--text-sec); font-size: 10px; }
+.gate-pill-text strong { display: block; color: var(--text-pri); font-weight: 500; font-size: 11px; }
+
+/* Prompt tags in matrix */
+.prompt-list { display: flex; flex-direction: column; gap: 4px; }
+.prompt-item {
+  display: flex; align-items: flex-start; gap: 8px;
+  font-size: 11px; color: var(--text-sec);
+  padding: 4px 0; border-bottom: 1px solid var(--border);
+}
+.prompt-item:last-child { border-bottom: none; }
+.prompt-badge {
+  font-family: var(--font-mono); font-size: 8px; letter-spacing: 1px;
+  padding: 2px 6px; border-radius: 3px; flex-shrink: 0;
+  white-space: nowrap;
+}
+.pb-blue   { background: var(--blue-lt);   color: var(--blue); }
+.pb-teal   { background: var(--teal-lt);   color: var(--teal); }
+.pb-purple { background: var(--purple-lt); color: var(--purple); }
+.pb-amber  { background: var(--amber-lt);  color: var(--amber); }
+.pb-gray   { background: var(--surface2);  color: var(--text-sec); }
+
+/* Deploy cell */
+.deploy-cell { display: flex; flex-direction: column; gap: 8px; }
+.deploy-badge {
+  font-family: var(--font-mono); font-size: 8px; font-weight: 500;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 4px; display: inline-block;
+}
+.db-teal   { background: var(--teal-lt);   color: var(--teal); }
+.db-purple { background: var(--purple-lt); color: var(--purple); }
+.db-amber  { background: var(--amber-lt);  color: var(--amber); }
+.deploy-note { font-size: 11px; color: var(--text-sec); line-height: 1.4; }
+
+/* ── PHASE DETAIL CARDS ───────────────────────────────────────────── */
+.phase-cards { display: flex; flex-direction: column; gap: 3px; }
+
+.phase-card {
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg); overflow: hidden;
+  transition: border-color var(--t-base);
+}
+.phase-card.open { border-color: rgba(255,255,255,.2); }
+
+.phase-card-head {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  align-items: center; gap: 24px;
+  padding: 24px 32px;
+  cursor: pointer;
+  transition: background var(--t-fast);
+}
+.phase-card-head:hover { background: var(--surface2); }
+
+.pc-num {
+  font-family: var(--font-display); font-size: 56px; font-weight: 300;
+  line-height: 1; text-align: center; flex-shrink: 0;
+}
+.phase-1 .pc-num { color: var(--teal); }
+.phase-2 .pc-num { color: var(--purple); }
+.phase-3 .pc-num { color: var(--amber); }
+
+.pc-head-text { min-width: 0; }
+.pc-phase-label {
+  font-family: var(--font-mono); font-size: 8px; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--text-ter); margin-bottom: 4px;
+}
+.pc-name {
+  font-family: var(--font-display); font-size: 28px; font-weight: 300;
+  color: var(--text-pri); margin-bottom: 4px;
+}
+.pc-tagline { font-size: 12px; color: var(--text-sec); }
+.pc-expand {
+  font-size: 22px; color: var(--text-ter);
+  transition: transform var(--t-base); flex-shrink: 0;
+}
+.phase-card.open .pc-expand { transform: rotate(90deg); }
+
+.phase-card-body {
+  display: none;
+  border-top: 1px solid var(--border);
+}
+.phase-card.open .phase-card-body { display: block; }
+
+/* Gate rows inside phase card */
+.gate-rows { display: flex; flex-direction: column; }
+.gate-row {
+  display: grid;
+  grid-template-columns: 64px 1fr 1px 1fr 1px 1fr;
+  border-bottom: 1px solid var(--border);
+}
+.gate-row:last-child { border-bottom: none; }
+
+.gr-num-col {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; padding: 20px 0;
+  border-right: 1px solid var(--border);
+}
+.gr-num {
+  font-family: var(--font-display); font-size: 28px; font-weight: 300;
+  line-height: 1;
+}
+.gr-roman {
+  font-family: var(--font-mono); font-size: 7px; letter-spacing: 2px;
+  text-transform: uppercase; margin-top: 2px;
+}
+.gate-row.gr-scan .gr-num,
+.gate-row.gr-scan .gr-roman { color: var(--text-sec); }
+.gate-row.gr-i .gr-num,
+.gate-row.gr-i .gr-roman { color: var(--blue); }
+.gate-row.gr-ii .gr-num,
+.gate-row.gr-ii .gr-roman { color: var(--purple); }
+.gate-row.gr-iii .gr-num,
+.gate-row.gr-iii .gr-roman { color: var(--amber); }
+
+.gr-col { padding: 20px 24px; }
+.gr-col-div { background: var(--border); }
+
+.gr-col-label {
+  font-family: var(--font-mono); font-size: 8px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
+}
+.gr-col-title { font-size: 13px; font-weight: 500; color: var(--text-pri); margin-bottom: 4px; }
+.gr-col-desc  { font-size: 11px; color: var(--text-sec); line-height: 1.55; }
+
+/* Phase summary bar */
+.phase-summary {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 20px 32px;
+  display: flex; align-items: center; gap: 32px;
+  flex-wrap: wrap;
+}
+.ps-item { display: flex; flex-direction: column; gap: 2px; }
+.ps-label {
+  font-family: var(--font-mono); font-size: 7px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--text-ter);
+}
+.ps-val { font-size: 12px; font-weight: 500; color: var(--text-pri); }
+.ps-val.c-teal   { color: var(--teal); }
+.ps-val.c-purple { color: var(--purple); }
+.ps-val.c-amber  { color: var(--amber); }
+
+/* ── INTELLIGENCE LAYER REFERENCE ────────────────────────────────── */
+.intel-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg); overflow: hidden;
+}
+.intel-card { background: var(--ink2); padding: 24px 20px; }
+.ic-num {
+  font-family: var(--font-display); font-size: 40px; font-weight: 300;
+  line-height: 1; margin-bottom: 10px;
+}
+.ic-tag {
+  font-family: var(--font-mono); font-size: 8px; font-weight: 500;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 3px; margin-bottom: 10px;
+  display: inline-block;
+}
+.ic-1 .ic-num { color: var(--blue); }
+.ic-1 .ic-tag { background: var(--blue-lt);   color: var(--blue); }
+.ic-2 .ic-num { color: var(--teal); }
+.ic-2 .ic-tag { background: var(--teal-lt);   color: var(--teal); }
+.ic-3 .ic-num { color: var(--purple); }
+.ic-3 .ic-tag { background: var(--purple-lt); color: var(--purple); }
+.ic-4 .ic-num { color: var(--amber); }
+.ic-4 .ic-tag { background: var(--amber-lt);  color: var(--amber); }
+
+.ic-name  { font-size: 14px; font-weight: 500; color: var(--text-pri); margin-bottom: 4px; }
+.ic-q     { font-family: var(--font-display); font-size: 15px; font-style: italic; color: var(--text-sec); margin-bottom: 12px; }
+.ic-desc  { font-size: 11px; color: var(--text-sec); line-height: 1.55; }
+.ic-link  {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 14px; font-family: var(--font-mono); font-size: 8px;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--accent-dim); text-decoration: none;
+  transition: color var(--t-fast);
+}
+.ic-link:hover { color: var(--accent); }
+.ic-link::after { content: "→"; }
+
+/* ── DEPLOYMENT TIERS COMPARISON ─────────────────────────────────── */
+.tier-compare {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden;
+  margin-top: 8px;
+}
+.tier-col { background: var(--ink2); }
+.tier-head {
+  padding: 22px 24px;
+  border-bottom: 1px solid var(--border);
+  position: relative; overflow: hidden;
+}
+.tier-head::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+}
+.tier-mvp    .tier-head::before { background: var(--teal); }
+.tier-gov    .tier-head::before { background: var(--purple); }
+.tier-sov    .tier-head::before { background: var(--amber); }
+.tier-eyebrow {
+  font-family: var(--font-mono); font-size: 8px; letter-spacing: 2px;
+  text-transform: uppercase; margin-bottom: 6px;
+}
+.tier-mvp .tier-eyebrow  { color: var(--teal); }
+.tier-gov .tier-eyebrow  { color: var(--purple); }
+.tier-sov .tier-eyebrow  { color: var(--amber); }
+.tier-name {
+  font-family: var(--font-display); font-size: 22px; font-weight: 300;
+  color: var(--text-pri); margin-bottom: 4px;
+}
+.tier-sub { font-size: 11px; color: var(--text-sec); }
+
+.tier-body { padding: 0; }
+.tier-row {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 12px 24px; border-bottom: 1px solid var(--border);
+  font-size: 11px; color: var(--text-sec); line-height: 1.4;
+}
+.tier-row:last-child { border-bottom: none; }
+.tr-icon { flex-shrink: 0; margin-top: 1px; width: 14px; height: 14px; }
+.tr-on  { color: var(--green); }
+.tr-off { color: var(--text-ter); }
+
+.tier-gates {
+  padding: 16px 24px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+.tg-label {
+  font-family: var(--font-mono); font-size: 7px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--text-ter); margin-bottom: 8px;
+}
+.tg-pills { display: flex; gap: 4px; flex-wrap: wrap; }
+.tg-pill {
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 1px;
+  padding: 3px 9px; border-radius: 4px; border: 1px solid var(--border);
+  color: var(--text-sec);
+}
+.tg-pill.active-scan   { background: var(--surface2); color: var(--text-pri); border-color: var(--border-str); }
+.tg-pill.active-i      { background: var(--blue-lt);   color: var(--blue);   border-color: transparent; }
+.tg-pill.active-ii     { background: var(--purple-lt); color: var(--purple); border-color: transparent; }
+.tg-pill.active-iii    { background: var(--amber-lt);  color: var(--amber);  border-color: transparent; }
+
+/* ── ROADMAP TIMELINE ─────────────────────────────────────────────── */
+.roadmap {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden;
+}
+.rm-phase { background: var(--surface); padding: 32px 28px; }
+.rm-phase-label {
+  font-family: var(--font-mono); font-size: 8px; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--text-ter); margin-bottom: 8px;
+}
+.rm-phase-title {
+  font-family: var(--font-display); font-size: 24px; font-weight: 300;
+  color: var(--text-pri); margin-bottom: 4px;
+}
+.rm-phase-sub { font-size: 12px; color: var(--text-sec); margin-bottom: 20px; }
+
+.rm-milestone {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 8px 0; border-bottom: 1px solid var(--border);
+  font-size: 11px; color: var(--text-sec);
+}
+.rm-milestone:last-child { border-bottom: none; }
+.rm-dot {
+  width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+  margin-top: 3px; border: 1px solid currentColor; background: var(--bg);
+}
+.rm-phase-1 .rm-dot { color: var(--teal); }
+.rm-phase-2 .rm-dot { color: var(--purple); }
+.rm-phase-3 .rm-dot { color: var(--amber); }
+
+.rm-milestone.done .rm-dot { background: currentColor; }
+.rm-milestone strong { color: var(--text-pri); }
+
+/* CTA BAND */
+.cta-band {
+  border: 1px solid var(--border); border-radius: var(--r-lg);
+  background: var(--surface); padding: 44px 52px;
+  display: flex; align-items: center; justify-content: space-between; gap: 36px;
+  position: relative; overflow: hidden; margin-top: 64px;
+}
+.cta-band::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+.cta-eyebrow { font-family: var(--font-mono); font-size: 8px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.cta-title { font-family: var(--font-display); font-size: clamp(20px,2.5vw,28px); font-weight: 300; color: var(--text-pri); margin-bottom: 8px; line-height: 1.2; }
+.cta-sub { font-size: 12px; color: var(--text-sec); line-height: 1.7; max-width: 400px; }
+.cta-actions { display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
+
+@media(max-width:1024px){
+  .intel-grid { grid-template-columns: 1fr 1fr; }
+}
+@media(max-width:900px) {
+  .arch-hero, .arch-matrix-section { padding: 56px 24px; }
+  .arch-matrix { display: none; }
+  .phase-card-head { grid-template-columns: 56px 1fr auto; gap: 16px; padding: 20px 20px; }
+  .gate-row { grid-template-columns: 48px 1fr; }
+  .gr-col-div { display: none; }
+  .gate-row > .gr-col:nth-child(4),
+  .gate-row > .gr-col:nth-child(6) { display: none; }
+  .intel-grid { grid-template-columns: 1fr 1fr; }
+  .tier-compare { grid-template-columns: 1fr; }
+  .roadmap { grid-template-columns: 1fr; }
+  .cta-band { flex-direction: column; padding: 32px 24px; align-items: flex-start; }
+}
+@media(max-width:600px) {
+  .intel-grid { grid-template-columns: 1fr; }
+}
+  </style>
+</head>
+<body>
+
+<div class="nav-overlay" id="nav-overlay"></div>
+
+<header class="site-header" id="site-header">
+  <a href="index.html" class="logo-container">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2L20 6V12C20 17 16.5 21 12 22C7.5 21 4 17 4 12V6L12 2Z" stroke="currentColor" stroke-width="1.6"/>
+      <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.2"/>
+      <circle cx="12" cy="12" r="7" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/>
+    </svg>
+    <div class="logo-wordmark">M<span>A</span>NDATUM</div>
+  </a>
+  <nav class="site-nav">
+    <a href="pricing.html">Pricing</a>
+    <a href="security.html">Security</a>
+    <a href="intelligence.html">Intelligence</a>
+    <a href="command-center.html">Command Center</a>
+    <a href="latam.html">LATAM</a>
+    <a href="investors.html">Investors</a>
+    <a href="contact.html">Contact</a>
+    <div class="lang-sel">
+      <a href="#" class="active">EN</a>
+      <a href="#">ES</a>
+      <a href="#">PT</a>
+    </div>
+    <a href="contact.html" class="nav-cta">Request access</a>
+  </nav>
+  <button class="nav-burger" id="nav-burger" aria-label="Toggle navigation" aria-expanded="false">
+    <span class="burger-bar"></span><span class="burger-bar"></span><span class="burger-bar"></span>
+  </button>
+</header>
+
+<nav class="nav-drawer" id="nav-drawer">
+  <a href="pricing.html">Pricing</a>
+  <a href="security.html">Security</a>
+  <a href="intelligence.html">Intelligence</a>
+  <a href="command-center.html">Command Center</a>
+  <a href="latam.html">LATAM</a>
+  <a href="investors.html">Investors</a>
+  <a href="contact.html">Contact</a>
+  <div class="drawer-lang">
+    <a href="#" class="active">EN</a><a href="#">ES</a><a href="#">PT</a>
+  </div>
+  <a href="contact.html" class="drawer-cta">Request access</a>
+</nav>
+
+<main>
+
+<!-- HERO -->
+<div class="arch-hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">System Architecture</div>
+    <h1 class="hero-title">
+      Three phases.<br>Four gates.<br>
+      <em>One decision engine.</em>
+    </h1>
+    <p class="hero-sub">
+      Mandatum is built to grow with the threat model. Start with cloud-based Scan and Bid/No-Bid in weeks. Expand to full lifecycle governance in an isolated private tenant. Deploy sovereign and air-gapped when the stakes demand it.
+    </p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="hm-label">Development phases</span>
+        <span class="hm-val c-teal">3</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hm-label">Decision gates</span>
+        <span class="hm-val c-blue">4</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hm-label">Intelligence layers</span>
+        <span class="hm-val c-purple">4</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hm-label">Deployment tiers</span>
+        <span class="hm-val c-amber">3</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MASTER MATRIX (desktop table) -->
+<div class="arch-matrix-section">
+  <div class="arch-matrix-inner">
+    <p class="section-eyebrow">Architecture overview matrix</p>
+    <table class="arch-matrix">
+      <thead>
+        <tr>
+          <th class="th-phase">Phase</th>
+          <th class="th-gates">Gates included</th>
+          <th class="th-prompts">Intelligence layers</th>
+          <th class="th-deploy">Deployment</th>
+          <th class="th-target">Target</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- PHASE 1 -->
+        <tr class="phase-1">
+          <td>
+            <div class="phase-cell">
+              <div class="phase-num">1</div>
+              <div class="phase-name">MVP</div>
+              <div><span class="phase-tag">Mandatum Cloud</span></div>
+            </div>
+          </td>
+          <td>
+            <div class="gate-list">
+              <div class="gate-pill gate-scan">
+                <span class="gate-pill-num">S</span>
+                <span class="gate-pill-text"><strong>Scan</strong>Go / Hold / Reject · €49</span>
+              </div>
+              <div class="gate-pill gate-i">
+                <span class="gate-pill-num">I</span>
+                <span class="gate-pill-text"><strong>Bid</strong>Bid / No-Bid · €149</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="prompt-list">
+              <div class="prompt-item">
+                <span class="prompt-badge pb-blue">P1 · Router</span>
+                <span>Country detection · jurisdiction routing</span>
+              </div>
+              <div class="prompt-item">
+                <span class="prompt-badge pb-teal">P2 · Extract</span>
+                <span>Structured extraction → digital twin</span>
+              </div>
+              <div class="prompt-item">
+                <span class="prompt-badge pb-gray">P3 · Matrix</span>
+                <span>Compliance matrix (basic)</span>
+              </div>
+              <div class="prompt-item">
+                <span class="prompt-badge pb-gray">P4 · Risk</span>
+                <span>Go/No-Go risk framework</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="deploy-cell">
+              <span class="deploy-badge db-teal">Mandatum Cloud</span>
+              <span class="deploy-note">Shared multi-tenant. Encrypted at rest. SOC 2 Type II.</span>
+            </div>
+          </td>
+          <td style="font-size:11px;color:var(--text-sec)">Companies new to structured bid governance</td>
+        </tr>
+        <!-- PHASE 2 -->
+        <tr class="phase-2">
+          <td>
+            <div class="phase-cell">
+              <div class="phase-num">2</div>
+              <div class="phase-name">Governance</div>
+              <div><span class="phase-tag">Private Tenant</span></div>
+            </div>
+          </td>
+          <td>
+            <div class="gate-list">
+              <div class="gate-pill gate-scan">
+                <span class="gate-pill-num">S</span>
+                <span class="gate-pill-text"><strong>Scan</strong>Go / Hold / Reject</span>
+              </div>
+              <div class="gate-pill gate-i">
+                <span class="gate-pill-num">I</span>
+                <span class="gate-pill-text"><strong>Bid</strong>Bid / No-Bid</span>
+              </div>
+              <div class="gate-pill gate-ii">
+                <span class="gate-pill-num">II</span>
+                <span class="gate-pill-text"><strong>Submit</strong>Control Submission</span>
+              </div>
+              <div class="gate-pill gate-iii">
+                <span class="gate-pill-num">III</span>
+                <span class="gate-pill-text"><strong>Sign</strong>Control Signature</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="prompt-list">
+              <div class="prompt-item">
+                <span class="prompt-badge pb-blue">P1 · Router</span>
+                <span>Full jurisdiction library · LATAM + EU + MENA</span>
+              </div>
+              <div class="prompt-item">
+                <span class="prompt-badge pb-teal">P2 · Extract</span>
+                <span>Deep extraction incl. pricing assumptions</span>
+              </div>
+              <div class="prompt-item">
+                <span class="prompt-badge pb-purple">P3 · Matrix</span>
+                <span>Full compliance matrix · hidden obligations</span>
+              </div>
+              <div class="prompt-item">
+                <span class="prompt-badge pb-amber">P4 · Risk</span>
+                <span>42-category risk · strategic Go/No-Go alerts</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="deploy-cell">
+              <span class="deploy-badge db-purple">Isolated Tenant</span>
+              <span class="deploy-note">BYOK encryption. Private Link. Your cloud account or Mandatum-managed isolated environment.</span>
+            </div>
+          </td>
+          <td style="font-size:11px;color:var(--text-sec)">Scale-ups and enterprise pursuing Gates II–III</td>
+        </tr>
+        <!-- PHASE 3 -->
+        <tr class="phase-3">
+          <td>
+            <div class="phase-cell">
+              <div class="phase-num">3</div>
+              <div class="phase-name">Sovereign</div>
+              <div><span class="phase-tag">Air-Gapped</span></div>
+            </div>
+          </td>
+          <td>
+            <div class="gate-list">
+              <div class="gate-pill gate-scan">
+                <span class="gate-pill-num">S</span>
+                <span class="gate-pill-text"><strong>Scan</strong>Go / Hold / Reject</span>
+              </div>
+              <div class="gate-pill gate-i">
+                <span class="gate-pill-num">I</span>
+                <span class="gate-pill-text"><strong>Bid</strong>Bid / No-Bid</span>
+              </div>
+              <div class="gate-pill gate-ii">
+                <span class="gate-pill-num">II</span>
+                <span class="gate-pill-text"><strong>Submit</strong>Control Submission</span>
+              </div>
+              <div class="gate-pill gate-iii">
+                <span class="gate-pill-num">III</span>
+                <span class="gate-pill-text"><strong>Sign</strong>Control Signature</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="prompt-list">
+              <div class="prompt-item">
+                <span class="prompt-badge pb-blue">P1 · Router</span>
+                <span>On-premise jurisdiction library · offline updates</span>
+              </div>
+              <div class="prompt-item">
+                <span class="prompt-badge pb-teal">P2 · Extract</span>
+                <span>Local model execution · zero data egress</span>
+              </div>
+              <div class="prompt-item">
+                <span class="prompt-badge pb-purple">P3 · Matrix</span>
+                <span>Sovereign compliance rules · classified frameworks</span>
+              </div>
+              <div class="prompt-item">
+                <span class="prompt-badge pb-amber">P4 · Risk</span>
+                <span>Full risk engine · ITAR / defence procurement rules</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="deploy-cell">
+              <span class="deploy-badge db-amber">Air-Gapped</span>
+              <span class="deploy-note">Physical install. Signed offline bundle + SBOM. Zero Mandatum connectivity post-install. FIPS 140-3 HSM.</span>
+            </div>
+          </td>
+          <td style="font-size:11px;color:var(--text-sec)">Defence, government, critical infrastructure</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- PHASE DETAIL CARDS -->
+<div class="page-wrap">
+  <div class="sl">Phase-by-phase architecture</div>
+
+  <div class="phase-cards">
+
+    <!-- PHASE 1 -->
+    <div class="phase-card phase-1 open" id="phase-1">
+      <div class="phase-card-head" onclick="togglePhase('phase-1')">
+        <div class="pc-num">1</div>
+        <div class="pc-head-text">
+          <div class="pc-phase-label">Phase 1 · MVP</div>
+          <div class="pc-name">Mandatum Cloud</div>
+          <div class="pc-tagline">Gate S + Gate I &nbsp;·&nbsp; Shared cloud &nbsp;·&nbsp; Operational in weeks</div>
+        </div>
+        <div class="pc-expand">›</div>
+      </div>
+      <div class="phase-card-body">
+        <div class="gate-rows">
+
+          <div class="gate-row gr-scan">
+            <div class="gr-num-col">
+              <div class="gr-num">S</div>
+              <div class="gr-roman">Scan</div>
+            </div>
+            <div class="gr-col">
+              <div class="gr-col-label">Gate · Mandatum Scan</div>
+              <div class="gr-col-title">Go / Hold / Reject — €49</div>
+              <div class="gr-col-desc">Low-friction entry. Upload the tender summary — no sensitive data required. P1 (Router) identifies jurisdiction, P2 (Extraction) pulls buyer credibility, payment terms, and red flags.</div>
+            </div>
+            <div class="gr-col-div"></div>
+            <div class="gr-col">
+              <div class="gr-col-label">Intelligence layers active</div>
+              <div class="dot-row"><span class="dot dot-blue"></span>P1 Router — jurisdiction + legal framework</div>
+              <div class="dot-row"><span class="dot dot-teal"></span>P2 Extraction — buyer data, dates, payment risk</div>
+              <div class="dot-row"><span class="dot dot-gold"></span>P4 Risk — Go/Hold/Reject mandate</div>
+            </div>
+            <div class="gr-col-div"></div>
+            <div class="gr-col">
+              <div class="gr-col-label">Output</div>
+              <div class="dot-row"><span class="dot"></span>Go / Hold / Reject mandate</div>
+              <div class="dot-row"><span class="dot"></span>Commercial red flags</div>
+              <div class="dot-row"><span class="dot"></span>Payment exposure review</div>
+              <div class="dot-row"><span class="dot"></span>Deadline feasibility score</div>
+            </div>
+          </div>
+
+          <div class="gate-row gr-i">
+            <div class="gr-num-col">
+              <div class="gr-num">I</div>
+              <div class="gr-roman">Gate I</div>
+            </div>
+            <div class="gr-col">
+              <div class="gr-col-label">Gate I · Mandatum Bid</div>
+              <div class="gr-col-title">Bid / No-Bid — €149</div>
+              <div class="gr-col-desc">Full pipeline activated. All four intelligence layers work in sequence to produce a structured Executive Decision Mandate. Stops personality-driven pursuits before resources are committed.</div>
+            </div>
+            <div class="gr-col-div"></div>
+            <div class="gr-col">
+              <div class="gr-col-label">Intelligence layers active</div>
+              <div class="dot-row"><span class="dot dot-blue"></span>P1 Router — full jurisdiction selection</div>
+              <div class="dot-row"><span class="dot dot-teal"></span>P2 Extraction — full digital twin</div>
+              <div class="dot-row"><span class="dot dot-purple"></span>P3 Matrix — compliance checklist RT/RA/RF</div>
+              <div class="dot-row"><span class="dot dot-amber"></span>P4 Risk — 42-category strategic analysis</div>
+            </div>
+            <div class="gr-col-div"></div>
+            <div class="gr-col">
+              <div class="gr-col-label">Output</div>
+              <div class="dot-row"><span class="dot dot-blue"></span>Executive Decision Mandate</div>
+              <div class="dot-row"><span class="dot dot-blue"></span>Pursuit Score</div>
+              <div class="dot-row"><span class="dot dot-blue"></span>Compliance Matrix (XLSX/CSV)</div>
+              <div class="dot-row"><span class="dot dot-blue"></span>Bid / Conditional Bid / No-Bid</div>
+            </div>
+          </div>
+
+        </div>
+        <div class="phase-summary">
+          <div class="ps-item"><span class="ps-label">Deployment</span><span class="ps-val c-teal">Mandatum Cloud</span></div>
+          <div class="ps-item"><span class="ps-label">Data isolation</span><span class="ps-val">Encrypted multi-tenant</span></div>
+          <div class="ps-item"><span class="ps-label">Certifications</span><span class="ps-val">SOC 2 Type II · GDPR</span></div>
+          <div class="ps-item"><span class="ps-label">Time to deploy</span><span class="ps-val">Days</span></div>
+          <div class="ps-item"><span class="ps-label">Gates active</span><span class="ps-val">S + I</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 2 -->
+    <div class="phase-card phase-2" id="phase-2">
+      <div class="phase-card-head" onclick="togglePhase('phase-2')">
+        <div class="pc-num">2</div>
+        <div class="pc-head-text">
+          <div class="pc-phase-label">Phase 2 · Governance</div>
+          <div class="pc-name">Private Tenant</div>
+          <div class="pc-tagline">Gates S + I + II + III &nbsp;·&nbsp; Isolated tenant &nbsp;·&nbsp; Full lifecycle control</div>
+        </div>
+        <div class="pc-expand">›</div>
+      </div>
+      <div class="phase-card-body">
+        <div class="gate-rows">
+
+          <div class="gate-row gr-scan">
+            <div class="gr-num-col">
+              <div class="gr-num">S</div>
+              <div class="gr-roman">Scan</div>
+            </div>
+            <div class="gr-col">
+              <div class="gr-col-label">Gate S · Mandatum Scan</div>
+              <div class="gr-col-title">Identical to Phase 1</div>
+              <div class="gr-col-desc">Same pipeline, now running inside your isolated tenant. Data never crosses to shared infrastructure. All four phases share the same gate logic — only the deployment boundary changes.</div>
+            </div>
+            <div class="gr-col-div"></div>
+            <div class="gr-col">
+              <div class="gr-col-label">Deployment difference</div>
+              <div class="dot-row"><span class="dot dot-purple"></span>Isolated compute, storage, and database</div>
+              <div class="dot-row"><span class="dot dot-purple"></span>BYOK — your encryption keys in your KMS</div>
+              <div class="dot-row"><span class="dot dot-purple"></span>Private Link — no public internet exposure</div>
+            </div>
+            <div class="gr-col-div"></div>
+            <div class="gr-col">
+              <div class="gr-col-label">Output</div>
+              <div class="dot-row"><span class="dot"></span>Go / Hold / Reject mandate</div>
+              <div class="dot-row"><span class="dot"></span>Commercial red flags</div>
+              <div class="dot-row"><span class="dot"></span>All Phase 1 outputs — isolated</div>
+            </div>
+          </div>
+
+          <div class="gate-row gr-i">
+            <div class="gr-num-col">
+              <div class="gr-num">I</div>
+              <div class="gr-roman">Gate I</div>
+            </div>
+            <div class="gr-col">
+              <div class="gr-col-label">Gate I · Mandatum Bid</div>
+              <div class="gr-col-title">Bid / No-Bid — full pipeline</div>
+              <div class="gr-col-desc">All four intelligence layers active. Now includes extended jurisdiction library covering LATAM, EU, and MENA procurement frameworks, with deeper compliance matrix logic.</div>
+            </div>
+            <div class="gr-col-div"></div>
+            <div class="gr-col">
+              <div class="gr-col-label">Intelligence layers</div>
+              <div class="dot-row"><span class="dot dot-blue"></span>P1 — Extended jurisdiction library</div>
+              <div class="dot-row"><span class="dot dot-teal"></span>P2 — Deep extraction with pricing models</div>
+              <div class="dot-row"><span class="dot dot-purple"></span>P3 — Full matrix incl. hidden obligations</div>
+              <div class="dot-row"><span class="dot dot-amber"></span>P4 — 42-category + strategic alerts</div>
+            </div>
+            <div class="gr-col-div"></div>
+            <div class="gr-col">
+              <div class="gr-col-label">Output</div>
+              <div class="dot-row"><span class="dot dot-blue"></span>Executive Decision Mandate</div>
+              <div class="dot-row"><span class="dot dot-blue"></span>Pursuit Score + Compliance Matrix</div>
+              <div class="dot-row"><span class="dot dot-blue"></span>Bid / Conditional / No-Bid</div>
+            </div>
+          </div>
+
+          <div class="gate-row gr-ii">
+            <div class="gr-num-col">
+              <div class="gr-num">II</div>
+              <div class="gr-roman">Gate II</div>
+            </div>
+            <div class="gr-col">
+              <div class="gr-col-label">Gate II · Mandatum Submit — €490</div>
+              <div class="gr-col-title">Control Submission</div>
+              <div class="gr-col-desc">The danger zone. Winning the bid is not the finish line — submission errors destroy margin permanently. Gate II verifies every assumption made at Gate I against the final offer before it leaves the company.</div>
+            </div>
+            <div class="gr-col-div"></div>
+            <div class="gr-col">
+              <div class="gr-col-label">Verifies</div>
+              <div class="dot-row"><span class="dot dot-purple"></span>Delivery assumptions still realistic?</div>
+              <div class="dot-row"><span class="dot dot-purple"></span>Pricing meets internal margin thresholds?</div>
+              <div class="dot-row"><span class="dot dot-purple"></span>Walk-away conditions defined?</div>
+              <div class="dot-row"><span class="dot dot-purple"></span>Legal deviations approved?</div>
+            </div>
+            <div class="gr-col-div"></div>
+            <div class="gr-col">
+              <div class="gr-col-label">Output</div>
+              <div class="dot-row"><span class="dot dot-purple"></span>Authorization to submit</div>
+              <div class="dot-row"><span class="dot dot-purple"></span>Approved negotiation mandate</div>
+              <div class="dot-row"><span class="dot dot-purple"></span>Margin floor + walk-away terms</div>
+              <div class="dot-row"><span class="dot dot-purple"></span>Legal boundaries defined</div>
+            </div>
+          </div>
+
+          <div class="gate-row gr-iii">
+            <div class="gr-num-col">
+              <div class="gr-num">III</div>
+              <div class="gr-roman">Gate III</div>
+            </div>
+            <div class="gr-col">
+              <div class="gr-col-label">Gate III · Mandatum Sign — €990</div>
+              <div class="gr-col-title">Control Signature</div>
+              <div class="gr-col-desc">Maintain discipline until the ink is dry. Negotiation creep is real — Gate III verifies the final contract against the approved mandate from Gate II. Prevents unauthorized concessions from becoming permanent margin erosion.</div>
+            </div>
+            <div class="gr-col-div"></div>
+            <div class="gr-col">
+              <div class="gr-col-label">Verifies</div>
+              <div class="dot-row"><span class="dot dot-amber"></span>Did negotiation change the economics?</div>
+              <div class="dot-row"><span class="dot dot-amber"></span>Were unauthorized concessions made?</div>
+              <div class="dot-row"><span class="dot dot-amber"></span>Has liability scope increased?</div>
+              <div class="dot-row"><span class="dot dot-amber"></span>Is the approved margin still preserved?</div>
+            </div>
+            <div class="gr-col-div"></div>
+            <div class="gr-col">
+              <div class="gr-col-label">Output</div>
+              <div class="dot-row"><span class="dot dot-amber"></span>Signature recommendation</div>
+              <div class="dot-row"><span class="dot dot-amber"></span>Variance vs Gate II mandate</div>
+              <div class="dot-row"><span class="dot dot-amber"></span>Risk acceptance record</div>
+              <div class="dot-row"><span class="dot dot-amber"></span>Executive sign-off package</div>
+            </div>
+          </div>
+
+        </div>
+        <div class="phase-summary">
+          <div class="ps-item"><span class="ps-label">Deployment</span><span class="ps-val c-purple">Isolated Private Tenant</span></div>
+          <div class="ps-item"><span class="ps-label">Data isolation</span><span class="ps-val">BYOK · Private Link · IAM</span></div>
+          <div class="ps-item"><span class="ps-label">Certifications</span><span class="ps-val">SOC 2 Type II · ISO 27001 · GDPR</span></div>
+          <div class="ps-item"><span class="ps-label">Time to deploy</span><span class="ps-val">2–4 weeks</span></div>
+          <div class="ps-item"><span class="ps-label">Gates active</span><span class="ps-val">S + I + II + III</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 3 -->
+    <div class="phase-card phase-3" id="phase-3">
+      <div class="phase-card-head" onclick="togglePhase('phase-3')">
+        <div class="pc-num">3</div>
+        <div class="pc-head-text">
+          <div class="pc-phase-label">Phase 3 · Sovereign</div>
+          <div class="pc-name">Air-Gapped / On-Premise</div>
+          <div class="pc-tagline">Gates S + I + II + III &nbsp;·&nbsp; Zero connectivity &nbsp;·&nbsp; Defence &amp; government</div>
+        </div>
+        <div class="pc-expand">›</div>
+      </div>
+      <div class="phase-card-body">
+        <div class="gate-rows">
+
+          <div class="gate-row gr-scan">
+            <div class="gr-num-col">
+              <div class="gr-num">S</div>
+              <div class="gr-roman">Scan</div>
+            </div>
+            <div class="gr-col">
+              <div class="gr-col-label">Gate S + I + II + III</div>
+              <div class="gr-col-title">All gates — identical logic, zero egress</div>
+              <div class="gr-col-desc">All four gates operate identically to Phase 2. The difference is structural: the entire stack runs on your physical hardware or air-gapped private cloud. Mandatum has zero access to data, models, or outputs post-installation.</div>
+            </div>
+            <div class="gr-col-div"></div>
+            <div class="gr-col">
+              <div class="gr-col-label">Sovereign deployment</div>
+              <div class="dot-row"><span class="dot dot-amber"></span>Physical install via signed offline bundle + SBOM</div>
+              <div class="dot-row"><span class="dot dot-amber"></span>Zero connectivity with Mandatum post-install</div>
+              <div class="dot-row"><span class="dot dot-amber"></span>FIPS 140-3 HSM · CC EAL4+ certification path</div>
+              <div class="dot-row"><span class="dot dot-amber"></span>ITAR compliance package included</div>
+              <div class="dot-row"><span class="dot dot-amber"></span>Offline model updates via signed packages</div>
+            </div>
+            <div class="gr-col-div"></div>
+            <div class="gr-col">
+              <div class="gr-col-label">Intelligence in sovereign mode</div>
+              <div class="dot-row"><span class="dot dot-blue"></span>P1 — Offline jurisdiction library</div>
+              <div class="dot-row"><span class="dot dot-teal"></span>P2 — Local model execution</div>
+              <div class="dot-row"><span class="dot dot-purple"></span>P3 — Classified compliance frameworks</div>
+              <div class="dot-row"><span class="dot dot-amber"></span>P4 — ITAR / defence procurement rules</div>
+            </div>
+          </div>
+
+        </div>
+        <div class="phase-summary">
+          <div class="ps-item"><span class="ps-label">Deployment</span><span class="ps-val c-amber">Air-Gapped / On-Premise</span></div>
+          <div class="ps-item"><span class="ps-label">Connectivity</span><span class="ps-val">Zero post-installation</span></div>
+          <div class="ps-item"><span class="ps-label">Certifications</span><span class="ps-val">FIPS 140-3 · CC EAL4+ · ITAR</span></div>
+          <div class="ps-item"><span class="ps-label">Time to deploy</span><span class="ps-val">Custom engagement</span></div>
+          <div class="ps-item"><span class="ps-label">Gates active</span><span class="ps-val">S + I + II + III</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /phase-cards -->
+
+  <!-- INTELLIGENCE LAYERS REFERENCE -->
+  <div class="sl">Intelligence pipeline — all phases</div>
+  <div class="intel-grid">
+    <div class="intel-card ic-1">
+      <div class="ic-num">P1</div>
+      <div class="ic-tag">Router</div>
+      <div class="ic-name">Country Router</div>
+      <div class="ic-q">What rules apply here?</div>
+      <div class="ic-desc">Reads first pages only. Detects jurisdiction, legal framework, language. Routes to the correct intelligence version. Available in all three phases.</div>
+      <a href="intelligence.html" class="ic-link">Full documentation</a>
+    </div>
+    <div class="intel-card ic-2">
+      <div class="ic-num">P2</div>
+      <div class="ic-tag">Extraction</div>
+      <div class="ic-name">Structured Extraction</div>
+      <div class="ic-q">What does the document say?</div>
+      <div class="ic-desc">Converts the entire tender to a structured JSON digital twin. Dates ISO-normalised, amounts numeric. Ultra-rigid — invents nothing. Available in all three phases.</div>
+      <a href="intelligence.html" class="ic-link">Full documentation</a>
+    </div>
+    <div class="intel-card ic-3">
+      <div class="ic-num">P3</div>
+      <div class="ic-tag">Compliance</div>
+      <div class="ic-name">Compliance Matrix</div>
+      <div class="ic-q">Can we comply?</div>
+      <div class="ic-desc">Exhaustive requirement inventory — RT/RA/RF coded, with eliminatories, owners, and deadlines. Surfaces hidden and legally-implied obligations. Phase 1 basic, Phase 2–3 full.</div>
+      <a href="intelligence.html" class="ic-link">Full documentation</a>
+    </div>
+    <div class="intel-card ic-4">
+      <div class="ic-num">P4</div>
+      <div class="ic-tag">Risk Engine</div>
+      <div class="ic-name">Risk Engine</div>
+      <div class="ic-q">Should we bid?</div>
+      <div class="ic-desc">42-category risk framework. Concrete risks with severities, probabilities, and mitigations. 7 strategic Go/No-Go alerts. Executive Decision Mandate. Available in all three phases.</div>
+      <a href="intelligence.html" class="ic-link">Full documentation</a>
+    </div>
+  </div>
+
+  <!-- TIER COMPARISON -->
+  <div class="sl">Deployment tier comparison</div>
+  <div class="tier-compare">
+    <div class="tier-col tier-mvp">
+      <div class="tier-head">
+        <div class="tier-eyebrow">Phase 1</div>
+        <div class="tier-name">Mandatum Cloud</div>
+        <div class="tier-sub">Managed · multi-tenant · fast onboarding</div>
+      </div>
+      <div class="tier-body">
+        <div class="tier-row"><svg class="tr-icon tr-on" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="currentColor" opacity=".15"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>Gates S and I included</div>
+        <div class="tier-row"><svg class="tr-icon tr-on" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="currentColor" opacity=".15"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>All 4 intelligence layers</div>
+        <div class="tier-row"><svg class="tr-icon tr-on" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="currentColor" opacity=".15"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>Encrypted at rest + in transit</div>
+        <div class="tier-row"><svg class="tr-icon tr-on" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="currentColor" opacity=".15"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>SOC 2 Type II · GDPR</div>
+        <div class="tier-row"><svg class="tr-icon tr-off" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="currentColor" opacity=".08"/><path d="M6 10l4-4M10 10L6 6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>Gates II + III not included</div>
+        <div class="tier-row"><svg class="tr-icon tr-off" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="currentColor" opacity=".08"/><path d="M6 10l4-4M10 10L6 6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>No BYOK / dedicated compute</div>
+      </div>
+      <div class="tier-gates">
+        <div class="tg-label">Active gates</div>
+        <div class="tg-pills">
+          <span class="tg-pill active-scan">Scan</span>
+          <span class="tg-pill active-i">Gate I</span>
+          <span class="tg-pill">Gate II</span>
+          <span class="tg-pill">Gate III</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tier-col tier-gov">
+      <div class="tier-head">
+        <div class="tier-eyebrow">Phase 2</div>
+        <div class="tier-name">Private Tenant</div>
+        <div class="tier-sub">Isolated · BYOK · full lifecycle</div>
+      </div>
+      <div class="tier-body">
+        <div class="tier-row"><svg class="tr-icon tr-on" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="currentColor" opacity=".15"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>All 4 gates — full lifecycle</div>
+        <div class="tier-row"><svg class="tr-icon tr-on" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="currentColor" opacity=".15"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>Isolated compute + storage + DB</div>
+        <div class="tier-row"><svg class="tr-icon tr-on" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="currentColor" opacity=".15"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>BYOK — your KMS, your keys</div>
+        <div class="tier-row"><svg class="tr-icon tr-on" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="currentColor" opacity=".15"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>Private Link · no public egress</div>
+        <div class="tier-row"><svg class="tr-icon tr-on" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="currentColor" opacity=".15"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>SOC 2 · ISO 27001 · GDPR</div>
+        <div class="tier-row"><svg class="tr-icon tr-off" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="currentColor" opacity=".08"/><path d="M6 10l4-4M10 10L6 6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>No physical / air-gapped install</div>
+      </div>
+      <div class="tier-gates">
+        <div class="tg-label">Active gates</div>
+        <div class="tg-pills">
+          <span class="tg-pill active-scan">Scan</span>
+          <span class="tg-pill active-i">Gate I</span>
+          <span class="tg-pill active-ii">Gate II</span>
+          <span class="tg-pill active-iii">Gate III</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tier-col tier-sov">
+      <div class="tier-head">
+        <div class="tier-eyebrow">Phase 3</div>
+        <div class="tier-name">Sovereign</div>
+        <div class="tier-sub">Air-gapped · on-premise · zero egress</div>
+      </div>
+      <div class="tier-body">
+        <div class="tier-row"><svg class="tr-icon tr-on" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="currentColor" opacity=".15"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>All 4 gates — full lifecycle</div>
+        <div class="tier-row"><svg class="tr-icon tr-on" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="currentColor" opacity=".15"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>Physical install · signed bundle + SBOM</div>
+        <div class="tier-row"><svg class="tr-icon tr-on" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="currentColor" opacity=".15"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>Zero Mandatum connectivity post-install</div>
+        <div class="tier-row"><svg class="tr-icon tr-on" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="currentColor" opacity=".15"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>FIPS 140-3 HSM · CC EAL4+ path</div>
+        <div class="tier-row"><svg class="tr-icon tr-on" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="currentColor" opacity=".15"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>ITAR compliance package</div>
+        <div class="tier-row"><svg class="tr-icon tr-on" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="currentColor" opacity=".15"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>Offline model updates via signed packages</div>
+      </div>
+      <div class="tier-gates">
+        <div class="tg-label">Active gates</div>
+        <div class="tg-pills">
+          <span class="tg-pill active-scan">Scan</span>
+          <span class="tg-pill active-i">Gate I</span>
+          <span class="tg-pill active-ii">Gate II</span>
+          <span class="tg-pill active-iii">Gate III</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEVELOPMENT ROADMAP -->
+  <div class="sl">Development roadmap</div>
+  <div class="roadmap">
+    <div class="rm-phase rm-phase-1">
+      <div class="rm-phase-label">Phase 1 · MVP</div>
+      <div class="rm-phase-title">Mandatum Cloud</div>
+      <div class="rm-phase-sub">Gates S + I · Shared cloud · Pay-per-decision</div>
+      <div class="rm-milestone done"><div class="rm-dot"></div><span>P1 Router — jurisdiction detection</span></div>
+      <div class="rm-milestone done"><div class="rm-dot"></div><span>P2 Extraction — digital twin</span></div>
+      <div class="rm-milestone done"><div class="rm-dot"></div><span>P3 Matrix — basic compliance checklist</span></div>
+      <div class="rm-milestone done"><div class="rm-dot"></div><span>P4 Risk — Go/No-Go engine</span></div>
+      <div class="rm-milestone done"><div class="rm-dot"></div><span><strong>Gate S live</strong> — Scan · €49</span></div>
+      <div class="rm-milestone done"><div class="rm-dot"></div><span><strong>Gate I live</strong> — Bid/No-Bid · €149</span></div>
+      <div class="rm-milestone"><div class="rm-dot"></div><span>Subscription tiers · Command Center</span></div>
+      <div class="rm-milestone"><div class="rm-dot"></div><span>LATAM portal integrations</span></div>
+    </div>
+    <div class="rm-phase rm-phase-2">
+      <div class="rm-phase-label">Phase 2 · Governance</div>
+      <div class="rm-phase-title">Private Tenant</div>
+      <div class="rm-phase-sub">Gates S + I + II + III · Isolated · Full lifecycle</div>
+      <div class="rm-milestone"><div class="rm-dot"></div><span>Isolated tenant infrastructure</span></div>
+      <div class="rm-milestone"><div class="rm-dot"></div><span>BYOK key management integration</span></div>
+      <div class="rm-milestone"><div class="rm-dot"></div><span>Private Link network architecture</span></div>
+      <div class="rm-milestone"><div class="rm-dot"></div><span>P3 Matrix — full hidden obligations engine</span></div>
+      <div class="rm-milestone"><div class="rm-dot"></div><span><strong>Gate II live</strong> — Control Submission · €490</span></div>
+      <div class="rm-milestone"><div class="rm-dot"></div><span><strong>Gate III live</strong> — Control Signature · €990</span></div>
+      <div class="rm-milestone"><div class="rm-dot"></div><span>ISO 27001 certification</span></div>
+      <div class="rm-milestone"><div class="rm-dot"></div><span>BYOC deployment (AWS / Azure / GCP)</span></div>
+    </div>
+    <div class="rm-phase rm-phase-3">
+      <div class="rm-phase-label">Phase 3 · Sovereign</div>
+      <div class="rm-phase-title">Air-Gapped</div>
+      <div class="rm-phase-sub">All gates · On-premise · Zero egress</div>
+      <div class="rm-milestone"><div class="rm-dot"></div><span>Offline model packaging + signing</span></div>
+      <div class="rm-milestone"><div class="rm-dot"></div><span>FIPS 140-3 HSM integration</span></div>
+      <div class="rm-milestone"><div class="rm-dot"></div><span>Air-gapped install toolchain + SBOM</span></div>
+      <div class="rm-milestone"><div class="rm-dot"></div><span>Classified procurement framework library</span></div>
+      <div class="rm-milestone"><div class="rm-dot"></div><span>ITAR compliance package</span></div>
+      <div class="rm-milestone"><div class="rm-dot"></div><span>CC EAL4+ certification path</span></div>
+      <div class="rm-milestone"><div class="rm-dot"></div><span>Defence + government pilot programmes</span></div>
+      <div class="rm-milestone"><div class="rm-dot"></div><span>Sovereign edition GA</span></div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-band">
+    <div>
+      <div class="cta-eyebrow">Start where you are. Scale when you need to.</div>
+      <div class="cta-title">Phase 1 deploys in days.<br>Phase 3 is there when the stakes demand it.</div>
+      <p class="cta-sub">Every phase runs the same four-layer intelligence pipeline. The deployment boundary is the only thing that changes.</p>
+    </div>
+    <div class="cta-actions">
+      <a href="contact.html" class="btn btn-gold btn-lg">Request access</a>
+      <a href="pricing.html" class="btn btn-ghost btn-lg">View pricing</a>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <a href="index.html" class="footer-brand">M<span>A</span>NDATUM</a>
+    <nav class="footer-nav">
+      <a href="pricing.html">Pricing</a>
+      <a href="security.html">Security</a>
+      <a href="intelligence.html">Intelligence</a>
+      <a href="architecture.html">Architecture</a>
+      <a href="command-center.html">Command Center</a>
+      <a href="latam.html">LATAM</a>
+      <a href="investors.html">Investors</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="footer-info">
+      &copy; 2026 Mandatum &nbsp;&middot;&nbsp;
+      <a href="mailto:hello@mandatum.io">hello@mandatum.io</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var burger  = document.getElementById('nav-burger');
+  var drawer  = document.getElementById('nav-drawer');
+  var overlay = document.getElementById('nav-overlay');
+  var header  = document.getElementById('site-header');
+  if (burger && drawer && overlay) {
+    function open()  { drawer.classList.add('open'); overlay.classList.add('open'); burger.classList.add('open'); burger.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; }
+    function close() { drawer.classList.remove('open'); overlay.classList.remove('open'); burger.classList.remove('open'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
+    burger.addEventListener('click', function(){ burger.classList.contains('open') ? close() : open(); });
+    overlay.addEventListener('click', close);
+    drawer.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', close); });
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+  }
+  if (header) {
+    window.addEventListener('scroll', function(){ header.classList.toggle('scrolled', window.scrollY > 8); }, { passive: true });
+  }
+});
+
+function togglePhase(id) {
+  var card = document.getElementById(id);
+  if (!card) return;
+  var isOpen = card.classList.contains('open');
+  document.querySelectorAll('.phase-card').forEach(function(c){ c.classList.remove('open'); });
+  if (!isOpen) card.classList.add('open');
+}
+</script>
+
+</body>
+</html>
