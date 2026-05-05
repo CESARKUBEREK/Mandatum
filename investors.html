@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mandatum — Investors</title>
   <meta name="description" content="Four compounding moats. Proprietary ontology, switching cost, sovereign certification.">
-   <meta name="keywords" content="bid management software, tender analysis, public procurement, bid no-bid decision, contract governance, compliance matrix, RFP analysis, executive decision engine">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://mandatum.io/investors.html">
   <style>
@@ -861,7 +860,46 @@ textarea.field-input { resize: vertical; min-height: 100px; }
       .comp-row { grid-template-columns: 140px 1fr 1fr 1fr 1fr; }
       .cta-section { flex-direction: column; padding: 32px 24px; }
     }
-  </style>
+  
+/* ── INVESTOR SUBNAV ──────────────────────────────────────────────── */
+.investor-subnav {
+  background: var(--ink2);
+  border-bottom: 1px solid var(--border);
+  padding: 0 48px;
+}
+.investor-subnav-inner {
+  max-width: 1080px; margin: 0 auto;
+  display: flex; align-items: center; gap: 0;
+}
+.isn-label {
+  font-family: var(--font-mono); font-size: 8px; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--text-ter);
+  padding: 14px 20px 14px 0;
+  border-right: 1px solid var(--border);
+  margin-right: 4px; flex-shrink: 0; white-space: nowrap;
+}
+.isn-link {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 22px;
+  font-size: 11px; font-weight: 400; letter-spacing: .5px;
+  color: var(--text-sec); text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: color var(--t-fast), border-color var(--t-fast);
+  white-space: nowrap;
+}
+.isn-link:hover { color: var(--text-pri); border-bottom-color: var(--border-str); }
+.isn-link svg { flex-shrink: 0; color: currentColor; opacity: .65; }
+.isn-link-title { display: block; }
+.isn-link-sub {
+  display: block; font-family: var(--font-mono); font-size: 8px;
+  letter-spacing: 1px; color: inherit; opacity: .55; margin-top: 1px;
+}
+@media(max-width:900px) {
+  .investor-subnav { padding: 0 16px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .isn-label { display: none; }
+  .isn-link { padding: 12px 16px; }
+}
+</style>
 </head>
 <body>
 <div class="nav-overlay" id="nav-overlay"></div>
@@ -877,8 +915,8 @@ textarea.field-input { resize: vertical; min-height: 100px; }
   <nav class="site-nav">
     <a href="pricing.html">Pricing</a>
         <a href="security.html">Security</a>
-        <a href="command.html">Command Center</a>
-        <a href="LATAM.html">LATAM</a>
+        <a href="command-center.html">Command Center</a>
+        <a href="latam.html">LATAM</a>
         <a href="investors.html" class="active">Investors</a>
         <a href="contact.html">Contact</a>
     <div class="lang-sel">
@@ -886,7 +924,7 @@ textarea.field-input { resize: vertical; min-height: 100px; }
       <a href="#">ES</a>
       <a href="#">PT</a>
     </div>
-    
+    <a href="contact.html" class="nav-cta">Request access</a>
   </nav>
   <button class="nav-burger" id="nav-burger" aria-label="Toggle navigation" aria-expanded="false">
     <span class="burger-bar"></span><span class="burger-bar"></span><span class="burger-bar"></span>
@@ -904,6 +942,35 @@ textarea.field-input { resize: vertical; min-height: 100px; }
   </div>
   <a href="contact.html" class="drawer-cta">Request access</a>
 </nav>
+
+<!-- ══ INVESTOR SUBNAV ══════════════════════════════════════════════ -->
+<div class="investor-subnav">
+  <div class="investor-subnav-inner">
+    <span class="isn-label">Technical deep-dives</span>
+    <a href="intelligence.html" class="isn-link">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+        <path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2v-4M9 21H5a2 2 0 01-2-2v-4m0 0h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      <span>
+        <span class="isn-link-title">Intelligence Pipeline</span>
+        <span class="isn-link-sub">4-layer AI system · Router → Extract → Matrix → Risk</span>
+      </span>
+    </a>
+    <a href="architecture.html" class="isn-link">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+        <rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.6"/>
+        <rect x="14" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.6"/>
+        <rect x="3" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.6"/>
+        <rect x="14" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.6"/>
+      </svg>
+      <span>
+        <span class="isn-link-title">System Architecture</span>
+        <span class="isn-link-sub">3 phases · 4 gates · MVP → Governance → Sovereign</span>
+      </span>
+    </a>
+  </div>
+</div>
+
 <main>
 </header>
 
@@ -1224,8 +1291,8 @@ textarea.field-input { resize: vertical; min-height: 100px; }
     <a href="index.html" class="footer-brand">M<span>A</span>NDATUM</a>
     <nav class="footer-nav"><a href="pricing.html">Pricing</a>
         <a href="security.html">Security</a>
-        <a href="command.html">Command Center</a>
-        <a href="LATAM.html">LATAM</a>
+        <a href="command-center.html">Command Center</a>
+        <a href="latam.html">LATAM</a>
         <a href="investors.html">Investors</a>
         <a href="contact.html">Contact</a></nav>
     <div class="footer-info">&copy; 2026 Mandatum &nbsp;&middot;&nbsp; <a href="mailto:hello@mandatum.io">hello@mandatum.io</a></div>
