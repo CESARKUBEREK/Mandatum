@@ -1,78 +1,910 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AegisBid — Licitaciones Estratégicas</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Nota el ../ para salir de la carpeta /es/ y buscar /assets/ -->
-    <link rel="stylesheet" href="../assets/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+ <!-- ── SEO ── --> 
+  <title>Mandatum — Motor de Decisión Ejecutiva para Ofertas de Alto Riesgo</title>
+  <meta name="description" content="Gane las oportunidades correctas. Detenga las persecuciones impulsadas por la personalidad. Asigne recursos escasos solo donde las probabilidades justifiquen la inversión.">
+  <meta name="keywords" content="software de gestión de licitaciones, análisis de pliegos, compras públicas, decisión licitar/no licitar, gobierno de contratos, matriz de cumplimiento, análisis RFP, motor de decisión ejecutiva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://mandatum.io/">
+  
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://mandatum.io/">
+  <meta property="og:title"       content="Mandatum — El Motor de Decisión Ejecutiva">
+  <meta property="og:description" content="Gane las oportunidades correctas. Detenga las persecuciones impulsadas por la personalidad. Asigne recursos escasos solo donde las probabilidades justifiquen la inversión.">
+  <meta property="og:image"       content="https://mandatum.io/assets/og-image.jpg">
+
+  <style>
+/* ═══════════════════════════════════════════════════════════════════
+   MANDATUM · styles.css · Tema Aegis
+   ═══════════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Cormorant+SC:wght@400;500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400;500&display=swap');
+
+/* ── TOKENS DE DISEÑO ─────────────────────────────────────────────────── */
+:root {
+  /* Fondos */
+  --bg:        #05070b;
+  --surface:   rgba(255,255,255,.05);
+  --surface2:  rgba(255,255,255,.08);
+  --surface3:  rgba(255,255,255,.04);
+
+  /* Tinta / rellenos oscuros */
+  --ink:  #080c12;
+  --ink2: #0d1117;
+  --ink3: #111620;
+
+  /* Acento — cian */
+  --accent:     #22d3ee;
+  --accent-lt:  #67e8f9;
+  --accent-dim: #0891b2;
+
+  /* Texto */
+  --text-pri: #f0f6ff;
+  --text-sec: rgba(240,246,255,.55);
+  --text-ter: rgba(240,246,255,.28);
+  --text-inv: #05070b;
+
+  /* Bordes */
+  --border:     rgba(255,255,255,.10);
+  --border-str: rgba(255,255,255,.18);
+
+  /* Colores semánticos */
+  --blue:      #3b82f6;   --blue-lt:   rgba(59,130,246,.15);
+  --purple:    #a855f7;   --purple-lt: rgba(168,85,247,.14);
+  --amber:     #f59e0b;   --amber-lt:  rgba(245,158,11,.14);
+  --green:     #10b981;   --green-lt:  rgba(16,185,129,.14);
+  --teal:      #06b6d4;   --teal-lt:   rgba(6,182,212,.14);
+  --red:       #f43f5e;   --red-lt:    rgba(244,63,94,.14);
+
+  /* Tipografía */
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+  --font-mono:    'DM Mono', monospace;
+
+  /* Radios */
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 20px;
+
+  /* Transiciones */
+  --t-fast: .15s ease;
+  --t-base: .25s ease;
+}
+
+/* ── RESET ──────────────────────────────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text-pri);
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.65;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; }
+
+/* ── ENCABEZADO ─────────────────────────────────────────────────────────── */
+.site-header {
+  position: sticky; top: 0; z-index: 200;
+  height: 64px;
+  background: rgba(5,7,11,.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+  transition: box-shadow .2s;
+}
+.site-header.scrolled { box-shadow: 0 1px 32px rgba(0,0,0,.4); }
+
+/* Logo */
+.logo-container { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+.logo-container svg { color: var(--accent); }
+.logo-wordmark {
+  font-family: var(--font-display);
+  font-size: 18px; font-weight: 400;
+  letter-spacing: 5px; text-transform: uppercase;
+  color: var(--text-pri);
+}
+.logo-wordmark span { color: var(--accent); }
+
+/* Navegación escritorio */
+.site-nav { display: flex; align-items: center; gap: 32px; }
+.site-nav a {
+  font-size: 11px; font-weight: 400;
+  color: var(--text-sec); text-decoration: none;
+  letter-spacing: .8px; white-space: nowrap;
+  transition: color var(--t-fast);
+}
+.site-nav a:hover { color: var(--text-pri); }
+.site-nav a.active { color: var(--accent); }
+
+/* Selector de idioma */
+.lang-sel {
+  display: flex; align-items: center; gap: 10px;
+  padding-left: 24px;
+  border-left: 1px solid var(--border);
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 2px;
+}
+.lang-sel a { color: var(--text-ter); text-decoration: none; transition: color var(--t-fast); }
+.lang-sel a.active, .lang-sel a:hover { color: var(--accent); }
+
+/* Botón CTA */
+.nav-cta {
+  display: inline-block;
+  font-size: 12px; font-weight: 500;
+  padding: 8px 20px;
+  border-radius: var(--r-sm);
+  background: var(--accent); color: var(--text-inv);
+  text-decoration: none; white-space: nowrap;
+  transition: background var(--t-fast), box-shadow var(--t-fast);
+  box-shadow: 0 0 20px rgba(34,211,238,.2);
+}
+.nav-cta:hover { background: var(--accent-lt); box-shadow: 0 0 28px rgba(34,211,238,.35); }
+
+/* Menú hamburguesa */
+.nav-burger {
+  display: none; flex-direction: column;
+  justify-content: center; align-items: center; gap: 5px;
+  width: 40px; height: 40px;
+  background: none; border: none; cursor: pointer;
+  padding: 4px; border-radius: var(--r-sm);
+}
+.nav-burger:hover { background: var(--surface2); }
+.burger-bar {
+  display: block; width: 22px; height: 1.5px;
+  background: var(--text-pri); border-radius: 2px;
+  transition: transform .2s, opacity .2s;
+  transform-origin: center;
+}
+.nav-burger.open .burger-bar:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-burger.open .burger-bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-burger.open .burger-bar:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* Panel lateral móvil */
+.nav-drawer {
+  display: none; position: fixed;
+  top: 64px; left: 0; right: 0; z-index: 190;
+  background: var(--ink2); border-bottom: 1px solid var(--border);
+  padding: 16px 24px 28px; flex-direction: column;
+  box-shadow: 0 24px 48px rgba(0,0,0,.5);
+  animation: drawerIn .2s ease;
+}
+@keyframes drawerIn { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:none; } }
+.nav-drawer.open { display: flex; }
+.nav-drawer a {
+  font-size: 15px; color: var(--text-pri); text-decoration: none;
+  padding: 13px 0; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  transition: color var(--t-fast);
+}
+.nav-drawer a:last-of-type { border-bottom: none; }
+.nav-drawer a:hover, .nav-drawer a.active { color: var(--accent); }
+.nav-drawer a::after { content: "›"; font-size: 16px; color: var(--text-ter); }
+.drawer-lang {
+  display: flex; gap: 14px; padding-top: 18px; margin-top: 4px;
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 2px;
+}
+.drawer-lang a { color: var(--text-sec); text-decoration: none; }
+.drawer-lang a.active, .drawer-lang a:hover { color: var(--accent); }
+.drawer-cta {
+  display: block; text-align: center;
+  font-size: 13px; font-weight: 500;
+  padding: 12px; border-radius: var(--r-sm);
+  background: var(--accent); color: var(--text-inv);
+  text-decoration: none; margin-top: 14px;
+  box-shadow: 0 0 20px rgba(34,211,238,.2);
+}
+
+/* Superposición del menú */
+.nav-overlay {
+  display: none; position: fixed; inset: 0; z-index: 180;
+  background: rgba(0,0,0,.5); backdrop-filter: blur(3px);
+}
+.nav-overlay.open { display: block; }
+
+/* ── PIE DE PÁGINA ─────────────────────────────────────────────────────────── */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 36px 48px;
+  background: var(--ink);
+}
+.footer-inner {
+  max-width: 1080px; margin: 0 auto;
+  display: grid; grid-template-columns: auto 1fr auto;
+  align-items: center; gap: 24px;
+}
+.footer-brand {
+  font-family: var(--font-display);
+  font-size: 15px; font-weight: 300;
+  letter-spacing: 4px; text-transform: uppercase;
+  color: var(--text-pri); text-decoration: none;
+}
+.footer-brand span { color: var(--accent); }
+.footer-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 22px; }
+.footer-nav a {
+  font-size: 11px; color: var(--text-ter); text-decoration: none;
+  letter-spacing: .3px; transition: color var(--t-fast);
+}
+.footer-nav a:hover { color: var(--text-sec); }
+.footer-info {
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--text-ter); letter-spacing: .8px; text-align: right;
+}
+.footer-info a { color: var(--accent-dim); text-decoration: none; }
+.footer-info a:hover { color: var(--accent); }
+
+/* ── ESTRUCTURA ─────────────────────────────────────────────────────────── */
+.page-wrap { max-width: 1080px; margin: 0 auto; padding: 0 48px 96px; }
+
+/* Etiqueta de sección */
+.sl {
+  display: flex; align-items: center; gap: 14px;
+  margin: 64px 0 24px;
+  font-family: var(--font-mono);
+  font-size: 9px; font-weight: 500;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--accent);
+}
+.sl::before { content: ""; width: 20px; height: 1px; background: var(--accent); flex-shrink: 0; }
+.sl::after  { content: ""; flex: 1; height: 1px; background: var(--border); }
+.sl:first-child { margin-top: 56px; }
+
+/* Banda hero para páginas interiores */
+.hero-band {
+  padding: 72px 48px 56px;
+  position: relative; overflow: hidden;
+  background: var(--ink);
+}
+.hero-band::before {
+  content: "";
+  position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,.018) 39px, rgba(255,255,255,.018) 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,.018) 39px, rgba(255,255,255,.018) 40px);
+  pointer-events: none;
+}
+.hero-band::after {
+  content: "";
+  position: absolute; bottom: -80px; right: -80px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(34,211,238,.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-inner { max-width: 1080px; margin: 0 auto; position: relative; z-index: 1; }
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 9px; letter-spacing: 3.5px;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 18px;
+  display: flex; align-items: center; gap: 10px;
+}
+.hero-eyebrow::before { content: ""; width: 16px; height: 1px; background: var(--accent); }
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 52px);
+  font-weight: 300; line-height: 1.1;
+  color: var(--text-pri); margin-bottom: 16px;
+  max-width: 720px;
+}
+.hero-title em { font-style: italic; color: var(--accent-lt); }
+.hero-sub {
+  font-size: 13px; color: var(--text-sec);
+  line-height: 1.75; max-width: 540px; margin-bottom: 32px;
+}
+
+/* ── TARJETAS ──────────────────────────────────────────────────────────── */
+.card {
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  overflow: hidden;
+  transition: border-color var(--t-base), box-shadow var(--t-base);
+}
+.card:hover {
+  border-color: rgba(34,211,238,.2);
+  box-shadow: 0 0 32px rgba(34,211,238,.06);
+}
+
+/* ── INSIGNIAS ─────────────────────────────────────────────────────────── */
+.badge {
+  display: inline-block;
+  font-family: var(--font-mono); font-size: 8px; font-weight: 500;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 3px 9px; border-radius: 3px; white-space: nowrap;
+}
+.badge-green  { background: var(--green-lt);  color: var(--green); }
+.badge-blue   { background: var(--blue-lt);   color: var(--blue); }
+.badge-purple { background: var(--purple-lt); color: var(--purple); }
+.badge-amber  { background: var(--amber-lt);  color: var(--amber); }
+.badge-teal   { background: var(--teal-lt);   color: var(--teal); }
+.badge-red    { background: var(--red-lt);    color: var(--red); }
+.badge-gray   { background: var(--surface2);  color: var(--text-sec); }
+
+.badge-live {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--green-lt); color: var(--green);
+  font-family: var(--font-mono); font-size: 8px; font-weight: 500;
+  letter-spacing: 2px; text-transform: uppercase;
+  padding: 3px 9px; border-radius: 3px;
+}
+.badge-live::before {
+  content: ""; width: 5px; height: 5px; border-radius: 50%;
+  background: var(--green); animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.3; } }
+
+/* ── BOTONES ────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-block; text-align: center;
+  font-family: var(--font-body); font-size: 12px; font-weight: 500;
+  padding: 10px 26px;
+  border-radius: var(--r-sm); border: 1px solid transparent;
+  cursor: pointer; text-decoration: none;
+  white-space: nowrap; letter-spacing: .3px;
+  transition: all var(--t-base);
+}
+.btn-gold {
+  background: var(--accent); color: var(--text-inv); border-color: var(--accent);
+  box-shadow: 0 0 20px rgba(34,211,238,.2);
+}
+.btn-gold:hover { background: var(--accent-lt); border-color: var(--accent-lt); box-shadow: 0 0 32px rgba(34,211,238,.35); }
+.btn-ink { background: var(--text-pri); color: var(--bg); border-color: var(--text-pri); }
+.btn-ink:hover { opacity: .85; }
+.btn-ghost { background: transparent; color: var(--text-pri); border-color: var(--border-str); }
+.btn-ghost:hover { background: var(--surface2); }
+.btn-ghost-light { background: transparent; color: rgba(255,255,255,.65); border-color: rgba(255,255,255,.2); }
+.btn-ghost-light:hover { color: #fff; border-color: rgba(255,255,255,.4); background: rgba(255,255,255,.04); }
+.btn-lg { font-size: 13px; padding: 13px 32px; }
+.btn-sm { font-size: 10px; padding: 6px 14px; }
+
+/* ── FILAS CON PUNTOS ───────────────────────────────────────────────────────── */
+.dot-row {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 5px 0; border-bottom: 1px solid var(--border);
+  font-size: 11px; color: var(--text-sec); line-height: 1.4;
+}
+.dot-row:last-child { border-bottom: none; }
+.dot {
+  width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0;
+  margin-top: 4px; background: var(--text-sec);
+}
+.dot-blue   { background: var(--blue); }
+.dot-purple { background: var(--purple); }
+.dot-amber  { background: var(--amber); }
+.dot-green  { background: var(--green); }
+.dot-teal   { background: var(--teal); }
+.dot-gold   { background: var(--accent); }
+.dot-red    { background: var(--red); }
+
+/* ── BANDA CTA ───────────────────────────────────────────────────────── */
+.cta-band {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 44px 52px;
+  display: flex; align-items: center; justify-content: space-between; gap: 36px;
+  position: relative; overflow: hidden;
+}
+.cta-band::before {
+  content: "";
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+.cta-band-eyebrow {
+  font-family: var(--font-mono); font-size: 8px;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 10px;
+}
+.cta-band-title {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.5vw, 28px); font-weight: 300;
+  color: var(--text-pri); margin-bottom: 8px; line-height: 1.2;
+}
+.cta-band-sub {
+  font-size: 12px; color: var(--text-sec);
+  line-height: 1.7; max-width: 420px;
+}
+.cta-band-actions { display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
+
+/* ── CAMPOS DE FORMULARIO ────────────────────────────────────────────────────── */
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field-label {
+  font-family: var(--font-mono); font-size: 8px;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--text-sec);
+}
+.field-input {
+  border: 1px solid var(--border); border-radius: var(--r-sm);
+  padding: 10px 14px;
+  font-family: var(--font-body); font-size: 12px; font-weight: 300;
+  color: var(--text-pri); background: var(--surface2);
+  outline: none; width: 100%;
+  transition: border-color var(--t-fast), background var(--t-fast);
+}
+.field-input:focus { border-color: var(--accent); background: var(--surface3); }
+.field-input::placeholder { color: var(--text-ter); }
+select.field-input {
+  appearance: none; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(240,246,255,.28)' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center;
+  padding-right: 36px;
+}
+textarea.field-input { resize: vertical; min-height: 100px; }
+
+/* ── CUADRÍCULAS ──────────────────────────────────────────────────────────── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+
+/* ── RESPONSIVE ─────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .site-header { padding: 0 32px; }
+  .hero-band   { padding: 56px 32px 44px; }
+  .page-wrap   { padding: 0 32px 80px; }
+  .site-footer { padding: 28px 32px; }
+  .cta-band    { padding: 36px; }
+  .grid-4      { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 900px) {
+  .site-header { padding: 0 24px; }
+  .site-nav    { display: none; }
+  .nav-burger  { display: flex; }
+  .hero-band   { padding: 48px 24px 40px; }
+  .page-wrap   { padding: 0 24px 64px; }
+  .site-footer { padding: 24px; }
+  .footer-inner { grid-template-columns: 1fr; gap: 16px; }
+  .footer-info  { text-align: left; }
+  .cta-band     { flex-direction: column; padding: 32px 24px; align-items: flex-start; }
+  .grid-3       { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .site-header { padding: 0 16px; }
+  .hero-band   { padding: 40px 16px 32px; }
+  .page-wrap   { padding: 0 16px 48px; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .grid-4      { grid-template-columns: 1fr 1fr; }
+}
+
+  </style>
+  <style>
+
+    .home-hero { min-height:100vh; background:var(--ink); display:flex; flex-direction:column; position:relative; overflow:hidden; }
+    .home-hero::before { content:""; position:absolute; inset:0; background: repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(255,255,255,.022) 59px,rgba(255,255,255,.022) 60px), repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(255,255,255,.022) 59px,rgba(255,255,255,.022) 60px); pointer-events:none; }
+    .home-hero::after { content:""; position:absolute; bottom:-120px; left:-80px; width:500px; height:500px; background:radial-gradient(circle,rgba(34,211,238,.08) 0%,transparent 70%); pointer-events:none; }
+    .hero-main { flex:1; max-width:1080px; margin:0 auto; width:100%; padding:160px 48px 80px; position:relative; z-index:1; display:grid; grid-template-columns:1fr 380px; gap:80px; align-items:center; }
+    .hero-rule { width:48px; height:1px; background:var(--accent-dim); margin:20px 0; }
+    .hero-actions { display:flex; gap:12px; flex-wrap:wrap; }
+    .hero-card { border:1px solid rgba(255,255,255,.08); border-radius:var(--r-lg); background:rgba(255,255,255,.03); overflow:hidden; }
+    .hc-header { padding:14px 18px; border-bottom:1px solid rgba(255,255,255,.06); display:flex; align-items:center; justify-content:space-between; }
+    .hc-title { font-family:var(--font-mono); font-size:8px; letter-spacing:2.5px; text-transform:uppercase; color:rgba(255,255,255,.3); }
+    .hc-live { display:flex; align-items:center; gap:5px; font-family:var(--font-mono); font-size:8px; color:var(--green); letter-spacing:1.5px; }
+    .hc-live::before { content:""; width:5px; height:5px; border-radius:50%; background:var(--green); animation:pulse 2s infinite; }
+    .hc-gate { padding:14px 18px; border-bottom:1px solid rgba(255,255,255,.06); display:flex; align-items:flex-start; gap:12px; }
+    .hc-gate:last-child { border-bottom:none; }
+    .hc-gate-num { font-family:var(--font-display); font-size:22px; font-weight:500; color:rgba(255,255,255); flex-shrink:0; line-height:1; margin-top:2px; }
+    .hc-gate-label { font-family:var(--font-mono); font-size:9px; letter-spacing:2px; text-transform:uppercase; margin-bottom:3px; }
+    .hc-gate-name { font-size:13px; font-weight:500; color:#fff; margin-bottom:4px; }
+    .hc-gate-desc { font-size:10px; color:rgba(255,255,255,.35); line-height:1.4; }
+    .hc-badge { align-self:center; flex-shrink:0; font-family:var(--font-mono); font-size:8px; font-weight:500; letter-spacing:1.5px; text-transform:uppercase; padding:3px 8px; border-radius:2px; }
+    .hero-stats-strip { max-width:1080px; margin:0 auto; width:100%; padding:0 48px 64px; position:relative; z-index:1; display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid rgba(255,255,255,.06); }
+    .hs { padding:28px 24px; border-right:1px solid rgba(255,255,255,.06); }
+    .hs:last-child { border-right:none; }
+    .hs-val { font-family:var(--font-display); font-size:34px; font-weight:300; line-height:1; margin-bottom:6px; }
+    .hs-label { font-size:11px; color:rgba(255,255,255,.35); line-height:1.4; }
+    .problem-band { background:var(--surface); border-top:1px solid var(--border); padding:72px 48px; }
+    .problem-inner { max-width:1080px; margin:0 auto; }
+    .problem-eyebrow { font-family:var(--font-mono); font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--accent); margin-bottom:16px; display:flex; align-items:center; gap:10px; }
+    .problem-eyebrow::before { content:""; width:16px; height:1px; background:var(--accent); }
+    .problem-title { font-family:var(--font-display); font-size:clamp(22px,3.5vw,42px); font-weight:300; line-height:1.15; color:var(--text-pri); max-width:640px; margin-bottom:10px; }
+    .problem-title em { font-style:italic; color:var(--accent-lt); }
+    .problem-sub { font-size:13px; color:var(--text-sec); max-width:560px; margin-bottom:48px; line-height:1.7; }
+    .problem-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border); border:1px solid var(--border); }
+    .problem-item { background:var(--ink); padding:28px 24px; }
+    .pi-num { font-family:var(--font-display); font-size:40px; font-weight:300; color:rgba(255,255,255); line-height:1; margin-bottom:12px; }
+    .pi-title { font-size:13px; font-weight:500; color:var(--red); margin-bottom:8px; }
+    .pi-body { font-size:12px; color:var(--text-sec); line-height:1.6; }
+    .how-card { padding:28px 24px; }
+    .how-step { font-family:var(--font-display); font-size:56px; font-weight:300; color:rgba(255,255,255); line-height:1; margin-bottom:16px; }
+    .how-title { font-size:15px; font-weight:600; color:var(--text-pri); margin-bottom:8px; }
+    .how-body { font-size:12px; color:var(--text-sec); line-height:1.65; }
+    .how-outputs { margin-top:16px; padding-top:16px; border-top:1px solid var(--border); }
+    .how-outputs-label { font-family:var(--font-mono); font-size:8px; letter-spacing:2px; text-transform:uppercase; color:var(--text-sec); margin-bottom:8px; }
+    .gate-card { overflow:hidden; }
+    .gate-header { display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:20px; padding:20px 28px; border-bottom:1px solid var(--border); cursor:default; transition:background var(--t-fast); }
+    .gate-header:hover { background:var(--surface2); }
+    .gate-num-block { display:flex; flex-direction:column; align-items:center; gap:2px; flex-shrink:0; }
+    .gate-num { font-family:var(--font-display); font-size:32px; font-weight:300; line-height:1; }
+    .gate-roman { font-family:var(--font-mono); font-size:8px; letter-spacing:2px; text-transform:uppercase; }
+    .gate-label { font-family:var(--font-mono); font-size:8px; letter-spacing:2.5px; text-transform:uppercase; color:var(--text-sec); margin-bottom:3px; }
+    .gate-name { font-family:var(--font-display); font-size:22px; font-weight:400; color:var(--text-pri); }
+    .gate-sub { font-size:11px; color:var(--text-sec); margin-top:3px; }
+    .gate-badge { font-family:var(--font-mono); font-size:8px; font-weight:500; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:3px; flex-shrink:0; }
+    .gate-body { display:grid; grid-template-columns:1fr 1px 1fr 1px 1fr; }
+    .col-div { background:var(--border); }
+    .gate-col { padding:24px 28px; }
+    .gate-col-label { font-family:var(--font-mono); font-size:8px; letter-spacing:2.5px; text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+    .gate-col-desc { font-size:12px; color:var(--text-sec); line-height:1.6; margin-bottom:14px; }
+    .gate-scan .gate-num,.gate-scan .gate-roman { color:var(--text-sec); }
+    .gate-scan .gate-badge { background:var(--surface2); color:var(--text-sec); }
+    .gate-scan .dot { background:var(--text-sec); }
+    .gate-1 .gate-num,.gate-1 .gate-roman { color:var(--blue); }
+    .gate-1 .gate-badge { background:var(--blue-lt); color:var(--blue); }
+    .gate-1 .dot { background:var(--blue); }
+    .gate-2 .gate-num,.gate-2 .gate-roman { color:var(--purple); }
+    .gate-2 .gate-badge { background:var(--purple-lt); color:var(--purple); }
+    .gate-2 .dot { background:var(--purple); }
+    .gate-3 .gate-num,.gate-3 .gate-roman { color:var(--amber); }
+    .gate-3 .gate-badge { background:var(--amber-lt); color:var(--amber); }
+    .gate-3 .dot { background:var(--amber); }
+    .deploy-band { background:var(--ink2); border-top:1px solid var(--border); padding:72px 48px; }
+    .deploy-inner { max-width:1080px; margin:0 auto; }
+    .deploy-title { font-family:var(--font-display); font-size:clamp(24px,3vw,42px); font-weight:300; line-height:1.15; color:var(--text-pri); max-width:580px; margin-bottom:10px; }
+    .deploy-title em { font-style:italic; color:var(--accent-lt); }
+    .deploy-sub { font-size:13px; color:var(--text-sec); max-width:480px; margin-bottom:40px; line-height:1.7; }
+    .deploy-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1px; background:var(--border); border:1px solid var(--border); }
+    .deploy-card { background:var(--ink2); padding:28px 24px; transition:background var(--t-base); }
+    .deploy-card:hover { background:var(--ink3); }
+    .deploy-card-eyebrow { font-family:var(--font-mono); font-size:8px; letter-spacing:2.5px; text-transform:uppercase; margin-bottom:8px; }
+    .deploy-card-title { font-family:var(--font-display); font-size:20px; font-weight:400; color:var(--text-pri); margin-bottom:4px; }
+    .deploy-card-sub { font-size:11px; color:var(--text-sec); margin-bottom:20px; }
+    .deploy-item { display:flex; align-items:flex-start; gap:7px; padding:5px 0; border-bottom:1px solid rgba(255,255,255,.06); font-size:11px; color:var(--text-sec); line-height:1.4; }
+    .deploy-item:last-child { border-bottom:none; }
+    .phil-band { background:var(--ink); border-top:1px solid var(--border); padding:80px 48px; text-align:center; position:relative; overflow:hidden; }
+    .phil-band::before { content:""; position:absolute; inset:0; background:repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(255,255,255,.015) 59px,rgba(255,255,255,.015) 60px); pointer-events:none; }
+    .phil-inner { position:relative; z-index:1; max-width:700px; margin:0 auto; }
+    .phil-rule { display:flex; align-items:center; gap:16px; margin-bottom:40px; }
+    .phil-rule::before,.phil-rule::after { content:""; flex:1; height:1px; background:var(--accent-dim); }
+    .phil-diamond { width:6px; height:6px; background:var(--accent); transform:rotate(45deg); }
+    .phil-text { font-family:var(--font-display); font-size:clamp(22px,3vw,34px); font-weight:300; line-height:1.5; color:var(--text-pri); margin-bottom:20px; }
+    .phil-text em { font-style:italic; color:var(--accent-lt); }
+    .phil-attr { font-family:var(--font-mono); font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--accent); opacity:.7; }
+    .phil-trio { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1px; background:var(--border); border:1px solid var(--border); margin-top:48px; text-align:left; }
+    .pt { padding:24px; background:rgba(255,255,255,.02); }
+    .pt-label { font-family:var(--font-mono); font-size:8px; letter-spacing:2.5px; text-transform:uppercase; color:var(--accent-dim); margin-bottom:8px; }
+    .pt-text { font-family:var(--font-display); font-size:20px; font-weight:300; color:var(--text-pri); }
+    .final-cta { padding:80px 48px; }
+    .final-inner { max-width:1080px; margin:0 auto; display:grid; grid-template-columns:1fr auto; gap:48px; align-items:center; }
+    .fc-eyebrow { font-family:var(--font-mono); font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--accent); margin-bottom:12px; }
+    .fc-title { font-family:var(--font-display); font-size:clamp(24px,3vw,38px); font-weight:300; line-height:1.2; color:var(--text-pri); margin-bottom:10px; }
+    .fc-title em { font-style:italic; color:var(--accent-lt); }
+    .fc-sub { font-size:13px; color:var(--text-sec); line-height:1.65; max-width:480px; }
+    .fc-actions { display:flex; flex-direction:column; gap:10px; flex-shrink:0; }
+    @media(max-width:900px) {
+      .hero-main { grid-template-columns:1fr; gap:40px; padding:120px 24px 60px; }
+      .hero-card { display:none; }
+      .hero-stats-strip { grid-template-columns:1fr 1fr; padding:0 24px 48px; }
+      .hs { border-right:none; border-bottom:1px solid rgba(255,255,255,.06); }
+      .problem-band,.deploy-band,.phil-band { padding:56px 24px; }
+      .problem-grid { grid-template-columns:1fr 1fr; }
+      .gate-body { grid-template-columns:1fr; }
+      .col-div { display:none; }
+      .gate-header { grid-template-columns:auto 1fr; }
+      .gate-badge { display:none; }
+      .deploy-grid { grid-template-columns:1fr; }
+      .phil-trio { grid-template-columns:1fr; }
+      .final-cta { padding:56px 24px; }
+      .final-inner { grid-template-columns:1fr; gap:28px; }
+    }
+  </style>
+
 </head>
 <body>
+<div class="nav-overlay" id="nav-overlay"></div>
+<header class="site-header" id="site-header">
+  <a href="index.html" class="logo-container">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2L20 6V12C20 17 16.5 21 12 22C7.5 21 4 17 4 12V6L12 2Z" stroke="currentColor" stroke-width="1.6"/>
+      <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.2"/>
+      <circle cx="12" cy="12" r="7" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/>
+    </svg>
+    <div class="logo-wordmark">M<span>A</span>NDATUM</div>
+  </a>
+  <nav class="site-nav">
+    <a href="pricing.html">Precios</a>
+        <a href="security.html">Seguridad</a>
+        <a href="command.html">Centro de Mando</a>
+        <a href="LATAM.html">LATAM</a>
+        <a href="investors.html">Inversores</a>
+        <a href="contact.html">Contacto</a>
+    <div class="lang-sel">
+      <a href="#">EN</a>
+      <a href="#" class="active">ES</a>
+      <a href="#">PT</a>
+    </div>
+   
+  </nav>
+  <button class="nav-burger" id="nav-burger" aria-label="Abrir/cerrar navegación" aria-expanded="false">
+    <span class="burger-bar"></span><span class="burger-bar"></span><span class="burger-bar"></span>
+  </button>
+  
+</header>
+<nav class="nav-drawer" id="nav-drawer">
+  <a href="pricing.html">Precios</a>
+        <a href="security.html">Seguridad</a>
+        <a href="command.html">Centro de Mando</a>
+        <a href="LATAM.html">LATAM</a>
+        <a href="investors.html">Inversores</a>
+        <a href="contact.html">Contacto</a>
+  <div class="drawer-lang">
+    <a href="#">EN</a><a href="#" class="active">ES</a><a href="#">PT</a>
+  </div>
 
-    <header class="site-header">
-        <a href="index.html" class="logo-container">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" class="text-[#3B82F6]">
-                <path d="M12 2L20 6V12C20 17 16.5 21 12 22C7.5 21 4 17 4 12V6L12 2Z" stroke="currentColor" stroke-width="1.6"/>
-                <path d="M8.5 12.5L11 15L16 9.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <div class="text-xl font-semibold tracking-tight">AegisBid</div>
-        </a>
-        <nav class="nav-links">
-            <a href="index.html">Inicio</a>
-            <a href="plataforma.html">Plataforma</a>
-            <a href="soluciones.html">Soluciones</a>
-            <a href="centro-mando.html">Centro de Mando</a>
-            <a href="seguridad.html">Seguridad</a>
-            <a href="contacto.html">Contacto</a>
-            
-            <div class="lang-selector">
-                <a href="../index.html">EN</a>
-                <a href="index.html" class="active">ES</a>
-                <a href="../pt/index.html">PT</a>
-            </div>
-        </nav>
-    </header>
+</nav>
+ <main>
 
-    <main>
-        <section class="px-8 py-24 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-            <div>
-                <div class="text-xs uppercase tracking-[0.35em] text-[#3B82F6] mb-4">Plataforma de Inteligencia de Decisiones</div>
-                <h1 class="text-5xl md:text-6xl font-semibold leading-tight">Decisiones Estratégicas en Minutos</h1>
-                <p class="mt-6 text-lg text-white/70 max-w-xl">Para equipos de defensa, infraestructura, energía y empresas que compiten en entornos de adquisiciones de alto nivel.</p>
-                <div class="mt-8 flex gap-4">
-                    <button class="btn-primary">Solicitar Acceso</button>
-                    <button class="btn-secondary">Subir Licitación</button>
-                </div>
-            </div>
+   <!-- -- HERO ------------------------------------------ -->
+ <div class="hero-band">
+  <div class="hero-inner">
+      <div class="hero-eyebrow">Motor de Decisión Ejecutiva para Ofertas de Alto Riesgo</div>
+      <h1 class="hero-title">
+        Un Sistema de Decisión para
+        <em>Ventas, Ejecución de Licitaciones y Liderazgo Ejecutivo</em>
+      </h1>
+      <div class="hero-rule"></div>
+      <p class="hero-sub">
+        Mandatum es el sistema de decisión que gobierna si usted participa, licita, presenta y firma, garantizando que el capital, el margen y el riesgo estén controlados antes de que se asuman compromisos irrevocables.
+      </p>
+      <div class="hero-actions">
+        <a href="contact.html" class="btn btn-gold btn-lg">Solicitar acceso</a>
+        <a href="pricing.html" class="btn btn-ghost-light btn-lg">Ver precios →</a>
+      </div>
+    </div>
 
-            <div class="bg-[#161A20] rounded-3xl p-6 border border-white/10 shadow-2xl">
-                <div class="text-sm text-white/60">MEMO DE DECISIÓN CONFIDENCIAL</div>
-                <div class="mt-6 grid grid-cols-2 gap-4">
-                    <div class="bg-black/20 rounded-2xl p-4">
-                        <div class="text-xs text-white/50">Puntaje de Oferta</div>
-                        <div class="text-4xl font-semibold mt-2">82</div>
-                    </div>
-                    <div class="bg-black/20 rounded-2xl p-4">
-                        <div class="text-xs text-white/50">Recomendación</div>
-                        <div class="text-2xl font-semibold mt-2 text-[#00C48C]">LICITAR</div>
-                    </div>
-                    <div class="bg-black/20 rounded-2xl p-4">
-                        <div class="text-xs text-white/50">Riesgo Legal</div>
-                        <div class="text-xl mt-2">Medio</div>
-                    </div>
-                    <div class="bg-black/20 rounded-2xl p-4">
-                        <div class="text-xs text-white/50">Probabilidad de Ganar</div>
-                        <div class="text-xl mt-2">58%</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+    <div class="hero-card">
+      <div class="hc-header">
+        <div class="hc-title">Mandatum · Oferta activa</div>
+        <div class="hc-live">Activo</div>
+      </div>
+      <div class="hc-gate gate-scan">
+        <div class="hc-gate-num">O</div>
+        <div>
+          <div class="hc-gate-label" style="color:var(--text-sec)">Puerta O · Mandatum Scan</div>
+          <div class="hc-gate-name">Participar / No Participar</div>
+          <div class="hc-gate-desc">Credibilidad del comprador · Riesgo de pago · Señales de alerta</div>
+        </div>
+        <div class="hc-badge" style="background:rgba(255,255,255,.06);color:rgba(255,255,255,.35)">€49</div>
+      </div>
+      <div class="hc-gate gate-1">
+        <div class="hc-gate-num">I</div>
+        <div>
+          <div class="hc-gate-label" style="color:var(--blue)">Puerta I · Mandatum Bid</div>
+          <div class="hc-gate-name">Licitar / No Licitar</div>
+          <div class="hc-gate-desc">Puntuación de Oferta · Matriz de Cumplimiento · Mandato Ejecutivo</div>
+        </div>
+        <div class="hc-badge" style="background:var(--blue-lt);color:var(--blue)">Activo</div>
+      </div>
+      <div class="hc-gate gate-2" style="opacity:1">
+        <div class="hc-gate-num">II</div>
+        <div>
+          <div class="hc-gate-label" style="color:var(--purple)">Puerta II · Mandatum Submit</div>
+          <div class="hc-gate-name">Presentación de Oferta</div>
+          <div class="hc-gate-desc">Umbrales de margen · Mandato de retirada</div>
+        </div>
+        <div class="hc-badge" style="background:rgba(168,85,247,.1);color:var(--purple)">Bloqueado</div>
+      </div>
+      <div class="hc-gate gate-3" style="opacity:1">
+        <div class="hc-gate-num">III</div>
+        <div>
+          <div class="hc-gate-label" style="color:var(--amber)">Puerta III · Mandatum Sign</div>
+          <div class="hc-gate-name">Firma de Contrato</div>
+          <div class="hc-gate-desc">Desviación vs mandato · Paquete de aprobación</div>
+        </div>
+        <div class="hc-badge" style="background:rgba(245,158,11,.1);color:var(--amber)">Bloqueado</div>
+      </div>
+    </div>
+  </div>
 
-    <footer class="site-footer">
-        AegisBid © 2026 — Inteligencia de Decisiones para Adquisiciones Estratégicas
-    </footer>
+  <div class="hero-stats-strip">
+    
+    <div class="hs"><div class="hs-val" style="color:#6EE7B7">&lt; 20 min</div><div class="hs-label">Desde la carga del pliego hasta el mandato de decisión ejecutiva</div></div>
+    <div class="hs"><div class="hs-val" style="color:#C4B5FD">4 puertas</div><div class="hs-label">Ciclo de decisión completo — desde el primer análisis hasta la firma final</div></div>
+    <div class="hs"><div class="hs-val" style="color:#FCD34D">3 niveles</div><div class="hs-label">Despliegue: SaaS • Gestionado • Aislado soberano (air-gapped)</div></div>
+  </div>
+</div>
 
+<!-- PROBLEMA -->
+<section class="problem-band">
+  <div class="problem-inner">
+    <p class="problem-eyebrow">El problema</p>
+    <h2 class="problem-title">
+      La mayoría de las empresas no pierden en la fase de licitación. 
+      <em>Pierden en la fase de decisión.</em>
+    </h2>
+    <p class="problem-sub">Toda oferta fallida sigue el mismo patrón: una mala decisión, tomada temprano, validada tarde.
+Para cuando se presenta una oferta, el costo ya no se puede recuperar.</p>
+    <div class="problem-grid">
+      <div class="problem-item"><div class="pi-num">01</div><div class="pi-title">Oportunidades incorrectas</div><div class="pi-body">Capacidad comercial desperdiciada: quemando recursos de ingeniería, legal y finanzas en licitaciones que nunca fueron ganables.</div></div>
+      <div class="problem-item"><div class="pi-num">02</div><div class="pi-title">Decisiones fragmentadas</div><div class="pi-body">Entre ventas, legal, técnica, finanzas y estrategia, sin alineación.</div></div>
+      <div class="problem-item"><div class="pi-num">03</div><div class="pi-title">Visibilidad de riesgo débil</div><div class="pi-body">Erosión de márgenes y exposición: Errores de precio, desviaciones no controladas y cláusulas legales sin revisar destruyen el margen en el momento de la presentación — cuando ya es demasiado tarde.</div></div>
+      <div class="problem-item"><div class="pi-num">04</div><div class="pi-title">Corrección tardía</div><div class="pi-body">Costo y riesgo legal irreversible: Las negociaciones convierten los ingresos en pérdidas. Se hacen concesiones no autorizadas bajo presión, sin visibilidad ejecutiva ni límites aprobados.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CÓMO FUNCIONA -->
+<div class="page-wrap">
+  <div class="sl" id="how">Cómo funciona</div>
+  <h2 class="problem-title">
+      Una Nueva Categoría:  
+      <em>Control de Decisiones para Ofertas de Alto Riesgo.</em>
+    </h2>
+<p class="problem-sub">Mandatum no es una herramienta de licitación.
+Es un sistema de decisión que determina si las organizaciones deben participar, perseguir, presentar y firmar. </p>
+<p class="problem-sub">Si la decisión es incorrecta, la ejecución no puede arreglarla.</p>
+  
+  <div class="grid-3" style="margin-bottom:10px">
+    <div class="card how-card"><div class="how-step">01</div><div class="how-title">Ingresar la oportunidad</div><div class="how-body">Cargue el pliego, documentos RFP, T&C y condiciones de pago. Responda preguntas enfocadas de Sí/No. No se requiere información de precios sensible.</div><div class="how-outputs"><div class="how-outputs-label">Usted proporciona</div><div class="dot-row"><span class="dot"></span>Pliego / documentos RFP</div><div class="dot-row"><span class="dot"></span>T&C estándar</div><div class="dot-row"><span class="dot"></span>Condiciones de pago</div></div></div>
+    <div class="card how-card"><div class="how-step">02</div><div class="how-title">Estructurar las incógnitas</div><div class="how-body">Mandatum extrae automáticamente los requisitos, identifica riesgos contractuales, detecta problemas jurisdiccionales, analiza exposición a sanciones y construye la matriz de cumplimiento.</div><div class="how-outputs"><div class="how-outputs-label">Mandatum hace</div><div class="dot-row"><span class="dot dot-teal"></span>Extrae requisitos</div><div class="dot-row"><span class="dot dot-teal"></span>Identifica riesgos contractuales</div><div class="dot-row"><span class="dot dot-teal"></span>Analiza sanciones / control de exportación</div></div></div>
+    <div class="card how-card"><div class="how-step">03</div><div class="how-title">Generar claridad ejecutiva</div><div class="how-body">Pase de la bandeja de entrada a la decisión en menos de 20 minutos. Reemplace las presentaciones y cadenas de correo con un mandato único, estructurado y defendible.</div><div class="how-outputs"><div class="how-outputs-label">Usted recibe</div><div class="dot-row"><span class="dot dot-gold"></span>Mandato de decisión ejecutiva</div><div class="dot-row"><span class="dot dot-gold"></span>Mapa de calor de desviaciones</div><div class="dot-row"><span class="dot dot-gold"></span>Resumen de riesgo comercial</div></div></div>
+  </div>
+
+  <div class="sl">Las cuatro puertas — ciclo completo de la oferta</div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+
+    <article class="card gate-card gate-scan">
+      <div class="gate-header">
+        <div class="gate-num-block"><div class="gate-num">O</div><div class="gate-roman">Puerta O</div></div>
+        <div><div class="gate-label">Mandatum Scan · €49 por oportunidad</div><div class="gate-name">Participar / No Participar</div><div class="gate-sub">Cualificación de baja fricción sin exposición de confidencialidad.</div></div>
+        <div class="gate-badge">Nube pública</div>
+      </div>
+      <div class="gate-body">
+        <div class="gate-col"><div class="gate-col-label">Decisión</div><div class="gate-col-desc">¿Es esta una oportunidad real o una distracción? Filtre el ruido antes de comprometer recursos.</div></div>
+        <div class="col-div"></div>
+        <div class="gate-col"><div class="gate-col-label">Inteligencia</div><div class="dot-row"><span class="dot"></span>Credibilidad del comprador</div><div class="dot-row"><span class="dot"></span>Aceptabilidad de términos comerciales</div><div class="dot-row"><span class="dot"></span>Exposición al riesgo de pago</div><div class="dot-row"><span class="dot"></span>Relación recompensa vs esfuerzo</div></div>
+        <div class="col-div"></div>
+        <div class="gate-col"><div class="gate-col-label">Resultado</div><div class="dot-row"><span class="dot"></span>Mandato Participar / No Participar</div><div class="dot-row"><span class="dot"></span>Señales de alerta comerciales</div><div class="dot-row"><span class="dot"></span>Revisión de exposición de pago</div><div class="dot-row"><span class="dot"></span>Puntuación de viabilidad del plazo</div></div>
+      </div>
+    </article>
+
+    <article class="card gate-card gate-1">
+      <div class="gate-header">
+        <div class="gate-num-block"><div class="gate-num">I</div><div class="gate-roman">Puerta I</div></div>
+        <div><div class="gate-label">Mandatum Bid · €149 por oportunidad</div><div class="gate-name">Licitar / No Licitar</div><div class="gate-sub">Comprometa recursos solo donde tenga un camino creíble hacia la victoria.</div></div>
+        <div class="gate-badge">Nube pública</div>
+      </div>
+      <div class="gate-body">
+        <div class="gate-col"><div class="gate-col-label">Decisión</div><div class="gate-col-desc">¿Tenemos capacidad y un camino creíble hacia la victoria? Detenga las persecuciones impulsadas por la personalidad.</div></div>
+        <div class="col-div"></div>
+        <div class="gate-col"><div class="gate-col-label">Inteligencia</div><div class="dot-row"><span class="dot dot-blue"></span>Ajuste estratégico</div><div class="dot-row"><span class="dot dot-blue"></span>Viabilidad técnica</div><div class="dot-row"><span class="dot dot-blue"></span>Capacidad interna</div><div class="dot-row"><span class="dot dot-blue"></span>Postura competitiva</div><div class="dot-row"><span class="dot dot-blue"></span>Carga de cumplimiento</div></div>
+        <div class="col-div"></div>
+        <div class="gate-col"><div class="gate-col-label">Resultado</div><div class="dot-row"><span class="dot dot-blue"></span>Mandato de Decisión Ejecutiva</div><div class="dot-row"><span class="dot dot-blue"></span>Puntuación de Oferta</div><div class="dot-row"><span class="dot dot-blue"></span>Matriz de Cumplimiento (XLSX/CSV)</div><div class="dot-row"><span class="dot dot-blue"></span>Licitar / Licitar Condicional / No Licitar</div></div>
+      </div>
+    </article>
+
+    <article class="card gate-card gate-2">
+      <div class="gate-header">
+        <div class="gate-num-block"><div class="gate-num">II</div><div class="gate-roman">Puerta II</div></div>
+        <div><div class="gate-label">Mandatum Submit · Plan de gobierno · Entorno aislado</div><div class="gate-name">Presentación de Oferta</div><div class="gate-sub">Ganar la licitación no es la línea de meta — a menudo es la zona de peligro.</div></div>
+        <div class="gate-badge">Entorno aislado</div>
+      </div>
+      <div class="gate-body">
+        <div class="gate-col"><div class="gate-col-label">Decisión</div><div class="gate-col-desc">¿Debemos presentar esta oferta? Certeza antes de que la oferta salga de la empresa. Los errores en la presentación destruyen el margen.</div></div>
+        <div class="col-div"></div>
+        <div class="gate-col"><div class="gate-col-label">Verificación</div><div class="dot-row"><span class="dot dot-purple"></span>¿Supuestos de entrega realistas?</div><div class="dot-row"><span class="dot dot-purple"></span>¿El precio cumple con los umbrales internos?</div><div class="dot-row"><span class="dot dot-purple"></span>¿Condiciones de retirada definidas?</div><div class="dot-row"><span class="dot dot-purple"></span>¿Desviaciones legales comprendidas?</div></div>
+        <div class="col-div"></div>
+        <div class="gate-col"><div class="gate-col-label">Resultado</div><div class="dot-row"><span class="dot dot-purple"></span>Autorización para presentar</div><div class="dot-row"><span class="dot dot-purple"></span>Mandato de negociación aprobado</div><div class="dot-row"><span class="dot dot-purple"></span>Umbrales de margen</div><div class="dot-row"><span class="dot dot-purple"></span>Límites legales definidos</div></div>
+      </div>
+    </article>
+
+    <article class="card gate-card gate-3">
+      <div class="gate-header">
+        <div class="gate-num-block"><div class="gate-num">III</div><div class="gate-roman">Puerta III</div></div>
+        <div><div class="gate-label">Mandatum Sign · Plan de gobierno · Máxima confidencialidad</div><div class="gate-name">Firma de Contrato</div><div class="gate-sub">Mantenga la disciplina hasta que la tinta esté seca.</div></div>
+        <div class="gate-badge">Entorno aislado</div>
+      </div>
+      <div class="gate-body">
+        <div class="gate-col"><div class="gate-col-label">Decisión</div><div class="gate-col-desc">¿Debemos firmar este contrato? Verifique la realidad contra el mandato aprobado. Prevenga la erosión del margen y la responsabilidad oculta.</div></div>
+        <div class="col-div"></div>
+        <div class="gate-col"><div class="gate-col-label">Verificación</div><div class="dot-row"><span class="dot dot-amber"></span>¿La negociación cambió la economía?</div><div class="dot-row"><span class="dot dot-amber"></span>¿Se hicieron concesiones no autorizadas?</div><div class="dot-row"><span class="dot dot-amber"></span>¿Aumentó la responsabilidad?</div><div class="dot-row"><span class="dot dot-amber"></span>¿Se preserva el margen?</div></div>
+        <div class="col-div"></div>
+        <div class="gate-col"><div class="gate-col-label">Resultado</div><div class="dot-row"><span class="dot dot-amber"></span>Recomendación de firma</div><div class="dot-row"><span class="dot dot-amber"></span>Revisión de desviación vs mandato</div><div class="dot-row"><span class="dot dot-amber"></span>Registro de aceptación de riesgo</div><div class="dot-row"><span class="dot dot-amber"></span>Paquete de aprobación ejecutiva</div></div>
+      </div>
+    </article>
+
+  </div>
+ </div>
+  <div class="phil-inner">
+    <blockquote class="phil-text">
+     Las mejores empresas no solo se mueven más rápido.<em>
+Deciden antes.</em> Y cuando deciden,<em> lo hacen con disciplina.</em><br>
+     </blockquote>
+ </div> 
+
+  
+<!-- DESPLIEGUE -->
+<section class="deploy-band">
+  <div class="deploy-inner">
+    <p class="problem-eyebrow">Despliegue de nivel empresarial</p>
+    <h2 class="deploy-title">La confianza está <em>diseñada</em> en<br>la arquitectura.</h2>
+    <p class="deploy-sub">Debido a que las Puertas II y III involucran datos comerciales sensibles, ofrecemos modelos de despliegue donde la exposición se minimiza estructuralmente, no solo se promete contractualmente.</p>
+    <div class="deploy-grid">
+      <div class="deploy-card"><div class="deploy-card-eyebrow" style="color:var(--blue)">Mandatum Cloud</div><div class="deploy-card-title">Dedicado de un solo inquilino</div><div class="deploy-card-sub">Gestionado por Mandatum · despliegue más rápido</div><div class="deploy-item"><span class="dot dot-blue" style="margin-top:4px"></span>Bases de datos, almacenamiento y cómputo aislados</div><div class="deploy-item"><span class="dot dot-blue" style="margin-top:4px"></span>BYOK: sus claves de cifrado en su KMS</div><div class="deploy-item"><span class="dot dot-blue" style="margin-top:4px"></span>Private Link · sin exposición a internet público</div><div class="deploy-item"><span class="dot dot-blue" style="margin-top:4px"></span>SOC 2 Type II · ISO 27001 · GDPR</div></div>
+      <div class="deploy-card"><div class="deploy-card-eyebrow" style="color:var(--purple)">Nube Privada · BYOC</div><div class="deploy-card-title">Entorno de propiedad del cliente</div><div class="deploy-card-sub">Su AWS · Azure · GCP · sus reglas</div><div class="deploy-item"><span class="dot dot-purple" style="margin-top:4px"></span>Despliegue dentro de su propia cuenta de nube</div><div class="deploy-item"><span class="dot dot-purple" style="margin-top:4px"></span>Usted controla las claves de cifrado, logs, IAM</div><div class="deploy-item"><span class="dot dot-purple" style="margin-top:4px"></span>Mandatum tiene cero acceso a los datos en reposo</div><div class="deploy-item"><span class="dot dot-purple" style="margin-top:4px"></span>Hereda su postura de cumplimiento de nube</div></div>
+      <div class="deploy-card"><div class="deploy-card-eyebrow" style="color:var(--amber)">Edición Aislada (Air-Gapped)</div><div class="deploy-card-title">On-Premise · Soberano</div><div class="deploy-card-sub">Defensa · Gobierno · Infraestructura crítica</div><div class="deploy-item"><span class="dot dot-amber" style="margin-top:4px"></span>Instalación física mediante paquete offline firmado + SBOM</div><div class="deploy-item"><span class="dot dot-amber" style="margin-top:4px"></span>Cero conectividad con Mandatum después de la instalación</div><div class="deploy-item"><span class="dot dot-amber" style="margin-top:4px"></span>FIPS 140-3 HSM · Ruta a CC EAL4+</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FILOSOFÍA -->
+<section class="phil-band">
+  <div class="phil-inner">
+    <div class="phil-rule"><div class="phil-diamond"></div></div>
+    <blockquote class="phil-text">
+     No es <em>si puedes licitar.</em><br>
+     No es <em>si puedes presentar.</em><br>
+     No es <em>si puedes firmar.</em><br>
+      <em>Es ¿Deberías hacerlo?</em>
+    </blockquote>
+    <p class="phil-attr">Mandatum · Motor de Decisión Ejecutiva para Ofertas de Alto Riesgo</p>
+        </blockquote>
+        
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<div class="final-cta">
+  <div class="final-inner">
+    <div>
+      <div class="fc-eyebrow">Convierta Ofertas en Mandatos</div>
+      <h2 class="fc-title">Diseñado para empresas<br><em>que ganan repetidamente.</em></h2>
+      <p class="fc-sub">Aeroespacial | Defensa | Gobierno | Seguridad | Infraestructura Crítica </p>
+    </div>
+    <div class="fc-actions">
+      <a href="contact.html" class="btn btn-gold btn-lg">Solicitar Demo Ejecutiva</a>
+      <a href="pricing.html" class="btn btn-ghost btn-lg">Ver precios</a>
+    </div>
+  </div>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <a href="index.html" class="footer-brand">M<span>A</span>NDATUM</a>
+    <nav class="footer-nav"><a href="pricing.html">Precios</a>
+        <a href="security.html">Seguridad</a>
+        <a href="command.html">Centro de Mando</a>
+        <a href="LATAM.html">LATAM</a>
+        <a href="investors.html">Inversores</a>
+        <a href="contact.html">Contacto</a></nav>
+    <div class="footer-info">&copy; 2026 Mandatum &nbsp;&middot;&nbsp; <a href="mailto:hello@mandatum.io">hello@mandatum.io</a></div>
+  </div>
+</footer>
+<script>
+
+  /* MANDATUM · site.js */
+document.addEventListener('DOMContentLoaded', function () {
+  var burger  = document.getElementById('nav-burger');
+  var drawer  = document.getElementById('nav-drawer');
+  var overlay = document.getElementById('nav-overlay');
+  var header  = document.getElementById('site-header');
+
+  if (burger && drawer && overlay) {
+    function openMenu()  { drawer.classList.add('open'); overlay.classList.add('open'); burger.classList.add('open'); burger.setAttribute('aria-expanded','true');  document.body.style.overflow = 'hidden'; }
+    function closeMenu() { drawer.classList.remove('open'); overlay.classList.remove('open'); burger.classList.remove('open'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow = ''; }
+    burger.addEventListener('click',  function () { burger.classList.contains('open') ? closeMenu() : openMenu(); });
+    overlay.addEventListener('click', closeMenu);
+    drawer.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', closeMenu); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+  }
+
+  if (header) {
+    window.addEventListener('scroll', function () {
+      header.classList.toggle('scrolled', window.scrollY > 8);
+    }, { passive: true });
+  }
+});
+
+</script>
 </body>
 </html>
+```
